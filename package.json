@@ -9,8 +9,9 @@
     "build": "node scripts/build.mjs",
     "snapshot": "node scripts/snapshot.mjs",
     "telegram": "node scripts/telegram.mjs",
-    "daily": "node scripts/fetch.mjs && node scripts/build.mjs && node scripts/snapshot.mjs && node scripts/telegram.mjs",
+    "daily": "node scripts/fetch.mjs && node scripts/build.mjs && node scripts/snapshot.mjs && node scripts/informe.mjs && node scripts/telegram.mjs",
     "dev": "node scripts/build.mjs && node scripts/serve.mjs",
-    "deploy": "npx wrangler pages deploy dist --project-name=valorcarta"
+    "deploy": "npx wrangler pages deploy dist --project-name=valorcarta",
+    "informe": "node scripts/informe.mjs"
   }
 }

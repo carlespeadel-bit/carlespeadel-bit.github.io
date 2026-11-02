@@ -404,6 +404,53 @@ baja de precio, cuando un set se agota y cuando tu colección cambia de valor.</
   }),
 );
 
+// ---------- tiendas (B2B) ----------
+await put(
+  OUT('tiendas/index.html'),
+  layout({
+    title: `Informe semanal de precios para tiendas de cartas | ${config.brand}`,
+    description:
+      'Cada lunes: qué cartas de tu stock han subido, cuáles han bajado y dónde está el margen. Informe de mercado con precios reales. Primer informe gratis.',
+    url: '/tiendas/',
+    body: `
+<h1>Tu stock, valorado cada semana</h1>
+<p class="lede">El informe que llega los lunes: qué cartas se han movido, cuánto valen hoy y dónde tienes margen.
+Con precios de mercado, no con intuición.</p>
+
+<div class="grid planes">
+  <div class="plan">
+    <h2>Informe</h2>
+    <p class="precio">29 €<span class="muted">/mes</span></p>
+    <ul>
+      <li>Top subidas y bajadas de la semana</li>
+      <li>Sets con más movimiento y su valor</li>
+      <li>Valor del catálogo completo</li>
+      <li>Un correo, los lunes. Sin instalar nada</li>
+    </ul>
+    <a class="btn" href="mailto:${esc(config.emailVentas)}?subject=Quiero%20el%20informe%20de%20prueba">Pedir el primero gratis</a>
+  </div>
+  <div class="plan destacado">
+    <h2>Panel</h2>
+    <p class="precio">99 €<span class="muted">/mes</span></p>
+    <ul>
+      <li>Tu stock valorado a precio de mercado, cada día</li>
+      <li>Avisos cuando una carta de tu stock se mueve</li>
+      <li>Histórico de precios de las cartas que vendes</li>
+      <li>Exportable a CSV para tu inventario</li>
+    </ul>
+    <a class="btn" href="mailto:${esc(config.emailVentas)}?subject=Quiero%20ver%20el%20panel">Hablar del panel</a>
+  </div>
+</div>
+
+<section class="bloque">
+  <h2>Por qué esto y no una hoja de cálculo</h2>
+  <p>Una hoja de cálculo te dice lo que pagaste. Esto te dice lo que vale tu stock esta semana, comparado con
+  lo que se está vendiendo de verdad en el mercado. La diferencia es cuándo comprar y cuándo soltar.</p>
+  <p class="muted">Precios de referencia de Cardmarket vía TCGdex, actualizados a diario. Sin permanencia: si un mes no te sirve, lo dejas.</p>
+</section>`,
+  }),
+);
+
 // ---------- gracias (post-compra) ----------
 await put(
   OUT('gracias/index.html'),
@@ -464,7 +511,7 @@ await put(OUT('404.html'), layout({
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${config.site}/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/tiendas/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${config.site}${u}`)
   .concat([...bySet.keys()].map((id) => `${config.site}/set/${id}/`))
   .concat(priced.map((c) => `${config.site}/carta/${cardSlug(c)}/`))

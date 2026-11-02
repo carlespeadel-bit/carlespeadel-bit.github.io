@@ -16,5 +16,6 @@
     "telegram": ""
   },
   "telegramInvite": "https://t.me/+REEMPLAZAR_INVITE",
-  "telegramChannel": "https://t.me/REEMPLAZAR"
+  "telegramChannel": "https://t.me/REEMPLAZAR",
+  "emailVentas": "ventas@valorcarta.es"
 }
