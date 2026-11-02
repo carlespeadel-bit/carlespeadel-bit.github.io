@@ -50,6 +50,8 @@ await mkdir(OUT('data'), { recursive: true });
 
 // GitHub Pages: sin Jekyll, si no ignora carpetas que empiezan por _
 await put('.nojekyll', '');
+const INDEXNOW_KEY = (await readFile(path.join(ROOT, 'data', 'indexnow-key.txt'), 'utf8')).trim();
+await put(`${INDEXNOW_KEY}.txt`, INDEXNOW_KEY);
 
 // cabeceras de hosting (Cloudflare Pages / Netlify)
 await put('_headers', await readFile(path.join(ROOT, 'site', '_headers')));

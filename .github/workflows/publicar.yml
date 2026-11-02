@@ -72,3 +72,10 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Avisar a los buscadores (IndexNow)
+        continue-on-error: true
+        run: |
+          git clone --depth 1 "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" repo
+          cd repo
+          node scripts/indexnow.mjs
