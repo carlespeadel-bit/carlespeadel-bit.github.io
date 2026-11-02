@@ -234,9 +234,45 @@ for (let i = 0; i < priced.length; i += BATCH) {
         .filter((x) => x.id !== c.id && x.price)
         .slice(0, 6);
       const rar = c.rarity && c.rarity !== 'Ninguno' ? `Carta ${String(c.rarity).toLowerCase()}` : 'Carta';
-      const descripcion = `${rar} del set ${c.setName}${year ? ` (${year})` : ''}${
+      const tipo = c.types?.length ? ` de tipo ${c.types.join(' y ')}` : '';
+      const ps = c.hp ? `, ${c.hp} PS` : '';
+      const fase = c.stage && c.stage !== 'Básica' ? `, fase ${c.stage.toLowerCase()}` : '';
+      const descripcion = `${rar}${tipo}${fase}${ps} del set ${c.setName}${year ? ` (${year})` : ''}${
         c.illustrator ? `, ilustrada por ${c.illustrator}` : ''
       }`;
+
+      const datos = [
+        ['Tipo', c.types?.join(' / ')],
+        ['PS', c.hp],
+        ['Fase', c.stage],
+        ['Evoluciona de', c.evolveFrom],
+        ['Habilidades', c.abilities?.join(', ')],
+        ['Debilidad', c.weaknesses?.map((w) => `${w.type} ${w.value}`).join(' · ')],
+        ['Coste de retirada', c.retreat ?? null],
+        [
+          'Legalidad',
+          c.legal
+            ? c.legal.standard
+              ? 'Estándar y Expandido'
+              : c.legal.expanded
+                ? 'Solo Expandido'
+                : 'No legal en torneo'
+            : null,
+        ],
+        ['Marca de regulación', c.regulationMark],
+        ['Rareza', c.rarity && c.rarity !== 'Ninguno' ? c.rarity : null],
+        ['Ilustrador', c.illustrator],
+      ].filter(([, v]) => v !== null && v !== undefined && v !== '');
+
+      const ataques = (c.attacks ?? [])
+        .filter((a) => a.name || a.damage)
+        .slice(0, 4)
+        .map(
+          (a) => `<li>${a.name ? `<b>${esc(a.name)}</b> ` : ''}${a.damage ? `<span class="dmg">${esc(a.damage)}</span>` : ''}${
+            a.cost?.length ? ` <span class="muted small">(${a.cost.map(esc).join(' · ')})</span>` : ''
+          }</li>`,
+        )
+        .join('');
 
       const body = `
 <nav class="migas"><a href="/cartas/">Cartas</a> / <a href="/set/${c.setId}/">${esc(c.setName)}</a> / ${esc(c.name)}</nav>
@@ -250,6 +286,18 @@ for (let i = 0; i < priced.length; i += BATCH) {
     ${trendLine(c)}
     <p class="muted">${esc(descripcion)}. Número ${esc(c.localId ?? '—')}/${total}.</p>
     ${priceTable(c)}
+    ${
+      ataques
+        ? `<h2 class="mini">Ataques</h2><ul class="ataques">${ataques}</ul>`
+        : ''
+    }
+    ${
+      datos.length
+        ? `<table class="prices datos"><tbody>${datos
+            .map(([k, v]) => `<tr><td class="muted">${esc(k)}</td><td>${esc(String(v))}</td></tr>`)
+            .join('')}</tbody></table>`
+        : ''
+    }
     <p class="nota">Precio de referencia de Cardmarket (media de ventas, no tasación). Una carta en estado Near Mint vale más; una con desgaste, bastante menos.</p>
     <a class="btn" href="${amazonLink(`${c.setName} pokemon sobres`)}" rel="sponsored nofollow noopener" target="_blank">Sobres de ${esc(c.setName)} en Amazon</a>
     <p class="nota small">Enlace de afiliado: si compras, nos llevamos una comisión sin coste extra para ti.</p>
