@@ -409,6 +409,58 @@ baja de precio, cuando un set se agota y cuando tu colección cambia de valor.</
   }),
 );
 
+// ---------- mercado (radar de tendencia, se recalcula en cada build) ----------
+const radar = priced
+  .map((c) => {
+    const v = bestVariant(c);
+    if (!v || !v.avg30 || !v.avg7 || v.avg30 < 10 || v.avg7 <= 0) return null;
+    return { ...c, var7: ((v.avg7 - v.avg30) / v.avg30) * 100 };
+  })
+  .filter((c) => c && c.var7 > -60 && c.var7 < 60)
+  .filter((c, i, arr) => arr.findIndex((x) => x.name === c.name && x.setId === c.setId) === i);
+const suben = [...radar].sort((a, b) => b.var7 - a.var7).slice(0, 20);
+const bajan = [...radar].sort((a, b) => a.var7 - b.var7).slice(0, 20);
+
+const filaRadar = (c, cls) => `<tr>
+  <td><a href="/carta/${cardSlug(c)}/">${esc(c.name)}</a> <span class="muted small">${esc(c.setName)}</span></td>
+  <td class="num">${eur(c.price)}</td>
+  <td class="num ${cls}">${c.var7 >= 0 ? '+' : ''}${c.var7.toFixed(1)}%</td>
+</tr>`;
+
+await put(
+  OUT('mercado/index.html'),
+  layout({
+    title: `Qué cartas están subiendo y bajando esta semana | ${config.brand}`,
+    description:
+      'Radar de precios de cartas Pokémon: qué sube y qué baja en los últimos 7 días frente a la media de 30, recalculado a diario.',
+    url: '/mercado/',
+    body: `
+<h1>Qué se mueve esta semana</h1>
+<p class="lede">Comparación de la media de 7 días frente a la de 30, sobre ${radar.length.toLocaleString('es-ES')} cartas con liquidez suficiente.
+Se recalcula en cada actualización, así que esto no es un artículo: es el mercado de hoy.</p>
+
+<div class="dos-col">
+  <div>
+    <h2>Suben</h2>
+    <table class="listado"><thead><tr><th>Carta</th><th class="num">Precio</th><th class="num">7 d</th></tr></thead>
+    <tbody>${suben.map((c) => filaRadar(c, 'up')).join('')}</tbody></table>
+  </div>
+  <div>
+    <h2>Bajan</h2>
+    <table class="listado"><thead><tr><th>Carta</th><th class="num">Precio</th><th class="num">7 d</th></tr></thead>
+    <tbody>${bajan.map((c) => filaRadar(c, 'down')).join('')}</tbody></table>
+  </div>
+</div>
+
+<section class="bloque">
+  <h2>Cómo se calcula</h2>
+  <p>No usamos el precio del día: una sola venta mueve la aguja. Comparamos la media de los últimos 7 días con la de 30,
+  y descartamos cartas por debajo de 10 € y variaciones por encima del 60%, que en cartas con pocas ventas son ruido y no tendencia.</p>
+  <p class="muted">Precios de referencia de Cardmarket vía TCGdex. No es una predicción ni una recomendación de compra.</p>
+</section>`,
+  }),
+);
+
 // ---------- comprar (intencion de compra -> afiliado) ----------
 const PRODUCTOS = [
   ['Sobres sueltos', 'sobres pokemon', 'Para probar suerte sin comprometerte. El precio por sobre siempre es peor que en caja.'],
@@ -564,7 +616,7 @@ await put(OUT('404.html'), layout({
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/tiendas/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/mercado/', '/tiendas/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.map((c) => `${SITE}/carta/${cardSlug(c)}/`))

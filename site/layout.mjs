@@ -54,6 +54,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
     <a href="/valorar/">Valorar colección</a>
     <a href="/cartas/">Cartas</a>
     <a href="/comprar/">Comprar</a>
+    <a href="/mercado/">Mercado</a>
     <a href="/premium/" class="cta-mini">Alertas</a>
   </nav>
 </header>
