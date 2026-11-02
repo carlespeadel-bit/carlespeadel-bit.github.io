@@ -1,0 +1,20 @@
+{
+  "brand": "ValorCarta",
+  "site": "https://valorcarta.es",
+  "amazonTag": "valorcarta-21",
+  "premiumUrl": "https://valorcarta.lemonsqueezy.com/checkout/buy/REEMPLAZAR",
+  "telegramBot": "",
+  "contactEmail": "hola@valorcarta.es",
+  "titular": "NOMBRE Y APELLIDOS",
+  "nif": "00000000X",
+  "precio": {
+    "mes": "4,99 €",
+    "ano": "39 €"
+  },
+  "canales": {
+    "tiktok": "",
+    "telegram": ""
+  },
+  "telegramInvite": "https://t.me/+REEMPLAZAR_INVITE",
+  "telegramChannel": "https://t.me/REEMPLAZAR"
+}
