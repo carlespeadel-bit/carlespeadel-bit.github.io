@@ -158,6 +158,21 @@
       b.addEventListener('click', () => { add(b.dataset.add); }),
     );
 
+    // avisos de precio
+    const WKEY = 'vc.watch';
+    const leerW = () => { try { return JSON.parse(localStorage.getItem(WKEY) || '[]'); } catch { return []; } };
+    document.querySelectorAll('[data-watch]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const slug = b.dataset.watch;
+        const inp = document.getElementById('umbral');
+        const t = Math.max(0, parseFloat(String(inp?.value ?? '').replace(',', '.')) || 0);
+        const list = leerW().filter((x) => x.s !== slug);
+        list.push({ s: slug, t });
+        localStorage.setItem(WKEY, JSON.stringify(list));
+        toast(t ? `Aviso activado por debajo de ${t.toFixed(2)} €` : 'Aviso activado');
+      }),
+    );
+
     if (enValorar) {
       const hash = location.hash.slice(1);
       if (hash.startsWith('c=')) {
@@ -188,8 +203,36 @@
         if (confirm('¿Vaciar la colección?')) guardar([]);
       });
     } else {
-      cargar();
+      cargar().then(pintarAvisos);
     }
+  }
+
+  function pintarAvisos() {
+    const box = document.getElementById('alertas-lista');
+    if (!box || !DB) return;
+    const list = leerW();
+    if (!list.length) return;
+    box.innerHTML = list
+      .map((it) => {
+        const row = MAP.get(it.s);
+        if (!row) return '';
+        const [, name, set, price, , img] = row;
+        const cumple = it.t > 0 && price <= it.t;
+        return `<div class="fila alerta ${cumple ? 'cumple' : ''}" data-slug="${it.s}">
+          ${img ? `<img src="${img}/low.webp" alt="" loading="lazy">` : '<span></span>'}
+          <span><span class="f-n">${name}</span><br><span class="f-s">${set}</span></span>
+          <span class="f-p">${eur(price)}<br><span class="f-s">objetivo ${it.t ? eur(it.t) : '—'}</span></span>
+          <span class="estado">${cumple ? '¡está por debajo!' : 'esperando'}</span>
+          <button class="del" aria-label="quitar">×</button>
+        </div>`;
+      })
+      .join('');
+    box.querySelectorAll('.fila').forEach((el) => {
+      el.querySelector('.del').addEventListener('click', () => {
+        localStorage.setItem(WKEY, JSON.stringify(leerW().filter((x) => x.s !== el.dataset.slug)));
+        location.reload();
+      });
+    });
   }
 
   document.addEventListener('DOMContentLoaded', init);

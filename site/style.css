@@ -160,6 +160,12 @@ footer{max-width:1080px;margin:0 auto;padding:34px 20px 60px;border-top:1px soli
 .disclosure{color:var(--muted);font-size:.78rem}
 .foot-links{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted)}
 
+.alerta-box{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.alerta-box input{width:80px;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);text-align:center}
+.fila.alerta{grid-template-columns:44px 1fr 90px 110px 30px}
+.fila.alerta.cumple{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.estado{font-size:.78rem;color:var(--muted);text-align:right}
+.fila.cumple .estado{color:var(--accent);font-weight:650}
 .toast{
   position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;
   background:var(--accent);color:#111;font-weight:650;padding:11px 18px;border-radius:999px;

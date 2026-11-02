@@ -55,14 +55,14 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
     <a href="/cartas/">Cartas</a>
     <a href="/comprar/">Comprar</a>
     <a href="/mercado/">Mercado</a>
-    <a href="/premium/" class="cta-mini">Alertas</a>
+    <a href="/alertas/" class="cta-mini">Alertas</a>
   </nav>
 </header>
 <main>${body}</main>
 <footer>
   <p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
   <p class="foot-links">
-    <a href="/valorar/">Valorar colección</a> · <a href="/guias/">Guías</a> · <a href="/tiendas/">Para tiendas</a> · <a href="/premium/">Alertas de precio</a> ·
+    <a href="/valorar/">Valorar colección</a> · <a href="/guias/">Guías</a> · <a href="/tiendas/">Para tiendas</a> · <a href="/alertas/">Alertas de precio</a> ·
     <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a>
   </p>
   <p class="muted">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda. © ${new Date().getFullYear()} ${esc(config.brand)}</p>

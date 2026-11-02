@@ -305,6 +305,12 @@ for (let i = 0; i < priced.length; i += BATCH) {
       <button class="btn ghost" data-add="${slug}">Añadir a mi colección</button>
       <a class="btn ghost" href="/valorar/">Valorar la colección entera</a>
     </div>
+    <div class="alerta-box">
+      <span class="muted small">Avísame si baja de</span>
+      <input id="umbral" type="number" min="1" step="0.5" placeholder="${Math.max(1, Math.round((c.price ?? 10) * 0.85))}" aria-label="Precio objetivo">
+      <span class="muted small">€</span>
+      <button class="btn" data-watch="${slug}">Activar aviso</button>
+    </div>
   </div>
 </div>
 ${relacionados.length ? `<section class="bloque"><h2>Otras cartas de ${esc(c.setName)}</h2><div class="grid">${relacionados.map(cardTile).join('')}</div></section>` : ''}`;
@@ -557,6 +563,39 @@ ${PRODUCTOS.map(
   }),
 );
 
+// ---------- alertas (producto de suscripcion) ----------
+await put(
+  OUT('alertas/index.html'),
+  layout({
+    title: `Avisos de precio de cartas Pokémon | ${config.brand}`,
+    description:
+      'Pon un precio objetivo a tus cartas y recibe un aviso cuando el mercado baje de ahí. Sin registro para probarlo.',
+    url: '/alertas/',
+    body: `
+<h1>Que te avisen, no mirar todos los días</h1>
+<p class="lede">Pon el precio al que comprarías y olvídate. Cuando el mercado baje de ahí, te llega el aviso.</p>
+
+<div id="alertas-lista" class="coleccion-lista"><p class="muted">Todavía no tienes avisos. Búscalos desde cualquier ficha de carta.</p></div>
+
+<div class="dos-col coleccion">
+  <div>
+    <h2>Cómo funciona</h2>
+    <ol class="pasos">
+      <li>En la ficha de una carta, pon tu precio objetivo y activa el aviso.</li>
+      <li>Lo guardamos en tu navegador: no hay registro ni contraseña.</li>
+      <li>Con Premium, ese aviso te llega por email el mismo día que se cumple.</li>
+    </ol>
+  </div>
+  <aside class="total-caja">
+    <p class="muted">Avisos por email</p>
+    <p class="total">${config.precio.mes}<span class="muted small">/mes</span></p>
+    <a class="btn" href="${esc(config.premiumUrl)}">Activar avisos</a>
+    <p class="nota small">El precio lo comprobamos a diario con los datos de Cardmarket. Si no baja, no te escribimos.</p>
+  </aside>
+</div>`,
+  }),
+);
+
 // ---------- tiendas (B2B) ----------
 await put(
   OUT('tiendas/index.html'),
@@ -664,7 +703,7 @@ await put(OUT('404.html'), layout({
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/mercado/', '/tiendas/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/mercado/', '/alertas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.map((c) => `${SITE}/carta/${cardSlug(c)}/`))
