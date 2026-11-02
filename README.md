@@ -19,18 +19,29 @@ npm run fetch        # refresca catálogo y precios (2-3 min, reanudable)
 npm run daily        # fetch + build + foto de precios + aviso Telegram
 ```
 
-## Lo único que no puedo hacer yo (3 cosas)
+## Publicar (gratis, con GitHub)
 
-1. **Dominio y hosting**: compra `valorcarta.es` (~10 €/año) y mételo en Cloudflare Pages (gratis).
-   `npm run deploy` (crea el proyecto antes con `npx wrangler pages project create valorcarta`).
-   Netlify también vale: `netlify.toml` ya está puesto.
-2. **Etiqueta de Amazon**: date de alta en [afiliados.amazon.es](https://afiliados.amazon.es) y pega tu tag
-   en `config.json` → `amazonTag`. Necesitas 3 ventas en 180 días para que te aprueben.
-3. **Cobro**: crea el producto en Lemon Squeezy (5 % + 0,50 por venta, ellos liquidan el IVA de la UE) y pega
-   la URL de checkout en `config.json` → `premiumUrl`. Pon también el enlace de invitación del canal privado
-   en `telegramInvite` y tu NIF en `titular`/`nif` (aparece en el aviso legal).
+El repo debe llamarse **`TUUSUARIO.github.io`** (así los enlaces absolutos funcionan en la raíz).
 
-Con eso la web funciona sola. El resto es contenido.
+```bash
+git remote add origin https://github.com/TUUSUARIO/TUUSUARIO.github.io.git
+git branch -M main
+git push -u origin main
+```
+
+Luego, en el repo: **Settings → Pages → Source: GitHub Actions**. En 3-4 minutos está en
+`https://TUUSUARIO.github.io`. Cada push y cada día a las 06:10 UTC se reconstruye solo
+(`.github/workflows/publicar.yml`: baja precios, construye, guarda histórico y despliega).
+
+Cuando haya ingresos, se le pone dominio propio (~10 €/año) sin tocar código: `SITE_URL` se toma
+del propio Pages.
+
+## Lo único que sigue necesitando tu cuenta (2 cosas)
+
+1. **Etiqueta de Amazon**: alta en [afiliados.amazon.es](https://afiliados.amazon.es) y pegar el tag
+   en `config.json` → `amazonTag`. Hacen falta 3 ventas en 180 días para que aprueben.
+2. **Cobro**: producto en Lemon Squeezy (5 % + 0,50, ellos liquidan el IVA de la UE) y su URL en
+   `config.json` → `premiumUrl`. Tu NIF en `titular`/`nif` para el aviso legal.
 
 ## Dónde está el dinero (en orden)
 
