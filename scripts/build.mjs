@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Genera la web estatica en dist/ a partir de data/cards.json.
-import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
+import { mkdir, writeFile, readFile, rm, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import config from '../config.json' with { type: 'json' };
 import {
@@ -60,6 +60,17 @@ await put(
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0a0a0b"/><circle cx="16" cy="16" r="7" fill="#ffcb05"/><path d="M16 9a7 7 0 0 0 0 14z" fill="#f5f5f7"/></svg>`,
 );
 
+const guiasDir = path.join(ROOT, 'content', 'guias');
+const guias = [];
+for (const f of (await readdir(guiasDir).catch(() => [])).filter((f) => f.endsWith('.json'))) {
+  try {
+    guias.push(JSON.parse(await readFile(path.join(guiasDir, f), 'utf8')));
+  } catch (e) {
+    console.warn(`guia ilegible: ${f}`);
+  }
+}
+guias.sort((a, b) => a.title.localeCompare(b.title, 'es'));
+
 // ---------- home ----------
 const homeBody = `
 <section class="hero">
@@ -81,6 +92,20 @@ const homeBody = `
   <h2>Las cartas más caras ahora mismo</h2>
   <div class="grid">
     ${top.map(cardTile).join('\n')}
+  </div>
+</section>
+
+<section class="bloque">
+  <h2>Guías para no regalar dinero</h2>
+  <div class="grid guias-grid">
+    ${guias
+      .slice(0, 3)
+      .map(
+        (g) => `<a class="guia-card" href="/guia/${g.slug}/">
+      <span class="guia-t">${esc(g.title)}</span>
+      <span class="muted small">${esc(g.description)}</span></a>`,
+      )
+      .join('')}
   </div>
 </section>
 
@@ -260,6 +285,45 @@ ${relacionados.length ? `<section class="bloque"><h2>Otras cartas de ${esc(c.set
   process.stdout.write(`  cartas ${Math.min(i + BATCH, priced.length)}/${priced.length}\n`);
 }
 
+// ---------- guias ----------
+
+for (const g of guias) {
+  await put(
+    OUT(`guia/${g.slug}/index.html`),
+    layout({
+      title: `${g.title} | ${config.brand}`,
+      description: g.description,
+      url: `/guia/${g.slug}/`,
+      body: `<nav class="migas"><a href="/guias/">Guías</a> / ${esc(g.title)}</nav>
+<article class="prosa"><h1>${esc(g.title)}</h1>${g.html}</article>
+<div class="acciones"><a class="btn" href="/valorar/">Valorar mi colección</a>
+<a class="btn ghost" href="/guias/">Más guías</a></div>`,
+    }),
+  );
+}
+if (guias.length) {
+  await put(
+    OUT('guias/index.html'),
+    layout({
+      title: `Guías de cartas Pokémon — comprar, guardar y vender | ${config.brand}`,
+      description:
+        'Guías prácticas sobre cartas Pokémon: detectar falsificaciones, conservarlas, comprar sin pagar de más y vender sin perder dinero.',
+      url: '/guias/',
+      body: `<h1>Guías</h1>
+<p class="lede">Lo que aprendes a base de comprar mal. Sin humo y sin promesas de rentabilidad.</p>
+<div class="grid guias-grid">
+${guias
+  .map(
+    (g) => `<a class="guia-card" href="/guia/${g.slug}/">
+  <span class="guia-t">${esc(g.title)}</span>
+  <span class="muted small">${esc(g.description)}</span></a>`,
+  )
+  .join('\n')}
+</div>`,
+    }),
+  );
+}
+
 // ---------- valorar ----------
 await put(
   OUT('valorar/index.html'),
@@ -400,10 +464,11 @@ await put(OUT('404.html'), layout({
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${config.site}/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${config.site}${u}`)
   .concat([...bySet.keys()].map((id) => `${config.site}/set/${id}/`))
-  .concat(priced.map((c) => `${config.site}/carta/${cardSlug(c)}/`));
+  .concat(priced.map((c) => `${config.site}/carta/${cardSlug(c)}/`))
+  .concat(guias.map((g) => `${config.site}/guia/${g.slug}/`));
 await put(
   OUT('sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls

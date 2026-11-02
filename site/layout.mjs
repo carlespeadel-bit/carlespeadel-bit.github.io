@@ -56,7 +56,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
 <footer>
   <p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
   <p class="foot-links">
-    <a href="/valorar/">Valorar colección</a> · <a href="/premium/">Alertas de precio</a> ·
+    <a href="/valorar/">Valorar colección</a> · <a href="/guias/">Guías</a> · <a href="/premium/">Alertas de precio</a> ·
     <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a>
   </p>
   <p class="muted">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda. © ${new Date().getFullYear()} ${esc(config.brand)}</p>

@@ -44,9 +44,20 @@ La suscripción no se sostiene sin tráfico: con 0 visitas da 0 €. El orden re
 
 ## Automatización
 
+Hay tres relojes, y solo uno depende de mí:
+
+- **Sesión activa**: recordatorio diario a las 07:10 (Europe/Madrid) que ejecuta el ciclo y publica si hay token.
+- **GitHub Actions**: `.github/workflows/daily.yml` a las 06:10 UTC, con secretos.
+- **launchd/cron local**: descartado. macOS bloquea ejecutar scripts dentro de `~/Documents` (`Operation not permitted`, TCC): el agente queda instalado pero sale con código 126. Por eso el planificador vive en la sesión, no en el sistema.
+
 `.github/workflows/daily.yml` corre a las 06:10 UTC: descarga precios, reconstruye la web, guarda la foto
 del día en `data/history/`, publica el resumen en Telegram y despliega. Secretos necesarios:
 `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
+
+## Contenido
+
+9 guías publicadas en `/guias/` (autenticidad, conservación, compra, venta, catalogación). Escritas por agentes
+con una regla: cero cifras inventadas. Para añadir una, suelta un JSON en `content/guias/` y reconstruye.
 
 ## Límites, dichos a la cara
 
@@ -64,6 +75,8 @@ scripts/fetch.mjs    API TCGdex -> data/cards.json (cache en data/cache)
 scripts/build.mjs    data/*.json -> dist/ (8.660 páginas)
 scripts/snapshot.mjs foto diaria + movimientos > 3% -> out/digest.txt
 scripts/telegram.mjs publica el resumen
+scripts/auto.sh      ciclo completo (lo llama el planificador o el CI)
 scripts/serve.mjs    servidor local con URLs limpias
+content/guias/      9 guías escritas por agentes, se renderizan en /guia/<slug>/
 site/                plantillas, CSS y JS (sin framework)
 ```
