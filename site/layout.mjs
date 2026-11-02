@@ -42,6 +42,7 @@ ${noindex ? '<meta name="robots" content="noindex,follow">' : ''}
 <meta property="og:url" content="${canonical}">
 ${image ? `<meta property="og:image" content="${esc(image)}">` : ''}
 <meta name="twitter:card" content="summary_large_image">
+${config.googleVerification ? `<meta name="google-site-verification" content="${esc(config.googleVerification)}">` : ''}
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ''}
