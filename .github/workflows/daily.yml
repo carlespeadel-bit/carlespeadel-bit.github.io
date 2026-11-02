@@ -22,7 +22,7 @@ jobs:
         run: |
           git config user.name "valorcarta-bot"
           git config user.email "bot@valorcarta.es"
-          git add data/history data/changes.json data/cards.json data/sets.json
+          git add data/history data/changes.json data/sets.json
           git commit -m "precios $(date -u +%F)" || echo "sin cambios"
           git push
       - name: Desplegar
