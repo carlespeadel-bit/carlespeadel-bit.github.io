@@ -68,6 +68,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
   <p class="muted">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda. © ${new Date().getFullYear()} ${esc(config.brand)}</p>
 </footer>
 <script src="/assets/app.js" defer></script>
+${config.goatcounter ? `<script data-goatcounter="https://${esc(config.goatcounter)}/count" async src="https://gc.zgo.at/count.js"></script>` : ''}
 </body>
 </html>`;
 }
