@@ -53,9 +53,11 @@ jobs:
         run: |
           git config user.name "valorcarta-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/history data/changes.json data/sets.json
-          git commit -m "precios $(date -u +%F)" || echo "sin cambios"
-          git push
+          git add data/history || true
+          if [ -f data/changes.json ]; then git add data/changes.json; fi
+          if [ -f data/sets.json ]; then git add data/sets.json; fi
+          if git diff --cached --quiet; then echo "sin cambios"; else git commit -m "precios $(date -u +%F)"; fi
+          git push || echo "nada que subir"
 
       - uses: actions/upload-pages-artifact@v3
         with:

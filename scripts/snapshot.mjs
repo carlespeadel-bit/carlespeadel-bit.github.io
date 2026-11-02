@@ -35,6 +35,10 @@ const ayer = previos.at(-1)?.replace('.json', '') ?? null;
 if (!ayer) {
   console.log(`primera foto (${Object.keys(foto).length} cartas). Sin histórico previo todavía.`);
   await writeFile(path.join(OUT, 'digest.txt'), 'Primer día de medición. Mañana empiezan los avisos.');
+  await writeFile(
+    path.join(ROOT, 'data', 'changes.json'),
+    JSON.stringify({ fecha: hoy, contra: null, suben: [], bajan: [] }, null, 1),
+  );
   process.exit(0);
 }
 
