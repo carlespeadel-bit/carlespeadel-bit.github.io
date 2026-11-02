@@ -301,6 +301,7 @@ for (let i = 0; i < priced.length; i += BATCH) {
     <p class="nota">Precio de referencia de Cardmarket (media de ventas, no tasación). Una carta en estado Near Mint vale más; una con desgaste, bastante menos.</p>
     <a class="btn" href="${amazonLink(`${c.setName} pokemon sobres`)}" rel="sponsored nofollow noopener" target="_blank">Sobres de ${esc(c.setName)} en Amazon</a>
     <p class="nota small">Enlace de afiliado: si compras, nos llevamos una comisión sin coste extra para ti.</p>
+    <p class="nota"><a href="/guardar-cartas/">¿Cómo guardar esta carta? →</a></p>
     <div class="acciones">
       <button class="btn ghost" data-add="${slug}">Añadir a mi colección</button>
       <a class="btn ghost" href="/valorar/">Valorar la colección entera</a>
@@ -523,6 +524,105 @@ Se recalcula en cada actualización, así que esto no es un artículo: es el mer
   }),
 );
 
+// ---------- guardar cartas (hub de compra con ASIN reales) ----------
+const PRODUCTOS_GUARDAR = [
+  {
+    tramo: 'Hasta 5 €',
+    que: 'Funda blanda (penny sleeve)',
+    asin: 'B085DNDLC1',
+    nombre: 'Ultra Pro Penny Sleeve, 400 unidades',
+    veredicto: 'Para lo que no merece más: evita el roce y el polvo por céntimos la carta.',
+    porque: 'Es la primera barrera y la que se cambia si se ensucia. No protege de doblarse.',
+    precio: 'desde 6,71 €',
+  },
+  {
+    tramo: '5-50 €',
+    que: 'Toploader rígido',
+    asin: 'B000Q5ZMM0',
+    nombre: 'Ultra Pro Toploader 3x4, pack de 25',
+    veredicto: 'La carta va dentro de la funda blanda y luego aquí. Sin esto, la esquina se dobla y la carta pierde la mitad del valor.',
+    porque: 'Rígido, entra en cualquier caja de envío y es lo que piden los compradores al recibir.',
+    precio: 'desde 8 €',
+  },
+  {
+    tramo: '50-200 €',
+    que: 'Toploader por unidad o pack grande',
+    asin: 'B0812Z3RPY',
+    nombre: 'Ultra Pro Toploader 3x4, 100 unidades',
+    veredicto: 'A partir de aquí la carta viaja fuera de casa: se envía en toploader, con funda y entre cartón.',
+    porque: 'El pack grande sale mucho mejor por unidad y es lo que se gasta al vender varias.',
+    precio: 'desde 20 €',
+  },
+  {
+    tramo: 'La colección entera',
+    que: 'Binder con cremallera',
+    asin: 'B0D7W2PJR8',
+    nombre: 'Card Guardian Binder 720, 9 bolsillos',
+    veredicto: 'Para lo que no se vende ni se toca cada día: la colección entera fuera del polvo, del sol y de las anillas metálicas.',
+    porque: 'Cierre y páginas cosidas: las anillas clásicas marcan la carta con el tiempo.',
+    precio: 'desde 25,98 €',
+  },
+];
+
+const fechaHoy = new Date().toISOString().slice(0, 10);
+
+await put(
+  OUT('guardar-cartas/index.html'),
+  layout({
+    title: `Cómo guardar cartas Pokémon: qué funda según lo que valen | ${config.brand}`,
+    description:
+      'Qué funda, toploader o binder usar según el valor de la carta, con productos concretos y el criterio detrás. Sin humo y sin fingir pruebas que no hemos hecho.',
+    url: '/guardar-cartas/',
+    body: `
+<nav class="migas"><a href="/guias/">Guías</a> / Guardar cartas</nav>
+<h1>Cómo guardar cartas según lo que valen</h1>
+<p class="aviso-afiliado">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. Los precios los pone Amazon. · Revisado: ${fechaHoy}</p>
+<p class="lede">No todas las cartas merecen el mismo gasto. La regla es simple: la protección tiene que costar menos que
+lo que protege, y en cuanto la carta vale más de lo que cuesta un toploader, no hay discusión.</p>
+
+<table class="listado">
+<thead><tr><th>Tramo</th><th>Qué usar</th><th>Por qué</th></tr></thead>
+<tbody>
+${PRODUCTOS_GUARDAR.map(
+  (p) => `<tr><td><b>${esc(p.tramo)}</b></td><td>${esc(p.que)}</td><td class="muted">${esc(p.porque)}</td></tr>`,
+).join('')}
+</tbody></table>
+
+<section class="bloque">
+  <h2>Uno por tramo, con el veredicto delante</h2>
+  ${PRODUCTOS_GUARDAR.map(
+    (p) => `<div class="reco">
+    <p class="reco-tramo">${esc(p.tramo)}</p>
+    <p class="reco-veredicto">${esc(p.veredicto)}</p>
+    <p class="reco-nombre">${esc(p.nombre)} <span class="muted">· ${esc(p.precio)}</span></p>
+    <a class="btn" href="https://www.amazon.es/dp/${p.asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver precio en Amazon</a>
+  </div>`,
+  ).join('')}
+</section>
+
+<section class="bloque">
+  <h2>Cómo lo comprobamos (y qué no)</h2>
+  <p>El criterio de los tramos sale del precio de mercado de las cartas, no de una prueba de laboratorio: todavía
+  <b>no hemos medido</b> cuántas barajadas aguanta cada funda ni cuánto tarda en amarillear. Cuando lo hagamos, lo
+  publicaremos con las medidas y la fecha, y si algún producto sale mal, se quita.</p>
+  <p class="muted">Lo que sí es dato: el precio de cada carta viene de Cardmarket y se actualiza a diario. Los tramos
+  están puestos sobre ese precio, no sobre una estimación.</p>
+</section>
+
+<section class="bloque">
+  <h2>Lo que no haría</h2>
+  <ul class="pasos">
+    <li><b>Fundas de PVC</b> y hojas con anillas metálicas: con el tiempo marcan la carta.</li>
+    <li><b>Guardar en vertical sin toploader</b>: el peso de las de abajo dobla las esquinas.</li>
+    <li><b>Sol directo</b>: el foil se decolora y no vuelve.</li>
+    <li><b>Cajas de cartón sin funda</b>: el roce se come el borde impreso.</li>
+  </ul>
+  <p><a class="btn ghost" href="/valorar/">Ver cuánto vale mi colección</a>
+  <a class="btn ghost" href="/guias/guardar-cartas-sin-que-se-curven/">Guía: que no se curven</a></p>
+</section>`,
+  }),
+);
+
 // ---------- comprar (intencion de compra -> afiliado) ----------
 const PRODUCTOS = [
   ['Sobres sueltos', 'sobres pokemon', 'Para probar suerte sin comprometerte. El precio por sobre siempre es peor que en caja.'],
@@ -711,7 +811,7 @@ await put(OUT('404.html'), layout({
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/mercado/', '/alertas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/mercado/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.map((c) => `${SITE}/carta/${cardSlug(c)}/`))

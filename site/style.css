@@ -164,6 +164,12 @@ footer{max-width:1080px;margin:0 auto;padding:34px 20px 60px;border-top:1px soli
 .disclosure{color:var(--muted);font-size:.78rem}
 .foot-links{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted)}
 
+.aviso-afiliado{font-size:.8rem;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:10px 0 14px}
+.reco{padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);margin-bottom:12px}
+.reco-tramo{margin:0;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+.reco-veredicto{margin:6px 0;color:#dcdce2}
+.reco-nombre{margin:0 0 12px;font-weight:650}
+.reco .btn{display:inline-block}
 .alerta-box{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 .alerta-box input{width:80px;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);text-align:center}
 .fila.alerta{grid-template-columns:44px 1fr 90px 110px 30px}
