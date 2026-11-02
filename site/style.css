@@ -112,6 +112,10 @@ h2.mini{font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:var
 .datos td{padding:6px 10px;font-size:.9rem}
 .datos td:first-child{width:45%}
 
+.modo-frase{margin:14px 0 6px}
+.frase-fila{display:flex;gap:8px;margin-top:6px}
+.frase-fila input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text)}
+.frase-fila input:focus{outline:none;border-color:var(--accent)}
 .coleccion-lista{display:flex;flex-direction:column;gap:8px}
 .fila{
   display:grid;grid-template-columns:44px 1fr 58px 92px 30px;gap:12px;align-items:center;

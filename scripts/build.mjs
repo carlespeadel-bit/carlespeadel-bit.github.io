@@ -399,6 +399,14 @@ Se guarda en tu navegador y puedes compartir el resultado con un enlace.</p>
   <input id="q" type="search" placeholder="Busca por nombre: Charizard, Pikachu, Mew ex…" autocomplete="off" aria-label="Buscar carta">
   <div id="resultados" class="resultados"></div>
 </div>
+<div class="modo-frase">
+  <label for="frase" class="muted small">O escríbela como la dirías: «2 charizard base y un pikachu de 151»</label>
+  <div class="frase-fila">
+    <input id="frase" type="text" placeholder="2 charizard base, pikachu 151…" autocomplete="off">
+    <button id="interpretar" class="btn">Añadir</button>
+  </div>
+  <p id="frase-out" class="nota small"></p>
+</div>
 <div class="dos-col coleccion">
   <div>
     <h2>Tu colección <span id="n-cartas" class="muted"></span></h2>
@@ -723,6 +731,7 @@ const idx = priced.map((c) => [
   c.price,
   bestVariant(c)?.avg30 ?? null,
   c.image ?? null,
+  c.setId,
 ]);
 await put(OUT('data/cartas.json'), JSON.stringify(idx));
 

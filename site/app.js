@@ -137,6 +137,78 @@
     });
   }
 
+  // --- intérprete de frases: "2 charizard base y un pikachu de 151" ---
+  const NUM = { un: 1, una: 1, uno: 1, dos: 2, tres: 3, cuatro: 4, cinco: 5, seis: 6, siete: 7, ocho: 8, nueve: 9, diez: 10 };
+
+  function trocear(texto) {
+    return texto
+      .toLowerCase()
+      .split(/[,;\n]|\by\b/)
+      .map((t) => t.trim())
+      .filter(Boolean);
+  }
+
+  function puntuar(trozo, row) {
+    const [, name, set, , , , setId] = row;
+    const n = norm(name);
+    const s = norm(set);
+    const sid = norm(setId || '');
+    const palabras = norm(trozo).split(/\s+/).filter((w) => w.length > 2 && !NUM[w]);
+    if (!palabras.length) return 0;
+    let score = 0;
+    for (const w of palabras) {
+      if (n === w) score += 6;
+      else if (n.startsWith(w)) score += 4;
+      else if (n.includes(w)) score += 2;
+      else if (s.includes(w)) score += 1.5;
+      else if (sid.includes(w)) score += 3;
+      else score -= 1;
+    }
+    return score;
+  }
+
+  function interpretar(texto) {
+    const trozos = trocear(texto);
+    const salida = [];
+    for (const t of trozos) {
+      let qty = 1;
+      let resto = t;
+      const m = t.match(/^(\d+)\s+(.*)$/);
+      const p = t.match(/^(un|una|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\s+(.*)$/);
+      if (m) { qty = Math.min(99, parseInt(m[1], 10)); resto = m[2]; }
+      else if (p) { qty = NUM[p[1]]; resto = p[2]; }
+      let mejor = null;
+      let mejorScore = 0;
+      for (const row of DB) {
+        const sc = puntuar(resto, row);
+        if (sc > mejorScore) { mejorScore = sc; mejor = row; }
+      }
+      if (mejor && mejorScore >= 2) salida.push({ slug: mejor[0], qty, texto: resto, nombre: mejor[1], set: mejor[2] });
+      else salida.push({ slug: null, qty, texto: resto, nombre: null, set: null });
+    }
+    return salida;
+  }
+
+  function aplicarFrase() {
+    const inp = $('#frase');
+    const out = $('#frase-out');
+    if (!inp || !DB) return;
+    const res = interpretar(inp.value || '');
+    const ok = res.filter((r) => r.slug);
+    const mal = res.filter((r) => !r.slug);
+    if (!ok.length) { out.textContent = 'No he reconocido ninguna carta. Prueba con el nombre y el set.'; return; }
+    const list = leer();
+    for (const r of ok) {
+      const hit = list.find((x) => x.s === r.slug);
+      if (hit) hit.q += r.qty;
+      else list.push({ s: r.slug, q: r.qty });
+    }
+    guardar(list);
+    out.innerHTML = ok.map((r) => `· ${r.qty} × ${r.nombre} <span class="muted">(${r.set})</span>`).join('<br>')
+      + (mal.length ? `<br><span class="down">No reconocido:</span> ${mal.map((m) => m.texto).join(', ')}` : '');
+    inp.value = '';
+  }
+
   function enc(list) {
     return btoa(unescape(encodeURIComponent(JSON.stringify(list)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   }
@@ -199,6 +271,8 @@
         a.download = 'mi-coleccion.csv';
         a.click();
       });
+      $('#interpretar')?.addEventListener('click', aplicarFrase);
+      $('#frase')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') aplicarFrase(); });
       $('#vaciar')?.addEventListener('click', () => {
         if (confirm('¿Vaciar la colección?')) guardar([]);
       });
