@@ -1,0 +1,72 @@
+name: publicar
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '10 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Configurar Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Bajar catalogo y precios
+        run: node scripts/fetch.mjs
+
+      - name: Construir la web
+        env:
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+        run: node scripts/build.mjs
+
+      - name: Foto del dia e informe
+        run: |
+          node scripts/snapshot.mjs
+          node scripts/informe.mjs
+
+      - name: Aviso a Telegram
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node scripts/telegram.mjs
+
+      - name: Guardar historico de precios
+        run: |
+          git config user.name "valorcarta-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/history data/changes.json data/sets.json
+          git commit -m "precios $(date -u +%F)" || echo "sin cambios"
+          git push
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

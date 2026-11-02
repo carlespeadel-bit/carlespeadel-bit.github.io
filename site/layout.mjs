@@ -1,5 +1,8 @@
 import config from '../config.json' with { type: 'json' };
 
+// dominio publico: config.json o, en CI, la variable SITE_URL
+export const SITE = (process.env.SITE_URL || config.site).replace(/\/$/, '');
+
 export const esc = (s = '') =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -22,7 +25,7 @@ export function slugify(s = '') {
 export const cardSlug = (c) => `${c.id}-${slugify(c.name)}`;
 
 export function layout({ title, description, url, body, jsonld, image, noindex }) {
-  const canonical = config.site.replace(/\/$/, '') + url;
+  const canonical = SITE + url;
   return `<!doctype html>
 <html lang="es">
 <head>

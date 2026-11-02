@@ -4,7 +4,7 @@ import { mkdir, writeFile, readFile, rm, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import config from '../config.json' with { type: 'json' };
 import {
-  layout, esc, eur, cardSlug, slugify, priceTable, trendLine, amazonLink, bestVariant,
+  layout, esc, eur, cardSlug, slugify, priceTable, trendLine, amazonLink, bestVariant, SITE,
 } from '../site/layout.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
@@ -47,6 +47,9 @@ const totalValor = priced.reduce((s, c) => s + c.price, 0);
 await rm(DIST, { recursive: true, force: true });
 await mkdir(OUT('assets'), { recursive: true });
 await mkdir(OUT('data'), { recursive: true });
+
+// GitHub Pages: sin Jekyll, si no ignora carpetas que empiezan por _
+await put('.nojekyll', '');
 
 // cabeceras de hosting (Cloudflare Pages / Netlify)
 await put('_headers', await readFile(path.join(ROOT, 'site', '_headers')));
@@ -136,10 +139,10 @@ await put(
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: config.brand,
-      url: config.site,
+      url: SITE,
       potentialAction: {
         '@type': 'SearchAction',
-        target: `${config.site}/cartas/?q={search_term_string}`,
+        target: `${SITE}/cartas/?q={search_term_string}`,
         'query-input': 'required name=search_term_string',
       },
     },
@@ -274,7 +277,7 @@ ${relacionados.length ? `<section class="bloque"><h2>Otras cartas de ${esc(c.set
             price: c.price,
             priceCurrency: 'EUR',
             availability: 'https://schema.org/InStock',
-            url: `${config.site}/carta/${slug}/`,
+            url: `${SITE}/carta/${slug}/`,
           },
         },
       });
@@ -508,14 +511,14 @@ await put(OUT('404.html'), layout({
   body: `<h1>Esa carta no existe</h1><p class="lede">Puede que el enlace esté mal o que la carta ya no tenga datos de precio.</p><p><a class="btn" href="/valorar/">Valorar mi colección</a></p>`,
 }));
 
-await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${config.site}/sitemap.xml\n`);
+await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
 
 // sitemap
 const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/tiendas/', '/aviso-legal/', '/privacidad/']
-  .map((u) => `${config.site}${u}`)
-  .concat([...bySet.keys()].map((id) => `${config.site}/set/${id}/`))
-  .concat(priced.map((c) => `${config.site}/carta/${cardSlug(c)}/`))
-  .concat(guias.map((g) => `${config.site}/guia/${g.slug}/`));
+  .map((u) => `${SITE}${u}`)
+  .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
+  .concat(priced.map((c) => `${SITE}/carta/${cardSlug(c)}/`))
+  .concat(guias.map((g) => `${SITE}/guia/${g.slug}/`));
 await put(
   OUT('sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
