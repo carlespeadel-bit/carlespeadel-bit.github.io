@@ -409,6 +409,54 @@ baja de precio, cuando un set se agota y cuando tu colección cambia de valor.</
   }),
 );
 
+// ---------- comprar (intencion de compra -> afiliado) ----------
+const PRODUCTOS = [
+  ['Sobres sueltos', 'sobres pokemon', 'Para probar suerte sin comprometerte. El precio por sobre siempre es peor que en caja.'],
+  ['Caja de 36 sobres', 'caja pokemon 36 sobres', 'El mejor precio por sobre si vas a abrir mucho. Compara antes de comprar.'],
+  ['ETB (caja de élite)', 'etb pokemon', 'Sobres, fundas y dados. Suele salir mejor que comprar las piezas por separado.'],
+  ['Lata', 'lata pokemon', 'Promo garantizada. Revisa qué carta trae antes de pagar de más.'],
+  ['Blíster de 3', 'blister pokemon 3 sobres', 'Cómodo en tienda física, caro por sobre. Útil para regalo.'],
+  ['Colección premium', 'coleccion premium pokemon', 'Producto de nicho: si no la abres, el precinto manda.'],
+  ['Fundas', 'fundas cartas pokemon', 'Lo primero antes de tocar una carta que valga algo.'],
+  ['Tapete y caja', 'tapete cartas pokemon', 'Para jugar; para guardar, mejor caja rígida.'],
+];
+
+await put(
+  OUT('comprar/index.html'),
+  layout({
+    title: `Dónde comprar cartas y sobres Pokémon sin pagar de más | ${config.brand}`,
+    description:
+      'Qué formato conviene comprar según lo que busques, cuánto cuesta cada uno por sobre y dónde encontrarlo. Sin humo y sin promesas de revalorización.',
+    url: '/comprar/',
+    body: `
+<h1>Dónde comprar sin pagar de más</h1>
+<p class="lede">El formato cambia el precio por sobre más que la tienda. Antes de comprar, mira qué te llevas
+y cuánto estás pagando por cada sobre; luego compara.</p>
+
+<table class="listado">
+<thead><tr><th>Formato</th><th>Cuándo tiene sentido</th><th class="num">Ver precios</th></tr></thead>
+<tbody>
+${PRODUCTOS.map(
+  ([n, q, d]) => `<tr>
+  <td><b>${esc(n)}</b></td>
+  <td class="muted">${esc(d)}</td>
+  <td class="num"><a href="${amazonLink(q)}" rel="sponsored nofollow noopener" target="_blank">Amazon →</a></td>
+</tr>`,
+).join('')}
+</tbody></table>
+
+<section class="bloque">
+  <h2>Las tres reglas que ahorran dinero</h2>
+  <ol class="pasos">
+    <li><b>Precio por sobre, no precio del producto.</b> Una caja de 36 y un blíster de 3 no se comparan por lo que cuestan, sino por lo que cuesta cada sobre.</li>
+    <li><b>El precinto manda.</b> Si el producto viene abierto o sin retractilar, el valor cae. Revisa el estado al recibir y fotografía el paquete antes de abrirlo.</li>
+    <li><b>El sobre no da dinero por abrir.</b> Abrir es azar. Si compras para coleccionar, compra la carta suelta; si compras para abrir, asume que estás pagando la experiencia.</li>
+  </ol>
+  <p class="nota small">Los enlaces llevan a búsquedas de Amazon con nuestra etiqueta de afiliado: si compras, nos llevamos una comisión sin coste extra para ti. El precio lo pone Amazon, no nosotros.</p>
+</section>`,
+  }),
+);
+
 // ---------- tiendas (B2B) ----------
 await put(
   OUT('tiendas/index.html'),
@@ -516,7 +564,7 @@ await put(OUT('404.html'), layout({
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/tiendas/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/tiendas/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.map((c) => `${SITE}/carta/${cardSlug(c)}/`))
