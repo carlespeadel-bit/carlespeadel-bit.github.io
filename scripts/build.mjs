@@ -50,6 +50,9 @@ await mkdir(OUT('data'), { recursive: true });
 
 // GitHub Pages: sin Jekyll, si no ignora carpetas que empiezan por _
 await put('.nojekyll', '');
+if (config.googleVerificationFile) {
+  await put(config.googleVerificationFile, `google-site-verification: ${config.googleVerificationFile}`);
+}
 const INDEXNOW_KEY = (await readFile(path.join(ROOT, 'data', 'indexnow-key.txt'), 'utf8')).trim();
 await put(`${INDEXNOW_KEY}.txt`, INDEXNOW_KEY);
 
