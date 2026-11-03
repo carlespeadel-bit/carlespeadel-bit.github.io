@@ -2,9 +2,9 @@
   "brand": "ValorCarta",
   "site": "https://valorcarta.es",
   "amazonTag": "valorcarta-21",
-  "premiumUrl": "https://valorcarta.lemonsqueezy.com/checkout/buy/REEMPLAZAR",
+  "premiumUrl": "mailto:carlespeadel@gmail.com?subject=Quiero%20los%20avisos%20de%20precio&body=Hola%2C%20quiero%20los%20avisos%20de%20precio%20para%20mis%20cartas.",
   "telegramBot": "",
-  "contactEmail": "hola@valorcarta.es",
+  "contactEmail": "carlespeadel@gmail.com",
   "titular": "NOMBRE Y APELLIDOS",
   "nif": "00000000X",
   "precio": {
@@ -17,7 +17,7 @@
   },
   "telegramInvite": "https://t.me/+REEMPLAZAR_INVITE",
   "telegramChannel": "https://t.me/REEMPLAZAR",
-  "emailVentas": "ventas@valorcarta.es",
+  "emailVentas": "carlespeadel@gmail.com",
   "googleVerification": "",
   "goatcounter": "valorcarta.goatcounter.com",
   "googleVerificationFile": "google0340fcde78171233.html"
