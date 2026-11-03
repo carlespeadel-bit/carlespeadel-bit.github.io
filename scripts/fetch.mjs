@@ -24,7 +24,7 @@ const limit = args.limit ? Number(args.limit) : Infinity;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function getJSON(url, tries = 4) {
+async function getJSON(url, tries = 7) {
   for (let i = 0; i < tries; i++) {
     try {
       const r = await fetch(url, { headers: { 'user-agent': 'valorcarta/0.1' } });
@@ -33,7 +33,7 @@ async function getJSON(url, tries = 4) {
       return await r.json();
     } catch (e) {
       if (i === tries - 1) throw e;
-      await sleep(400 * (i + 1) ** 2);
+      await sleep(800 * (i + 1) ** 2);
     }
   }
 }
