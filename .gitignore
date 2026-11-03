@@ -6,3 +6,4 @@ out/
 data/cards.json
 ygo/data/
 .env
+magic/data/

@@ -942,7 +942,7 @@ await put(OUT('404.html'), layout({
   body: `<h1>Esa carta no existe</h1><p class="lede">Puede que el enlace esté mal o que la carta ya no tenga datos de precio.</p><p><a class="btn" href="/valorar/">Valorar mi colección</a></p>`,
 }));
 
-await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/ygo/sitemap.xml\n`);
+await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
 
 // sitemap
 const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']

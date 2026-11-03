@@ -53,6 +53,11 @@ jobs:
           node ygo/scripts/fetch.mjs
           node ygo/scripts/build.mjs
 
+      - name: Web de Magic
+        run: |
+          node magic/scripts/fetch.mjs
+          node magic/scripts/build.mjs
+
       - name: Foto del dia e informe
         run: |
           node scripts/snapshot.mjs
