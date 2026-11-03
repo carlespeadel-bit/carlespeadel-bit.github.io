@@ -125,6 +125,21 @@ const homeBody = `
   </div>
 </section>
 
+<section class="bloque">
+  <h2>Índice: las 100 cartas más caras</h2>
+  <p class="muted small">Enlaces directos a las fichas con más valor de mercado. Se recalcula a diario.</p>
+  <div class="indice">
+    ${priced.slice(0, 100).map((c) => `<a href="/carta/${cardSlug(c)}/">${esc(c.name)}</a>`).join(' · ')}
+  </div>
+</section>
+
+<section class="bloque">
+  <h2>Todos los sets</h2>
+  <div class="indice">
+    ${[...bySet.keys()].map((id) => `<a href="/set/${id}/">${esc(setsById.get(id)?.name ?? id)}</a>`).join(' · ')}
+  </div>
+</section>
+
 <section class="bloque dos-col">
   <div>
     <h2>Precio de mercado, no de catálogo</h2>
