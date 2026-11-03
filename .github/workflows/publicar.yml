@@ -42,6 +42,11 @@ jobs:
           SITE_URL: ${{ steps.pages.outputs.base_url }}
         run: node scripts/build.mjs
 
+      - name: Web de Yu-Gi-Oh
+        run: |
+          node ygo/scripts/fetch.mjs
+          node ygo/scripts/build.mjs
+
       - name: Foto del dia e informe
         run: |
           node scripts/snapshot.mjs

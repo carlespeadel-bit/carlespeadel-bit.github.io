@@ -4,3 +4,4 @@ data/cache/
 out/
 .DS_Store
 data/cards.json
+ygo/data/
