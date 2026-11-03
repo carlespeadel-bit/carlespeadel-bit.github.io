@@ -770,11 +770,11 @@ ${caras100
 // ---------- comprar (intencion de compra -> afiliado) ----------
 const PRODUCTOS = [
   ['Sobres sueltos', null, 'Para probar suerte sin comprometerte. El precio por sobre siempre es peor que en caja.'],
-  ['Caja de 36 sobres', null, 'El mejor precio por sobre si vas a abrir mucho. Compara antes de comprar.'],
+  ['Caja de 36 sobres', 'B0BTRN9FT5', 'El mejor precio por sobre si vas a abrir mucho. Compara antes de comprar.'],
   ['ETB (caja de élite)', 'B0FDGXLR5L', 'Sobres, fundas y dados. Suele salir mejor que comprar las piezas por separado.'],
-  ['Lata', 'B0FNX69YSZ', 'Promo garantizada. Revisa qué carta trae antes de pagar de más.'],
-  ['Blíster de 3', null, 'Cómodo en tienda física, caro por sobre. Útil para regalo.'],
-  ['Colección premium', 'B0DWGBC38K', 'Producto de nicho: si no la abres, el precinto manda.'],
+  ['Lata', 'B0GMRC58KQ', 'Promo garantizada. Revisa qué carta trae antes de pagar de más.'],
+  ['Blíster de 3', 'B0H1HDKXGH', 'Cómodo en tienda física, caro por sobre. Útil para regalo.'],
+  ['Colección premium', 'B0DSGDJP6Q', 'Producto de nicho: si no la abres, el precinto manda.'],
   ['Fundas', 'B085DNDLC1', 'Lo primero antes de tocar una carta que valga algo.'],
   ['Binder', 'B0D7W2PJR8', 'Para guardar la colección sin que se doblen las esquinas.'],
 ];
