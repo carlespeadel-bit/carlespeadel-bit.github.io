@@ -11,16 +11,17 @@ const TAG = 'valorcarta-21';
 const BRAND = 'CartaMTG';
 
 const cards = JSON.parse(await readFile(path.join(ROOT, 'data', 'cards.json'), 'utf8'));
+const INDEXABLES = new Set(cards.slice(0, 100).map((c) => c.id));
 const conPrecio = cards.filter((c) => c.price > 0);
 const eur = (n) => (n == null ? '—' : new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(n));
 const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const slug = (c) => `${c.id}-${c.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60)}`;
 const put = async (p, data) => { const f = path.join(DIST, p); await mkdir(path.dirname(f), { recursive: true }); await writeFile(f, data); };
 
-const layout = ({ title, description, url, body, image }) => `<!doctype html>
+const layout = ({ title, description, url, body, image, noindex }) => `<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><meta name="description" content="${esc(description)}">
-<link rel="canonical" href="${SITE}${url}">
+<link rel="canonical" href="${SITE}${url}">${noindex ? '\n<meta name="robots" content="noindex,follow">' : ''}
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}">
 ${image ? `<meta property="og:image" content="${esc(image)}">` : ''}
 <link rel="stylesheet" href="${B}/assets/style.css"></head><body>
@@ -72,7 +73,7 @@ for (let i = 0; i < lista.length; i += 200) {
 <p class="nota">Precio de referencia de Cardmarket. No es una tasación: el estado manda.</p>
 <a class="btn" href="https://carlespeadel-bit.github.io/guardar-cartas/">Fundas y toploaders para esta carta</a>
 </div></div>`;
-    await put(`carta/${slug(c)}/index.html`, layout({ title: `${c.name} — precio Magic`, description: `¿Cuánto vale ${c.name}? Precio de mercado: ${eur(c.price)}.`, url: `/carta/${slug(c)}/`, body, image: c.image }));
+    await put(`carta/${slug(c)}/index.html`, layout({ noindex: !INDEXABLES.has(c.id), title: `${c.name} — precio Magic`, description: `¿Cuánto vale ${c.name}? Precio de mercado: ${eur(c.price)}.`, url: `/carta/${slug(c)}/`, body, image: c.image }));
     n++;
   }));
   process.stdout.write(`  ${Math.min(i + 200, lista.length)}/${lista.length}\r`);
@@ -85,7 +86,7 @@ ${cards.slice(0, 100).map((c, i) => `<tr><td class="num muted">${i + 1}</td><td>
 </tbody></table>`,
 }));
 
-const urls = [`${SITE}/`, `${SITE}/caras/`, ...lista.map((c) => `${SITE}/carta/${slug(c)}/`)];
+const urls = [`${SITE}/`, `${SITE}/caras/`, ...cards.filter((c) => INDEXABLES.has(c.id)).map((c) => `${SITE}/carta/${slug(c)}/`)];
 await put('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${u}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod></url>`).join('\n')}\n</urlset>`);
 
 console.log(`\nOK ${n} fichas · ${urls.length} URLs · ${DIST}`);
