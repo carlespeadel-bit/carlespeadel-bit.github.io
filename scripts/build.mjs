@@ -679,6 +679,40 @@ ${PRODUCTOS_GUARDAR.map(
   }),
 );
 
+// ---------- panel de visitas ----------
+let panel = null;
+try {
+  panel = JSON.parse(await readFile(path.join(ROOT, 'data', 'panel.json'), 'utf8'));
+} catch {}
+if (panel) {
+  const max = Math.max(1, ...panel.porDia.map((d) => d.visitas));
+  await put(
+    OUT('panel/index.html'),
+    layout({
+      title: `Panel de visitas | ${config.brand}`,
+      description: 'Visitas de los últimos 30 días.',
+      url: '/panel/',
+      noindex: true,
+      body: `
+<h1>Visitas · últimos 30 días</h1>
+<p class="lede"><b>${panel.total.toLocaleString('es-ES')}</b> visitas desde ${panel.desde} hasta ${panel.hasta}. Actualizado: ${panel.actualizado.slice(0, 16).replace('T', ' ')}.</p>
+<div class="grafico">${panel.porDia
+        .map(
+          (d) => `<div class="barra" title="${d.dia}: ${d.visitas}" style="height:${Math.max(2, (d.visitas / max) * 100)}%"></div>`,
+        )
+        .join('')}</div>
+<div class="dos-col">
+  <div><h2>Páginas</h2><table class="listado"><tbody>${panel.paginas
+    .map((p) => `<tr><td>${esc(p.ruta)}</td><td class="num">${p.visitas}</td></tr>`)
+    .join('') || '<tr><td class="muted">Sin datos</td></tr>'}</tbody></table></div>
+  <div><h2>De dónde vienen</h2><table class="listado"><tbody>${panel.referidores
+    .map((r) => `<tr><td>${esc(r.ref)}</td><td class="num">${r.visitas}</td></tr>`)
+    .join('') || '<tr><td class="muted">Sin datos</td></tr>'}</tbody></table></div>
+</div>`,
+    }),
+  );
+}
+
 // ---------- ranking de las mas caras ----------
 const caras100 = priced.slice(0, 100);
 await put(

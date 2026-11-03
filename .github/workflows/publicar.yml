@@ -37,6 +37,12 @@ jobs:
           node scripts/fill-en.mjs
           node scripts/assemble.mjs
 
+      - name: Panel de visitas
+        continue-on-error: true
+        env:
+          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+        run: node scripts/panel.mjs
+
       - name: Construir la web
         env:
           SITE_URL: ${{ steps.pages.outputs.base_url }}
