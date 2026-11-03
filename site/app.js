@@ -309,5 +309,16 @@
     });
   }
 
+  // medir clics salientes a Amazon (evento de GoatCounter)
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[href*="amazon.es"]');
+    if (!a || !window.goatcounter || !window.goatcounter.count) return;
+    window.goatcounter.count({
+      path: 'amazon-click',
+      title: location.pathname,
+      event: true,
+    });
+  }, true);
+
   document.addEventListener('DOMContentLoaded', init);
 })();
