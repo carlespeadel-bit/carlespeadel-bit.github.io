@@ -380,6 +380,7 @@ ${(() => {
         title: `${c.name} ${c.localId ?? ''} — ${c.setName}: precio y valor | ${config.brand}`,
         description: `¿Cuánto vale ${c.name} de ${c.setName}? Precio de mercado hoy: ${eur(c.price)}. Media de 30 días y mínimo, actualizado a diario.`,
         url: `/carta/${slug}/`,
+        noindex: (c.price ?? 0) < 1,
         image: c.image ? `${c.image}/high.webp` : undefined,
         body,
         jsonld: [
@@ -1072,7 +1073,7 @@ await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.
 const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
-  .concat(priced.map((c) => `${SITE}/carta/${cardSlug(c)}/`))
+  .concat(priced.filter((c) => c.price >= 1).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
   .concat(guias.map((g) => `${SITE}/guia/${g.slug}/`));
 // sitemap por bloques con lastmod diario + indice
 const lastmod = (cards[0]?.updated ?? new Date().toISOString()).slice(0, 10);
