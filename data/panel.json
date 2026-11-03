@@ -1,0 +1,84 @@
+{
+ "actualizado": "2026-11-03T13:59:58.703Z",
+ "desde": "2026-10-04",
+ "hasta": "2026-11-03",
+ "total": 10,
+ "porDia": [
+  {
+   "dia": "2026-10-27",
+   "visitas": 0
+  },
+  {
+   "dia": "2026-10-28",
+   "visitas": 0
+  },
+  {
+   "dia": "2026-10-29",
+   "visitas": 0
+  },
+  {
+   "dia": "2026-10-30",
+   "visitas": 0
+  },
+  {
+   "dia": "2026-10-31",
+   "visitas": 0
+  },
+  {
+   "dia": "2026-11-01",
+   "visitas": 0
+  },
+  {
+   "dia": "2026-11-02",
+   "visitas": 0
+  },
+  {
+   "dia": "2026-11-03",
+   "visitas": 10
+  },
+  {
+   "dia": "2026-11-04",
+   "visitas": 0
+  }
+ ],
+ "paginas": [
+  {
+   "ruta": "/comprar",
+   "visitas": 2
+  },
+  {
+   "ruta": "/",
+   "visitas": 2
+  },
+  {
+   "ruta": "/carta/swsh6-201-blaziken-vmax",
+   "visitas": 1
+  },
+  {
+   "ruta": "/set/swsh6",
+   "visitas": 1
+  },
+  {
+   "ruta": "/mercado",
+   "visitas": 1
+  },
+  {
+   "ruta": "/cartas",
+   "visitas": 1
+  },
+  {
+   "ruta": "/oauth",
+   "visitas": 1
+  },
+  {
+   "ruta": "/prueba2",
+   "visitas": 1
+  }
+ ],
+ "referidores": [
+  {
+   "ref": "directo",
+   "visitas": 4
+  }
+ ]
+}
