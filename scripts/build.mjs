@@ -951,7 +951,7 @@ const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/',
   .concat(priced.map((c) => `${SITE}/carta/${cardSlug(c)}/`))
   .concat(guias.map((g) => `${SITE}/guia/${g.slug}/`));
 // sitemap por bloques con lastmod diario + indice
-const lastmod = new Date().toISOString().slice(0, 10);
+const lastmod = (cards[0]?.updated ?? new Date().toISOString()).slice(0, 10);
 const TANDA = 2000;
 const bloques = [];
 for (let i = 0; i < urls.length; i += TANDA) bloques.push(urls.slice(i, i + TANDA));

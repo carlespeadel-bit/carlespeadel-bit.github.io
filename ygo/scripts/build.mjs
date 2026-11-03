@@ -28,7 +28,7 @@ ${image ? `<meta property="og:image" content="${esc(image)}">` : ''}
 <nav><a href="${B}/caras/">Las más caras</a><a href="${B}/">Buscar</a></nav></header>
 <main>${body}</main>
 <footer><p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
-<p class="muted">Precios de referencia de Cardmarket y TCGplayer. No es una tasación.</p></footer></body></html>`;
+<p class="muted">Precios de referencia de Cardmarket y TCGplayer. No es una tasación.</p></footer>${'<script data-goatcounter="https://valorcarta.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>'}</body></html>`;
 
 await rm(DIST, { recursive: true, force: true });
 await mkdir(path.join(DIST, 'assets'), { recursive: true });
