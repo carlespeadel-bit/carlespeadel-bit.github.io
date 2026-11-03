@@ -140,6 +140,30 @@ const homeBody = `
   </div>
 </section>
 
+<section class="bloque">
+  <h2>Cómo se calcula lo que vale tu colección</h2>
+  <p>Una carta no vale lo que dice un catálogo: vale lo que alguien paga por ella esta semana. Por eso aquí no usamos
+  precios de tienda ni recomendaciones, sino la media de ventas reales de Cardmarket de los últimos días, que es la
+  referencia que usan los coleccionistas en Europa.</p>
+  <p>Para cada carta verás tres cifras: el <b>precio de referencia</b> (la tendencia actual), la <b>media de 30 días</b>
+  (para saber si está subiendo o bajando) y el <b>mínimo</b> (lo más barato que se ha vendido). Las tres juntas cuentan
+  una historia; una sola engaña.</p>
+  <h2>Qué cambia el valor de una carta</h2>
+  <ul class="pasos">
+    <li><b>El estado.</b> Una carta Near Mint puede valer el doble que la misma carta con desgaste. Si no está perfecta, no vale la cifra que ves.</li>
+    <li><b>La versión.</b> Normal, reversa y holo del mismo número son cartas distintas y precios distintos.</li>
+    <li><b>El idioma.</b> Español e inglés no cotizan igual; las japonesas, a veces, muy distinto.</li>
+    <li><b>La reimpresión.</b> Si el personaje vuelve en otro set, la versión antigua suele bajar.</li>
+  </ul>
+  <h2>Preguntas frecuentes</h2>
+  <h3>¿Los precios son una tasación?</h3>
+  <p>No. Son precios de referencia de mercado. Una tasación exige ver la carta; esto te dice cuánto se está pagando por cartas parecidas.</p>
+  <h3>¿De dónde salen?</h3>
+  <p>De Cardmarket, vía la API pública de TCGdex, y se actualizan a diario. Puedes descargar el volcado completo en nuestros <a href="https://github.com/carlespeadel-bit/precios-cartas-datos">datos abiertos</a>.</p>
+  <h3>¿Cuánto cuesta usarlo?</h3>
+  <p>Nada. El valorador y las fichas son gratis y no piden registro. Si algún día quieres que te avisemos por email cuando una carta baje, eso sí se paga.</p>
+</section>
+
 <section class="bloque dos-col">
   <div>
     <h2>Precio de mercado, no de catálogo</h2>
@@ -168,6 +192,11 @@ await put(
       '@type': 'WebSite',
       name: config.brand,
       url: SITE,
+      mainEntity: [
+        { '@type': 'Question', name: '¿Los precios son una tasación?', acceptedAnswer: { '@type': 'Answer', text: 'No. Son precios de referencia de mercado; una tasación exige ver la carta.' } },
+        { '@type': 'Question', name: '¿De dónde salen los precios?', acceptedAnswer: { '@type': 'Answer', text: 'De Cardmarket, vía la API pública de TCGdex, actualizados a diario.' } },
+        { '@type': 'Question', name: '¿Cuánto cuesta usarlo?', acceptedAnswer: { '@type': 'Answer', text: 'El valorador y las fichas son gratis y no piden registro.' } },
+      ],
       potentialAction: {
         '@type': 'SearchAction',
         target: `${SITE}/cartas/?q={search_term_string}`,
