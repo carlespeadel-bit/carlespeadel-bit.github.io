@@ -782,6 +782,59 @@ if (panel) {
   );
 }
 
+// ---------- datos abiertos (Dataset schema para Google Dataset Search) ----------
+const fechaDatos = (cards[0]?.updated ?? new Date().toISOString()).slice(0, 10);
+await put(
+  OUT('datos/index.html'),
+  layout({
+    title: `Dataset: precios de cartas Pokémon (descarga libre) | ${config.brand}`,
+    description:
+      'Volcado diario y gratuito con el precio de referencia de 9.830 cartas Pokémon en EUR. Licencia CC BY 4.0, en JSON, listo para analizar.',
+    url: '/datos/',
+    body: `
+<h1>Precios de cartas Pokémon, en abierto</h1>
+<p class="lede">Un fichero JSON con el precio de referencia de <b>${priced.length.toLocaleString('es-ES')} cartas</b>, actualizado a diario.
+Licencia <b>CC BY 4.0</b>: úsalo, publícalo o mételo en tu modelo, citando la fuente.</p>
+<p><a class="btn" href="https://raw.githubusercontent.com/carlespeadel-bit/precios-cartas-datos/master/precios.json" rel="noopener">Descargar JSON</a>
+<a class="btn ghost" href="https://github.com/carlespeadel-bit/precios-cartas-datos" rel="noopener">Ver el repositorio</a></p>
+<table class="listado"><tbody>
+<tr><td class="muted">Última actualización</td><td>${esc(fechaDatos)}</td></tr>
+<tr><td class="muted">Cartas con precio</td><td>${priced.length.toLocaleString('es-ES')}</td></tr>
+<tr><td class="muted">Formato</td><td>JSON (id, nombre, set, precio en EUR)</td></tr>
+<tr><td class="muted">Fuente del precio</td><td>Cardmarket, vía la API pública de TCGdex</td></tr>
+<tr><td class="muted">Licencia</td><td>CC BY 4.0</td></tr>
+</tbody></table>
+<section class="bloque">
+  <h2>Qué puedes hacer con esto</h2>
+  <ul class="pasos">
+    <li>Comparar la evolución de un set entre semanas.</li>
+    <li>Detectar cartas cuyo precio se ha movido más de un 20 %.</li>
+    <li>Montar tu propio valorador o una hoja de cálculo para tu colección.</li>
+  </ul>
+  <p class="muted">Los precios son de referencia de mercado y no distinguen estado de conservación. No son una tasación.</p>
+</section>`,
+    jsonld: {
+      '@context': 'https://schema.org',
+      '@type': 'Dataset',
+      name: 'Precios de cartas Pokémon (volcado diario)',
+      description:
+        'Precio de referencia en EUR de 9.830 cartas Pokémon, generado a diario desde Cardmarket vía TCGdex.',
+      license: 'https://creativecommons.org/licenses/by/4.0/',
+      creator: { '@type': 'Organization', name: config.brand, url: SITE },
+      url: `${SITE}/datos/`,
+      dateModified: fechaDatos,
+      distribution: [
+        {
+          '@type': 'DataDownload',
+          contentUrl:
+            'https://raw.githubusercontent.com/carlespeadel-bit/precios-cartas-datos/master/precios.json',
+          encodingFormat: 'application/json',
+        },
+      ],
+    },
+  }),
+);
+
 // ---------- ranking de las mas caras ----------
 const caras100 = priced.slice(0, 100);
 await put(
@@ -1099,7 +1152,7 @@ await put(OUT('404.html'), layout({
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => c.price >= 1).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
