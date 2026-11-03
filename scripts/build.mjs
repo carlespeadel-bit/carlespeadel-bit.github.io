@@ -343,7 +343,17 @@ ${relacionados.length ? `<section class="bloque"><h2>Otras cartas de ${esc(c.set
         url: `/carta/${slug}/`,
         image: c.image ? `${c.image}/high.webp` : undefined,
         body,
-        jsonld: {
+        jsonld: [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${SITE}/` },
+              { '@type': 'ListItem', position: 2, name: c.setName, item: `${SITE}/set/${c.setId}/` },
+              { '@type': 'ListItem', position: 3, name: c.name, item: `${SITE}/carta/${cardSlug(c)}/` },
+            ],
+          },
+          {
           '@context': 'https://schema.org',
           '@type': 'Product',
           name: `${c.name} — ${c.setName}`,
@@ -358,6 +368,7 @@ ${relacionados.length ? `<section class="bloque"><h2>Otras cartas de ${esc(c.set
             url: `${SITE}/carta/${slug}/`,
           },
         },
+        ],
       });
       await put(OUT(`carta/${slug}/index.html`), html);
       n++;
@@ -668,6 +679,50 @@ ${PRODUCTOS_GUARDAR.map(
   }),
 );
 
+// ---------- ranking de las mas caras ----------
+const caras100 = priced.slice(0, 100);
+await put(
+  OUT('caras/index.html'),
+  layout({
+    title: `Las 100 cartas Pokémon más caras (precio de hoy) | ${config.brand}`,
+    description:
+      'Ranking de las 100 cartas Pokémon con mayor precio de mercado, actualizado a diario. Con set, rareza y enlace a su ficha.',
+    url: '/caras/',
+    body: `
+<h1>Las 100 cartas Pokémon más caras</h1>
+<p class="lede">Ordenadas por precio de mercado hoy. La lista se recalcula en cada actualización, así que cambia:
+una carta que sube entra, una que baja sale.</p>
+<p class="nota small">Precios de referencia de Cardmarket. Una carta en mal estado vale mucho menos que esta cifra.</p>
+<table class="listado ranking">
+<thead><tr><th>#</th><th>Carta</th><th>Set</th><th class="num">Precio</th></tr></thead>
+<tbody>
+${caras100
+  .map(
+    (c, i) => `<tr>
+  <td class="num muted">${i + 1}</td>
+  <td><a href="/carta/${cardSlug(c)}/">${esc(c.name)}</a></td>
+  <td class="muted"><a href="/set/${c.setId}/">${esc(c.setName)}</a></td>
+  <td class="num">${eur(c.price)}</td>
+</tr>`,
+  )
+  .join('')}
+</tbody></table>
+<p class="acciones"><a class="btn" href="/valorar/">¿Cuánto vale mi colección?</a>
+<a class="btn ghost" href="/mercado/">Qué se mueve esta semana</a></p>`,
+    jsonld: {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Las 100 cartas Pokémon más caras',
+      itemListElement: caras100.slice(0, 20).map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.name,
+        url: `${SITE}/carta/${cardSlug(c)}/`,
+      })),
+    },
+  }),
+);
+
 // ---------- comprar (intencion de compra -> afiliado) ----------
 const PRODUCTOS = [
   ['Sobres sueltos', 'sobres pokemon', 'Para probar suerte sin comprometerte. El precio por sobre siempre es peor que en caja.'],
@@ -856,7 +911,7 @@ await put(OUT('404.html'), layout({
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/mercado/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.map((c) => `${SITE}/carta/${cardSlug(c)}/`))
