@@ -20,6 +20,8 @@ const cards = JSON.parse(await readFile(path.join(ROOT, 'data', 'cards.json'), '
   .map((c) => ({ ...c, serie: c.serie ?? c.serious ?? null }));
 const sets = JSON.parse(await readFile(path.join(ROOT, 'data', 'sets.json'), 'utf8'));
 const setsById = new Map(sets.map((s) => [s.id, s]));
+let CAMBIOS = null;
+try { CAMBIOS = JSON.parse(await readFile(path.join(ROOT, 'data', 'changes.json'), 'utf8')); } catch {}
 let ASINS = {};
 try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
 
@@ -90,7 +92,7 @@ guias.sort((a, b) => a.title.localeCompare(b.title, 'es'));
 // ---------- home ----------
 const homeBody = `
 <section class="hero">
-  <p class="kicker">${priced.length.toLocaleString('es-ES')} cartas con precio actualizado hoy</p>
+  <p class="kicker">${priced.length.toLocaleString('es-ES')} cartas con precio · actualizado el ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}</p>
   <h1>¿Cuánto vale tu colección de cartas?</h1>
   <p class="lede">Añade tus cartas y te decimos cuánto valen hoy, según el precio medio real de Cardmarket.
   Sin registro, sin cookies, sin humo.</p>
@@ -139,6 +141,26 @@ const homeBody = `
     ${[...bySet.keys()].map((id) => `<a href="/set/${id}/">${esc(setsById.get(id)?.name ?? id)}</a>`).join(' · ')}
   </div>
 </section>
+
+${(() => {
+  const mov = [...(CAMBIOS?.suben ?? []), ...(CAMBIOS?.bajan ?? [])].slice(0, 6);
+  if (!CAMBIOS) return '';
+  const nombre = new Map(cards.map((c) => [c.id, c]));
+  return `<section class="bloque">
+  <h2>Lo que se movió el ${esc(CAMBIOS.fecha)}</h2>
+  <p class="muted small">Comparado con el día anterior. Se recalcula en cada actualización, así que cambia cada mañana.</p>
+  ${mov.length ? `<ul class="pasos">${mov
+    .map((m) => {
+      const c = nombre.get(m.id);
+      if (!c) return '';
+      const signo = m.pct >= 0 ? '+' : '';
+      return `<li><a href="/carta/${cardSlug(c)}/">${esc(c.name)}</a> — ${eur(m.a)} (${signo}${m.pct.toFixed(1)} %)</li>`;
+    })
+    .filter(Boolean)
+    .join('')}</ul>` : '<p>Hoy ninguna carta se ha movido más de un 3 %. El mercado está plano.</p>'}
+  <p class="muted small">Actualizado: ${esc(CAMBIOS.fecha)} · <a href="/mercado/">ver el radar completo</a></p>
+</section>`;
+})()}
 
 <section class="bloque">
   <h2>Cómo se calcula lo que vale tu colección</h2>
