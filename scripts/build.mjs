@@ -1195,24 +1195,13 @@ const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
   .concat(guias.map((g) => `${SITE}/guia/${g.slug}/`));
-// sitemap por bloques con lastmod diario + indice
+// sitemap plano: con menos de 2.000 URLs no hace falta indice
 const lastmod = (cards[0]?.updated ?? new Date().toISOString()).slice(0, 10);
-const TANDA = 2000;
-const bloques = [];
-for (let i = 0; i < urls.length; i += TANDA) bloques.push(urls.slice(i, i + TANDA));
-for (let i = 0; i < bloques.length; i++) {
-  await put(
-    `sitemap-${i + 1}.xml`,
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${bloques[i]
-      .map((u) => `<url><loc>${u}</loc><lastmod>${lastmod}</lastmod><changefreq>daily</changefreq></url>`)
-      .join('\n')}\n</urlset>`,
-  );
-}
 await put(
   'sitemap.xml',
-  `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${bloques
-    .map((_, i) => `<sitemap><loc>${SITE}/sitemap-${i + 1}.xml</loc><lastmod>${lastmod}</lastmod></sitemap>`)
-    .join('\n')}\n</sitemapindex>`,
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
+    .map((u) => `<url><loc>${u}</loc><lastmod>${lastmod}</lastmod></url>`)
+    .join('\n')}\n</urlset>`,
 );
 
 // indice ligero para el buscador del cliente
