@@ -767,6 +767,80 @@ ${caras100
   }),
 );
 
+// ---------- guias de compra por formato ----------
+const GUIAS_COMPRA = [
+  {
+    slug: 'sobres', asin: 'B0GMRC58KQ', h1: 'Sobres sueltos: cuándo salen caros',
+    entradilla: 'Comprar sobres de uno en uno es la forma más cara de abrir un set. Aquí está la cuenta y cuándo sí merece la pena.',
+    puntos: [
+      'El precio por sobre en blíster o sobre suelto suele ser más alto que en caja de 36.',
+      'Si vas a abrir más de 15 sobres, compara siempre contra el precio de la caja.',
+      'Un sobre abierto no se puede devolver: si buscas una carta concreta, sale más barato comprarla suelta.',
+    ],
+    cta: 'Lata EX con 4 sobres',
+  },
+  {
+    slug: 'caja-36', asin: 'B0BTRN9FT5', h1: 'Caja de 36 sobres: la cuenta que hay que hacer',
+    entradilla: 'La caja es el formato con mejor precio por sobre, pero solo si vas a abrirla entera y el set te interesa de verdad.',
+    puntos: [
+      'Divide el precio de la caja entre 36: ese es tu coste real por sobre.',
+      'Compáralo con el precio del sobre suelto antes de comprar; a veces la diferencia es de céntimos y a veces del 40 %.',
+      'Ojo con el precinto: una caja abierta pierde valor de reventa.',
+    ],
+    cta: 'Caja de 36 sobres',
+  },
+  {
+    slug: 'etb', asin: 'B0DM6HQ8X5', h1: 'ETB: qué lleva y cuándo conviene',
+    entradilla: 'La caja de élite trae sobres, fundas, dados y una carta promocional. Conviene si vas a usar los accesorios; si no, se paga de más.',
+    puntos: [
+      'Suma el precio de los sobres y de las fundas por separado: si sale parecido, la ETB es buena compra.',
+      'La promo suele ser la razón real para comprarla; mira cuál es antes de pagar.',
+      'Suelen reponerse; no pagues sobreprecio por prisa.',
+    ],
+    cta: 'ETB de Evoluciones Prismáticas',
+  },
+  {
+    slug: 'lata', asin: 'B0GMRC58KQ', h1: 'Latas: promo garantizada, sobres caros',
+    entradilla: 'La lata vende una carta promocional concreta. Si esa carta es la que buscas, tiene sentido; si no, estás pagando el envoltorio.',
+    puntos: [
+      'Mira qué promo trae y su precio suelto: a veces comprar solo la carta sale más barato.',
+      'Cuatro sobres por lata es el formato habitual; divide y compara.',
+      'Las latas se abollan: si la quieres cerrada, revisa el estado al recibirla.',
+    ],
+    cta: 'Lata Mega-Charizard',
+  },
+  {
+    slug: 'blister', asin: 'B0H1HDKXGH', h1: 'Blíster de 3: comodidad cara',
+    entradilla: 'El blíster existe para regalar y para tienda física. Por sobre es de los formatos más caros.',
+    puntos: [
+      'Es el formato con peor precio por sobre de todos los habituales.',
+      'Útil si necesitas un regalo rápido o comprar en tienda física.',
+      'Para abrir en casa, la caja o la ETB salen mejor.',
+    ],
+    cta: 'Blíster de 3 sobres',
+  },
+];
+
+for (const g of GUIAS_COMPRA) {
+  await put(
+    OUT(`comprar/${g.slug}/index.html`),
+    layout({
+      title: `${g.h1} | ${config.brand}`,
+      description: g.entradilla,
+      url: `/comprar/${g.slug}/`,
+      body: `
+<nav class="migas"><a href="/comprar/">Comprar</a> / ${esc(g.cta)}</nav>
+<h1>${esc(g.h1)}</h1>
+<p class="aviso-afiliado">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. · Revisado: ${new Date().toISOString().slice(0, 10)}</p>
+<p class="lede">${esc(g.entradilla)}</p>
+<ul class="pasos">${g.puntos.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+<p><a class="btn" href="https://www.amazon.es/dp/${g.asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(g.cta)} en Amazon</a></p>
+<p class="nota small">El precio lo pone Amazon. Antes de comprar, compara el precio por sobre con el resto de formatos en <a href="/comprar/">la tabla de compra</a>.</p>
+<p class="nota"><a href="/valorar/">Ver cuánto vale mi colección →</a> · <a href="/mercado/">Qué se mueve esta semana →</a></p>`,
+    }),
+  );
+}
+
 // ---------- comprar (intencion de compra -> afiliado) ----------
 const PRODUCTOS = [
   ['Sobres sueltos', null, 'Para probar suerte sin comprometerte. El precio por sobre siempre es peor que en caja.'],
@@ -806,6 +880,13 @@ ${PRODUCTOS.map(
 </tr>`,
 ).join('')}
 </tbody></table>
+
+<section class="bloque">
+  <h2>Formato por formato</h2>
+  <div class="grid guias-grid">
+    ${GUIAS_COMPRA.map((g) => `<a class="guia-card" href="/comprar/${g.slug}/"><span class="guia-t">${esc(g.cta)}</span><span class="muted small">${esc(g.h1)}</span></a>`).join('')}
+  </div>
+</section>
 
 <section class="bloque">
   <h2>Las tres reglas que ahorran dinero</h2>
@@ -959,7 +1040,7 @@ await put(OUT('404.html'), layout({
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.map((c) => `${SITE}/carta/${cardSlug(c)}/`))
