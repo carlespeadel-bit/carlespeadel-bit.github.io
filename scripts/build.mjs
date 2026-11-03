@@ -213,7 +213,11 @@ ${
 }
 
 <p class="acciones">
-  <a class="btn" href="${amazonLink(`${nombre} pokemon sobres`)}" rel="sponsored nofollow noopener" target="_blank">Sobres de ${esc(nombre)} en Amazon</a>
+  ${
+    ASINS[id]?.length
+      ? `<a class="btn" href="https://www.amazon.es/dp/${ASINS[id][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(ASINS[id][0].nombre)} en Amazon</a>`
+      : `<a class="btn" href="/guardar-cartas/">Fundas y toploaders para estas cartas</a>`
+  }
   <a class="btn ghost" href="/valorar/">¿Cuánto vale mi colección?</a>
 </p>
 <p class="nota small">Enlace de afiliado. El precio lo pone Amazon; la comisión no te cuesta nada.</p>
@@ -765,14 +769,14 @@ ${caras100
 
 // ---------- comprar (intencion de compra -> afiliado) ----------
 const PRODUCTOS = [
-  ['Sobres sueltos', 'sobres pokemon', 'Para probar suerte sin comprometerte. El precio por sobre siempre es peor que en caja.'],
-  ['Caja de 36 sobres', 'caja pokemon 36 sobres', 'El mejor precio por sobre si vas a abrir mucho. Compara antes de comprar.'],
-  ['ETB (caja de élite)', 'etb pokemon', 'Sobres, fundas y dados. Suele salir mejor que comprar las piezas por separado.'],
-  ['Lata', 'lata pokemon', 'Promo garantizada. Revisa qué carta trae antes de pagar de más.'],
-  ['Blíster de 3', 'blister pokemon 3 sobres', 'Cómodo en tienda física, caro por sobre. Útil para regalo.'],
-  ['Colección premium', 'coleccion premium pokemon', 'Producto de nicho: si no la abres, el precinto manda.'],
-  ['Fundas', 'fundas cartas pokemon', 'Lo primero antes de tocar una carta que valga algo.'],
-  ['Tapete y caja', 'tapete cartas pokemon', 'Para jugar; para guardar, mejor caja rígida.'],
+  ['Sobres sueltos', null, 'Para probar suerte sin comprometerte. El precio por sobre siempre es peor que en caja.'],
+  ['Caja de 36 sobres', null, 'El mejor precio por sobre si vas a abrir mucho. Compara antes de comprar.'],
+  ['ETB (caja de élite)', 'B0FDGXLR5L', 'Sobres, fundas y dados. Suele salir mejor que comprar las piezas por separado.'],
+  ['Lata', 'B0FNX69YSZ', 'Promo garantizada. Revisa qué carta trae antes de pagar de más.'],
+  ['Blíster de 3', null, 'Cómodo en tienda física, caro por sobre. Útil para regalo.'],
+  ['Colección premium', 'B0DWGBC38K', 'Producto de nicho: si no la abres, el precinto manda.'],
+  ['Fundas', 'B085DNDLC1', 'Lo primero antes de tocar una carta que valga algo.'],
+  ['Binder', 'B0D7W2PJR8', 'Para guardar la colección sin que se doblen las esquinas.'],
 ];
 
 await put(
@@ -794,7 +798,11 @@ ${PRODUCTOS.map(
   ([n, q, d]) => `<tr>
   <td><b>${esc(n)}</b></td>
   <td class="muted">${esc(d)}</td>
-  <td class="num"><a href="${amazonLink(q)}" rel="sponsored nofollow noopener" target="_blank">Amazon →</a></td>
+  <td class="num">${
+    q
+      ? `<a href="https://www.amazon.es/dp/${q}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver producto →</a>`
+      : `<a href="/guardar-cartas/">Guía →</a>`
+  }</td>
 </tr>`,
 ).join('')}
 </tbody></table>
