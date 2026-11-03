@@ -24,6 +24,12 @@ let ASINS = {};
 try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
 
 const priced = cards.filter((c) => c.price > 0);
+const porNombre = new Map();
+for (const c of priced) {
+  const k = c.name.toLowerCase();
+  if (!porNombre.has(k)) porNombre.set(k, []);
+  porNombre.get(k).push(c);
+}
 const bySet = new Map();
 for (const c of cards) {
   if (!bySet.has(c.setId)) bySet.set(c.setId, []);
@@ -345,7 +351,15 @@ for (let i = 0; i < priced.length; i += BATCH) {
     </div>
   </div>
 </div>
-${relacionados.length ? `<section class="bloque"><h2>Otras cartas de ${esc(c.setName)}</h2><div class="grid">${relacionados.map(cardTile).join('')}</div></section>` : ''}`;
+${relacionados.length ? `<section class="bloque"><h2>Otras cartas de ${esc(c.setName)}</h2><div class="grid">${relacionados.map(cardTile).join('')}</div></section>` : ''}
+${(() => {
+  const otras = (porNombre.get(c.name.toLowerCase()) ?? []).filter((x) => x.id !== c.id).slice(0, 6);
+  if (!otras.length) return '';
+  const min = Math.min(...otras.map((x) => x.price));
+  return `<section class="bloque"><h2>Otras versiones de ${esc(c.name)}</h2>
+  <p class="muted">La misma carta en otros sets. La más barata desde ${eur(min)}.</p>
+  <div class="grid">${otras.map(cardTile).join('')}</div></section>`;
+})()}`;
 
       const html = layout({
         title: `${c.name} ${c.localId ?? ''} — ${c.setName}: precio y valor | ${config.brand}`,
