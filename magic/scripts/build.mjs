@@ -70,7 +70,7 @@ for (let i = 0; i < lista.length; i += 200) {
 
 <p></p>
 <p class="nota">Precio de referencia de Cardmarket. No es una tasación: el estado manda.</p>
-<a class="btn" href="https://www.amazon.es/s?k=${encodeURIComponent('cartas magic ' + (c.set ?? ''))}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">Cartas de Magic en Amazon</a>
+<a class="btn" href="https://carlespeadel-bit.github.io/guardar-cartas/">Fundas y toploaders para esta carta</a>
 </div></div>`;
     await put(`carta/${slug(c)}/index.html`, layout({ title: `${c.name} — precio Magic`, description: `¿Cuánto vale ${c.name}? Precio de mercado: ${eur(c.price)}.`, url: `/carta/${slug(c)}/`, body, image: c.image }));
     n++;

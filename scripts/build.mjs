@@ -20,6 +20,8 @@ const cards = JSON.parse(await readFile(path.join(ROOT, 'data', 'cards.json'), '
   .map((c) => ({ ...c, serie: c.serie ?? c.serious ?? null }));
 const sets = JSON.parse(await readFile(path.join(ROOT, 'data', 'sets.json'), 'utf8'));
 const setsById = new Map(sets.map((s) => [s.id, s]));
+let ASINS = {};
+try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
 
 const priced = cards.filter((c) => c.price > 0);
 const bySet = new Map();
@@ -320,7 +322,11 @@ for (let i = 0; i < priced.length; i += BATCH) {
         : ''
     }
     <p class="nota">Precio de referencia de Cardmarket (media de ventas, no tasación). Una carta en estado Near Mint vale más; una con desgaste, bastante menos.</p>
-    <a class="btn" href="${amazonLink(`${c.setName} pokemon sobres`)}" rel="sponsored nofollow noopener" target="_blank">Sobres de ${esc(c.setName)} en Amazon</a>
+    ${
+      ASINS[c.setId]?.length
+        ? `<a class="btn" href="https://www.amazon.es/dp/${ASINS[c.setId][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(ASINS[c.setId][0].nombre)} en Amazon</a>`
+        : `<a class="btn" href="/guardar-cartas/">Fundas y toploaders para esta carta</a>`
+    }
     <p class="nota small">Enlace de afiliado: si compras, nos llevamos una comisión sin coste extra para ti.</p>
     <p class="nota"><a href="/guardar-cartas/">¿Cómo guardar esta carta? →</a></p>
     <div class="acciones">

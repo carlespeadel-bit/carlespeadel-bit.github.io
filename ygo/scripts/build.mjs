@@ -70,7 +70,7 @@ for (let i = 0; i < lista.length; i += 200) {
 ${c.atk != null ? `<p class="muted">ATK ${c.atk} · DEF ${c.def ?? '?'}</p>` : ''}
 <p>${esc(c.desc ?? '')}</p>
 <p class="nota">Precio de referencia (Cardmarket ${eur(c.priceCm)} / TCGplayer ${eur(c.priceTcg)}). No es una tasación: el estado manda.</p>
-<a class="btn" href="https://www.amazon.es/s?k=${encodeURIComponent('cartas yugioh ' + (c.archetype ?? ''))}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">Cartas de Yu-Gi-Oh en Amazon</a>
+<a class="btn" href="https://carlespeadel-bit.github.io/guardar-cartas/">Fundas y toploaders para esta carta</a>
 </div></div>`;
     await put(`carta/${slug(c)}/index.html`, layout({ title: `${c.name} — precio Yu-Gi-Oh`, description: `¿Cuánto vale ${c.name}? Precio de mercado: ${eur(c.price)}.`, url: `/carta/${slug(c)}/`, body, image: c.image }));
     n++;
