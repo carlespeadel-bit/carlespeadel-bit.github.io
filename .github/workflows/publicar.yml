@@ -33,7 +33,9 @@ jobs:
         run: node scripts/fetch.mjs
 
       - name: Rellenar sets sin traduccion (vintage)
-        run: node scripts/fill-en.mjs
+        run: |
+          node scripts/fill-en.mjs
+          node scripts/assemble.mjs
 
       - name: Construir la web
         env:
