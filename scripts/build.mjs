@@ -338,7 +338,7 @@ for (let i = 0; i < priced.length; i += BATCH) {
         : `<a class="btn" href="/guardar-cartas/">Fundas y toploaders para esta carta</a>`
     }
     <p class="nota small">Enlace de afiliado: si compras, nos llevamos una comisión sin coste extra para ti.</p>
-    <p class="nota"><a href="/guardar-cartas/">¿Cómo guardar esta carta? →</a></p>
+    <p class="nota"><a href="/guardar-cartas/">¿Cómo guardar esta carta? →</a> · <a href="/caras/">Las 100 más caras →</a></p>
     <div class="acciones">
       <button class="btn ghost" data-add="${slug}">Añadir a mi colección</button>
       <a class="btn ghost" href="/valorar/">Valorar la colección entera</a>
