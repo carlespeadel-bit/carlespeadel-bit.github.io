@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Catalogo Yu-Gi-Oh con precios (YGOPRODeck, gratis, sin clave).
-import { writeFile } from 'node:fs/promises';
+import { writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 const ROOT = path.resolve(import.meta.dirname, '..');
 
@@ -35,6 +35,7 @@ const cards = data.map((c) => {
 }).filter((c) => c.name);
 
 cards.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+await mkdir(path.join(ROOT, 'data'), { recursive: true });
 await writeFile(path.join(ROOT, 'data', 'cards.json'), JSON.stringify(cards));
 const con = cards.filter((c) => c.price).length;
 console.log(`guardadas ${cards.length} · con precio ${con} · top: ${cards[0]?.name} ${cards[0]?.price}`);
