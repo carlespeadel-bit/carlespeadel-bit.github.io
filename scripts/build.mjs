@@ -527,6 +527,30 @@ Se recalcula en cada actualización, así que esto no es un artículo: es el mer
   }),
 );
 
+// ---------- oauth callback (recibe el codigo de Pinterest) ----------
+await put(
+  OUT('oauth/index.html'),
+  layout({
+    title: 'Conexión con Pinterest',
+    description: 'Página de retorno del proceso de autorización.',
+    url: '/oauth/',
+    noindex: true,
+    body: `
+<h1>Autorización de Pinterest</h1>
+<p class="lede">Pega el código que aparece en la barra de direcciones justo después de <code>code=</code>.</p>
+<div class="buscador">
+  <input id="code" type="text" placeholder="Aquí el código" aria-label="Código de autorización">
+</div>
+<p><button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('code').value)">Copiar</button></p>
+<p class="nota small">Esta página no envía nada a ningún sitio: solo sirve para que el código quede a mano.</p>
+<script>
+  const q = new URLSearchParams(location.search);
+  const c = q.get('code');
+  if (c) document.getElementById('code').value = c;
+</script>`,
+  }),
+);
+
 // ---------- guardar cartas (hub de compra con ASIN reales) ----------
 const PRODUCTOS_GUARDAR = [
   {
