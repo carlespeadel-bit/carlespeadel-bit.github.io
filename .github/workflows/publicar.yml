@@ -32,6 +32,9 @@ jobs:
       - name: Bajar catalogo y precios
         run: node scripts/fetch.mjs
 
+      - name: Rellenar sets sin traduccion (vintage)
+        run: node scripts/fill-en.mjs
+
       - name: Construir la web
         env:
           SITE_URL: ${{ steps.pages.outputs.base_url }}
