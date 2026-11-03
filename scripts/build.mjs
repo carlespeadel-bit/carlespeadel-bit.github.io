@@ -194,11 +194,29 @@ for (const [id, list] of bySet) {
   const meta = setsById.get(id);
   const nombre = meta?.name ?? list[0].setName;
   const total = list.reduce((s, c) => s + (c.price ?? 0), 0);
+  const top10 = list.filter((c) => c.price > 0).slice(0, 10);
+  const caras = list.filter((c) => c.price > 0).length;
+  const media = caras ? total / caras : 0;
   const body = `
 <nav class="migas"><a href="/cartas/">Cartas</a> / ${esc(nombre)}</nav>
 <h1>Cartas de ${esc(nombre)}: lista y precios</h1>
 <p class="lede">${list.length} cartas${meta?.releaseDate ? ` · ${año(meta.releaseDate)}` : ''}${meta?.serie ? ` · ${esc(meta.serie.name)}` : ''}.
-Valor de mercado del set completo: <b>${eur(total)}</b>.</p>
+${caras ? `Valor de mercado del set completo: <b>${eur(total)}</b>, con una media de ${eur(media)} por carta.` : 'Sin datos de precio suficientes todavía.'}</p>
+
+${
+  top10.length
+    ? `<h2>Las más caras del set</h2>
+<div class="grid">${top10.map(cardTile).join('')}</div>`
+    : ''
+}
+
+<p class="acciones">
+  <a class="btn" href="${amazonLink(`${nombre} pokemon sobres`)}" rel="sponsored nofollow noopener" target="_blank">Sobres de ${esc(nombre)} en Amazon</a>
+  <a class="btn ghost" href="/valorar/">¿Cuánto vale mi colección?</a>
+</p>
+<p class="nota small">Enlace de afiliado. El precio lo pone Amazon; la comisión no te cuesta nada.</p>
+
+<h2>Listado completo con precios</h2>
 <table class="listado">
 <thead><tr><th>Carta</th><th>Rareza</th><th class="num">Precio</th></tr></thead>
 <tbody>
