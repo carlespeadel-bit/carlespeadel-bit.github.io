@@ -26,6 +26,8 @@ let ASINS = {};
 try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
 
 const priced = cards.filter((c) => c.price > 0);
+const TOP_INDEXABLE = 300;
+const indexables = new Set(priced.slice(0, TOP_INDEXABLE).map((c) => c.id));
 const porNombre = new Map();
 for (const c of priced) {
   const k = c.name.toLowerCase();
@@ -445,7 +447,7 @@ ${(() => {
         title: `${c.name} ${c.localId ?? ''} — ${c.setName}: precio y valor | ${config.brand}`,
         description: `¿Cuánto vale ${c.name} de ${c.setName}? Precio de mercado hoy: ${eur(c.price)}. Media de 30 días y mínimo, actualizado a diario.`,
         url: `/carta/${slug}/`,
-        noindex: (c.price ?? 0) < 1,
+        noindex: !indexables.has(c.id),
         image: c.image ? `${c.image}/high.webp` : undefined,
         body,
         jsonld: [
@@ -1191,7 +1193,7 @@ await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.
 const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
-  .concat(priced.filter((c) => c.price >= 1).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
+  .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
   .concat(guias.map((g) => `${SITE}/guia/${g.slug}/`));
 // sitemap por bloques con lastmod diario + indice
 const lastmod = (cards[0]?.updated ?? new Date().toISOString()).slice(0, 10);
