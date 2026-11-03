@@ -332,6 +332,19 @@ for (let i = 0; i < priced.length; i += BATCH) {
       const relacionados = (bySet.get(c.setId) ?? [])
         .filter((x) => x.id !== c.id && x.price)
         .slice(0, 6);
+      // contexto calculado: ranking en el set, reimpresiones y variación real
+      const delSet = (bySet.get(c.setId) ?? []).filter((x) => x.price > 0);
+      const posSet = delSet.findIndex((x) => x.id === c.id) + 1;
+      const versiones = (porNombre.get(c.name.toLowerCase()) ?? []).filter((x) => x.price > 0);
+      const barata = versiones.length > 1 ? Math.min(...versiones.map((x) => x.price)) : null;
+      const vBest = bestVariant(c);
+      const var30 = vBest?.avg30 && c.price ? ((c.price - vBest.avg30) / vBest.avg30) * 100 : null;
+      const contexto = [
+        posSet === 1 && delSet.length > 2 ? 'Es la carta más cara de su set.' : posSet > 0 && delSet.length > 2 ? `Es la número ${posSet} de ${delSet.length} en valor dentro de su set.` : '',
+        versiones.length > 1 ? `Existen ${versiones.length} versiones de este personaje; la más barata está a ${eur(barata)}.` : '',
+        var30 != null ? `Frente a su media de 30 días, está ${var30 >= 0 ? 'un ' + var30.toFixed(0) + ' % por encima' : 'un ' + Math.abs(var30).toFixed(0) + ' % por debajo'}.` : '',
+      ].filter(Boolean).join(' ');
+
       const rar = c.rarity && c.rarity !== 'Ninguno' ? `Carta ${String(c.rarity).toLowerCase()}` : 'Carta';
       const tipo = c.types?.length ? ` de tipo ${c.types.join(' y ')}` : '';
       const ps = c.hp ? `, ${c.hp} PS` : '';
@@ -397,6 +410,7 @@ for (let i = 0; i < priced.length; i += BATCH) {
             .join('')}</tbody></table>`
         : ''
     }
+    ${contexto ? `<p class="contexto">${esc(contexto)}</p>` : ''}
     <p class="nota">Precio de referencia de Cardmarket (media de ventas, no tasación). Una carta en estado Near Mint vale más; una con desgaste, bastante menos.</p>
     ${
       ASINS[c.setId]?.length
