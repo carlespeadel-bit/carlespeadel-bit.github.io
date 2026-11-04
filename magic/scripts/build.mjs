@@ -32,7 +32,8 @@ ${image ? `<meta property="og:image" content="${esc(image)}">` : ''}
 <nav><a href="${B}/caras/">Las más caras</a><a href="${B}/">Buscar</a></nav></header>
 <main>${body}</main>
 <footer><p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
-<p class="muted">Precios de referencia de Cardmarket y TCGplayer. No es una tasación.</p></footer>${'<script data-goatcounter="https://valorcarta.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>'}</body></html>`;
+<p class="muted">Precios de referencia de Cardmarket y TCGplayer. No es una tasación.</p><p class="muted small">Datos abiertos: <a href="https://github.com/valorcarta/precios-cartas-datos">descarga el volcado</a> · <a href="https://valorcarta.github.io/datos/">precios Pokémon</a></p>
+</footer>${'<script data-goatcounter="https://valorcarta.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>'}</body></html>`;
 
 await rm(DIST, { recursive: true, force: true });
 await mkdir(path.join(DIST, 'assets'), { recursive: true });
@@ -47,7 +48,7 @@ ${c.small ? `<img src="${esc(c.small)}" alt="${esc(c.name)}" loading="lazy">` : 
 
 await put('index.html', layout({
   title: `Precios de cartas Magic — ${conPrecio.length.toLocaleString('es-ES')} cartas`,
-  description: 'Precio de mercado de más de 14.000 cartas Magic, actualizado. Busca tu carta y mira cuánto vale hoy.',
+  description: `Precio de mercado de ${cards.length.toLocaleString('es-ES')} cartas Magic, actualizado. Busca tu carta y mira cuánto vale hoy.`,
   url: '/',
   body: `<section class="hero"><h1>¿Cuánto vale tu carta de Magic?</h1>
 <p class="lede">${conPrecio.length.toLocaleString('es-ES')} cartas con precio de Cardmarket y TCGplayer. Sin registro.</p>
