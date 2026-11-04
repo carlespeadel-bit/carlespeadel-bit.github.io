@@ -204,6 +204,19 @@
       "estado": "activo",
       "suplente": "fiscal-b",
       "rol": "contradiccion"
+    },
+    {
+      "id": "estrategia",
+      "nombre": "Estrategia (90 días)",
+      "nivel": "A",
+      "sueldo": 2400,
+      "objetivo": "Hitos M1-M6 cumplidos en fecha",
+      "kpi": "hitos_a_tiempo",
+      "fallos": 0,
+      "intentos": 3,
+      "estado": "activo",
+      "suplente": "estrategia-2",
+      "rol": "plan"
     }
   ],
   "banquillo": [
