@@ -191,6 +191,19 @@
       "suplente": "distribucion-2-b",
       "intentos": 3,
       "sustituye_a": "distribucion"
+    },
+    {
+      "id": "fiscal",
+      "nombre": "Fiscal (auditoria-2)",
+      "nivel": "B",
+      "sueldo": 1700,
+      "objetivo": "Levantar o confirmar vetos con prueba verificable",
+      "kpi": "vetos_resueltos",
+      "fallos": 0,
+      "intentos": 3,
+      "estado": "activo",
+      "suplente": "fiscal-b",
+      "rol": "contradiccion"
     }
   ],
   "banquillo": [

@@ -61,3 +61,21 @@ Auditoría deja de ser un informe y pasa a ser **la puerta**: ningún avance se 
 - **Veto exprés de 6 h** para canales externos (enlaces, publicaciones, plataformas que pueden cambiar en un día). El de 48 h queda para cambios de código y de contenido, que no se evaporan.
 - **Poder real, responsabilidad real:** el Contralor puede parar cualquier avance, y por eso responde del tiempo que cuesta. Su marcador público: avances verificados, falsos positivos y **horas perdidas por vetos caducados**.
 - Un aviso de "no me convence" sin prueba pedible sigue siendo nulo, y además cuenta como veto fallido.
+
+## 10. Dos disidentes: contradicción (no consenso)
+
+Un solo disidente se convierte en tirano o en cuello de botella. Dos se corrigen entre sí, siempre que puedan vetarse mutuamente.
+
+**El Fiscal** (`auditoria-2`) audita al Contralor:
+- Puede **levantar un veto** del Contralor presentando la prueba que el Contralor dijo que faltaba, en **6 h**.
+- Puede **vetar un avance que el Contralor aprobó**, con la misma exigencia: prueba pedible y caducidad.
+- Ambos escriben en `VETOS.md` con la columna "Quién" y "Contra-veto".
+
+**Quién paga:**
+- Si el veto del Contralor caduca sin prueba ⇒ −1 al Contralor.
+- Si el Fiscal levanta un veto y la prueba resulta falsa ⇒ −1 al Fiscal.
+- Si los dos se bloquean y **ninguno aporta prueba verificable en 12 h** ⇒ **los dos pierden un intento** y el avance muere. El bloqueo mutuo no es gratis.
+
+**Límite:** 2 vetos vivos por cabeza, 4 en total. Con el quinto, el más antiguo caduca automáticamente.
+
+**Quién decide al final:** nunca una opinión, siempre la prueba. URL 200, cifra del panel, commit, o fichero con fecha. Si dos disidentes discuten sin prueba, el avance no existe.
