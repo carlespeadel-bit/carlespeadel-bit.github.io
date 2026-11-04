@@ -602,13 +602,14 @@ ${guias
 await put(
   OUT('valorar/index.html'),
   layout({
-    title: `Calculadora de valor de colección Pokémon | ${config.brand}`,
+    title: `¿Cuánto vale mi carta de Pokémon? Valoración gratis | ${config.brand}`,
     description:
       'Calcula gratis cuánto vale tu colección de cartas Pokémon con precios de mercado actualizados. Añade cartas, guarda el enlace y sigue el valor con el tiempo.',
     url: '/valorar/',
     alternates: altPair('/valorar/', '/en/price-check/'),
     body: `
-<h1>Valorar mi colección</h1>
+<h1>¿Cuánto vale mi carta de Pokémon?</h1>
+<p class="lede">Escribe el nombre de tu carta y te digo cuánto vale hoy. Precio de referencia de Cardmarket, media de los últimos 30 días y mínimo, para que sepas si ese número es de verdad o es de un día raro.</p>
 <p class="lede">Busca cada carta, pon cuántas tienes y el total se calcula con el precio de mercado de hoy.
 Se guarda en tu navegador y puedes compartir el resultado con un enlace.</p>
 <div class="buscador grande">
