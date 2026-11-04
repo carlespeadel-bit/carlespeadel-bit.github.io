@@ -107,12 +107,26 @@ ${config.goatcounter ? `<script data-goatcounter="https://${esc(config.goatcount
 
 export function priceTable(card) {
   if (!card.variants?.length) return '<p class="muted">Sin datos de precio para esta carta todavía.</p>';
-  const rows = card.variants
-    .filter((v) => v.avg || v.trend || v.holoAvg)
+  // Un listado de Cardmarket por fila; los que comparten etiqueta se numeran
+  // para que no parezca una fila duplicada.
+  const vistos = new Set();
+  const cuenta = new Map();
+  const filas = [];
+  for (const v of card.variants) {
+    if (!(v.avg || v.trend || v.holoAvg)) continue;
+    const clave = v.productId ?? `${v.type}|${v.subtype}|${filas.length}`;
+    if (vistos.has(clave)) continue;
+    vistos.add(clave);
+    filas.push(v);
+  }
+  const rows = filas
     .map((v) => {
       const base = v.trend ?? v.avg;
       const cap = (t = 'normal') => t.charAt(0).toUpperCase() + t.slice(1);
-      const label = cap(v.type || 'normal') + (v.subtype && v.subtype !== 'estándar' ? ` · ${v.subtype}` : '');
+      const baseLabel = cap(v.type || 'normal') + (v.subtype && v.subtype !== 'estándar' ? ` · ${v.subtype}` : '');
+      const n = (cuenta.get(baseLabel) ?? 0) + 1;
+      cuenta.set(baseLabel, n);
+      const label = n === 1 ? baseLabel : `${baseLabel} · listado ${n}`;
       return `<tr>
         <td>${esc(label)}</td>
         <td class="num">${money(base)}</td>

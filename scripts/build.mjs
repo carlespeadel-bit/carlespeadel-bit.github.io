@@ -339,6 +339,13 @@ ${
 </p>
 ${ASINS[id]?.length ? '<p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. El producto es el sellado del set, no una carta concreta.</p>' : '<p class="nota small">Este botón lleva a nuestra guía de fundas, que es donde están los enlaces de afiliado a Amazon.</p>'}
 
+<h2>Preguntas frecuentes sobre ${esc(nombre)}</h2>
+<div class="faq">
+  <details><summary>¿Cuánto vale el set ${esc(nombre)} completo?</summary><p>Sumando el precio de referencia de sus ${caras} cartas con datos, <b>${eur(total)}</b>. La media por carta es ${eur(media)}.</p></details>
+  <details><summary>¿Cuál es la carta más cara de ${esc(nombre)}?</summary><p>${top10[0] ? `<a href="/carta/${cardSlug(top10[0])}/">${esc(top10[0].name)}</a>, con ${eur(top10[0].price)}.` : 'Sin datos de precio todavía.'}</p></details>
+  <details><summary>¿Estos precios son una tasación?</summary><p>No: son precios de referencia de mercado (Cardmarket). El estado de conservación puede cambiar el valor más de la mitad.</p></details>
+</div>
+
 <h2>Listado completo con precios</h2>
 <table class="listado">
 <thead><tr><th>Carta</th><th>Rareza</th><th class="num">Precio</th></tr></thead>
@@ -358,6 +365,28 @@ ${list
       title: `Cartas de ${nombre} — lista completa y precios | ${config.brand}`,
       description: `Todas las cartas del set ${nombre} (${list.length}) con su precio de mercado actualizado. Valor total del set: ${eur(total)}.`,
       url: `/set/${id}/`,
+      jsonld: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: `Cartas de ${nombre}`,
+          numberOfItems: list.length,
+          itemListElement: top10.map((c, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            name: c.name,
+            url: `${SITE}/carta/${cardSlug(c)}/`,
+          })),
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: [
+            { '@type': 'Question', name: `¿Cuánto vale el set ${nombre} completo?`, acceptedAnswer: { '@type': 'Answer', text: `Sumando el precio de referencia de sus ${caras} cartas con datos, ${eur(total)}.` } },
+            { '@type': 'Question', name: `¿Cuál es la carta más cara de ${nombre}?`, acceptedAnswer: { '@type': 'Answer', text: top10[0] ? `${top10[0].name}, con ${eur(top10[0].price)}.` : 'Sin datos todavía.' } },
+          ],
+        },
+      ],
       body,
     }),
   );
