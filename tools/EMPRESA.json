@@ -230,6 +230,19 @@
       "estado": "activo",
       "suplente": "inteligencia-2",
       "rol": "competencia"
+    },
+    {
+      "id": "divergente",
+      "nombre": "Divergente",
+      "nivel": "A",
+      "sueldo": 2300,
+      "objetivo": "2 propuestas semanales que rompan el plan vigente, con prueba falsable",
+      "kpi": "rupturas",
+      "fallos": 0,
+      "intentos": 3,
+      "estado": "activo",
+      "suplente": "divergente-2",
+      "rol": "ruptura"
     }
   ],
   "banquillo": [

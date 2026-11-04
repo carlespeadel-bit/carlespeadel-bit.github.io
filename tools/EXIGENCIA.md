@@ -132,3 +132,13 @@ Regla nacida de un fallo repetido: cada vez que el dueño ha preguntado "¿y est
 - **Inteligencia competitiva** (puesto nuevo) entrega **3 hallazgos accionables por semana**, cada uno con: quién lo hace, dónde se ve, qué costaría copiarlo y qué lo mataría.
 - Un hallazgo sin URL no cuenta. Una recomendación genérica ("usar redes") es un fallo sucio.
 - El estudio se hace **antes** de la hipótesis, no después de que el dueño lo pida.
+
+## 15. El Divergente: obligado a romper el plan
+
+Inteligencia competitiva mira qué hacen otros. El **Divergente** hace lo contrario: parte de la premisa de que el plan vigente está mal y busca la vía que nadie ha considerado.
+
+- **2 propuestas por semana** que dejen inservible parte del plan actual. No valen mejoras del plan: tienen que romperlo.
+- Cada propuesta con: qué premisa del plan ataca, qué haría falta para probarla esta semana sin cuentas ni dinero, y **qué resultado la mataría**.
+- Se guarda en `RUPTURAS.md`, con fecha y veredicto. Una ruptura probada y muerta vale igual que una viva: ya sabemos dónde no estaba la salida.
+- **Prohibido** proponer más contenido, más páginas, más SEO o más diseño: el plan ya está lleno de eso y es justo lo que hay que cuestionar.
+- Si en un mes ninguna ruptura ha resultado viable, el Divergente no ha fallado: ha demostrado que el camino es otro. Se escribe así en el consejo.
