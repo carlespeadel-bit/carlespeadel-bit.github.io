@@ -1,14 +1,11 @@
 [
   {
-    "dom": "otakura.com",
+    "dom": "latiendadelascartas.es",
     "status": 200,
-    "final": "https://otakura.com/",
+    "final": "https://latiendadelascartas.es/",
     "pix": {
-      "Google Ads": [
-        "AW-11360071294"
-      ],
       "GA4": [
-        "G-KDS8SXFVVJ"
+        "G-7NYE1PCWEW"
       ],
       "Klaviyo": [
         "klaviyo",
@@ -25,20 +22,13 @@
     },
     "redes": {
       "Instagram": [
-        "otakurastore"
-      ],
-      "TikTok": [
-        "otakurastore"
+        "latiendadelascartas"
       ],
       "YouTube": [
-        "@otakurastore"
+        "@latiendadelascartas"
       ],
-      "Facebook": [
-        "otakurastore",
-        "sharer.php"
-      ],
-      "X": [
-        "otakurastore"
+      "WhatsApp": [
+        "34676695541"
       ]
     },
     "email": [
@@ -49,16 +39,16 @@
     ]
   },
   {
-    "dom": "elparaisofriki.com",
+    "dom": "mythocardtcg.com",
     "status": 200,
-    "final": "https://elparaisofriki.com/",
+    "final": "https://mythocardtcg.com/",
     "pix": {
       "gtag/GTM": [
         "gtag("
       ],
       "GA4": [
-        "G-43955S1YTH",
-        "gtag('config', 'G-"
+        "G-CHL3PJ83SK",
+        "gtag(\n    'config',\n    'G-"
       ],
       "PrestaShop": [
         "prestashop",
@@ -66,94 +56,8 @@
       ]
     },
     "redes": {
-      "Instagram": [
-        "_elparaisofriki_"
-      ],
-      "Facebook": [
-        "elparaisofriki"
-      ]
-    },
-    "email": [],
-    "pistas": [
-      "newsletter"
-    ]
-  },
-  {
-    "dom": "laescotillajuegos.com",
-    "status": 200,
-    "final": "https://laescotillajuegos.com/",
-    "pix": {
-      "Google Ads": [
-        "AW-790705499"
-      ],
-      "GA4": [
-        "G-CLQL0SK0VH"
-      ],
-      "Shopify": [
-        "cdn.shopify.com",
-        "Shopify.theme"
-      ]
-    },
-    "redes": {
-      "Instagram": [
-        "laescotillamurcia"
-      ]
-    },
-    "email": [],
-    "pistas": [
-      "newsletter"
-    ]
-  },
-  {
-    "dom": "topdeck.es",
-    "status": 200,
-    "final": "https://topdeck.es/",
-    "pix": {
-      "gtag/GTM": [
-        "googletagmanager.com/gtm.js",
-        "GTM-5G7M4HS5"
-      ],
-      "WooCommerce": [
-        "woocommerce"
-      ]
-    },
-    "redes": {
-      "Instagram": [
-        "tcg_topdeck"
-      ],
-      "X": [
-        "tcgtopdeck"
-      ]
-    },
-    "email": [],
-    "pistas": []
-  },
-  {
-    "dom": "plazatcg.com",
-    "status": 200,
-    "final": "https://plazatcg.com/",
-    "pix": {
-      "gtag/GTM": [
-        "gtag("
-      ],
-      "Trustpilot": [
-        "trustpilot",
-        "widget.trustpilot"
-      ],
-      "PrestaShop": [
-        "PrestaShop",
-        "var prestashop"
-      ]
-    },
-    "redes": {
-      "Instagram": [
-        "plazatcg"
-      ],
       "TikTok": [
-        "plazatcg"
-      ],
-      "Facebook": [
-        "policies"
+        "flashcoleccionables"
       ]
     },
     "email": [],
@@ -162,15 +66,12 @@
     ]
   },
   {
-    "dom": "alldaytcg.com",
+    "dom": "tigercards.es",
     "status": 200,
-    "final": "https://alldaytcg.com/",
+    "final": "https://www.tigercards.es/",
     "pix": {
       "Google Ads": [
-        "AW-17582912737"
-      ],
-      "GA4": [
-        "G-03YR67ZKQY"
+        "AW-18082596298"
       ],
       "Trustpilot": [
         "trustpilot"
@@ -182,18 +83,92 @@
     },
     "redes": {
       "Instagram": [
-        "alldaytcgcom"
+        "tigercardstcg"
       ],
       "TikTok": [
-        "alldaytcg"
+        "tigercardstcg"
       ],
-      "Facebook": [
-        "alldaytcg"
+      "Telegram": [
+        "tigercardstcg"
       ]
     },
     "email": [],
     "pistas": [
       "newsletter"
     ]
+  },
+  {
+    "dom": "gremiodedragones.es",
+    "status": 200,
+    "final": "https://gremiodedragones.es/",
+    "pix": {
+      "gtag/GTM": [
+        "gtag("
+      ],
+      "WooCommerce": [
+        "woocommerce"
+      ]
+    },
+    "redes": {
+      "Instagram": [
+        "gremiodedragones"
+      ],
+      "Facebook": [
+        "gremiodd"
+      ]
+    },
+    "email": [],
+    "pistas": []
+  },
+  {
+    "dom": "holoplazatcg.com",
+    "status": 200,
+    "final": "https://holoplazatcg.com/",
+    "pix": {
+      "gtag/GTM": [
+        "gtag("
+      ],
+      "GA4": [
+        "G-DFM0S6H91Q",
+        "gtag('config', 'G-"
+      ],
+      "WooCommerce": [
+        "woocommerce"
+      ]
+    },
+    "redes": {
+      "Instagram": [
+        "holoplaza"
+      ],
+      "TikTok": [
+        "holoplaza"
+      ],
+      "X": [
+        "holoplazatcg"
+      ]
+    },
+    "email": [],
+    "pistas": []
+  },
+  {
+    "dom": "darkvault.es",
+    "status": 200,
+    "final": "https://darkvault.es/",
+    "pix": {
+      "Shopify": [
+        "cdn.shopify.com",
+        "Shopify.theme"
+      ]
+    },
+    "redes": {
+      "Instagram": [
+        "darkvault.es"
+      ],
+      "TikTok": [
+        "darkvault.es"
+      ]
+    },
+    "email": [],
+    "pistas": []
   }
 ]

@@ -142,3 +142,13 @@ Inteligencia competitiva mira qué hacen otros. El **Divergente** hace lo contra
 - Se guarda en `RUPTURAS.md`, con fecha y veredicto. Una ruptura probada y muerta vale igual que una viva: ya sabemos dónde no estaba la salida.
 - **Prohibido** proponer más contenido, más páginas, más SEO o más diseño: el plan ya está lleno de eso y es justo lo que hay que cuestionar.
 - Si en un mes ninguna ruptura ha resultado viable, el Divergente no ha fallado: ha demostrado que el camino es otro. Se escribe así en el consejo.
+
+## 16. Copiar es el trabajo (Inteligencia competitiva, todos los días)
+
+No una vez por semana: **cada día, 3 webs de `COMPETENCIA.md`**, rotando hasta cubrir la lista cada 10 días.
+
+**A cada web se le hacen siempre las mismas 8 preguntas** (están escritas en `COMPETENCIA.md`): con qué paga tráfico, dónde más vende, cómo captura email, qué estructura de URL usa, qué schema tiene, qué oferta muestra, qué prueba social enseña y qué tiene en el primer pantallazo que nosotros no.
+
+**Todo hallazgo entra en la cola de copia con dueño y plazo de 72 h.** Copiar no es calcar el texto: es replicar la estructura que funciona con nuestros datos. Lo que no se copia, se justifica por escrito.
+
+**Se mide el efecto de copiar:** si lo copiado no mueve visitas o clics en 14 días, se abandona y se anota. Copiar sin medir es coleccionar capturas de pantalla.
