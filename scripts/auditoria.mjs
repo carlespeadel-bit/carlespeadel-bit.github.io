@@ -42,9 +42,18 @@ for (const u of muestra) {
 if (caidas.length) add('alta', 'Disponibilidad', `${caidas.length}/${muestra.length} URLs de la muestra no responden`, caidas.slice(0, 3).join(' · '), 'Soporte');
 
 // 2) fichas: aviso de afiliado solo con enlace de producto
+// Regla vigente: /dp/ (7 %) preferente; /s?k= (2 %) solo si no hay ASIN verificado,
+// y en ese caso el aviso debe decirlo. Se marca fallo si hay aviso de comisión SIN ningún
+// enlace de afiliado, o si conviven /dp/ y /s?k= en la misma ficha de un set con ASIN.
 const cartaSample = await leerDist('carta/base1-4-charizard/index.html');
-if (cartaSample.includes('Enlace de afiliado') && !cartaSample.includes('amazon.es/dp/')) {
-  add('alta', 'Afiliados', 'Aviso de afiliado sin enlace de producto', 'carta/base1-4-charizard', 'Afiliados');
+const tieneDp = cartaSample.includes('amazon.es/dp/');
+const tieneBusqueda = cartaSample.includes('amazon.es/s?k=');
+const tieneAviso = cartaSample.includes('Enlace de afiliado');
+if (tieneAviso && !tieneDp && !tieneBusqueda) {
+  add('alta', 'Afiliados', 'Aviso de comisión sin ningún enlace de afiliado', 'carta/base1-4-charizard', 'Afiliados');
+}
+if (tieneDp && tieneBusqueda) {
+  add('media', 'Afiliados', 'Ficha con enlace de producto y de búsqueda a la vez', 'carta/base1-4-charizard', 'Afiliados');
 }
 
 // 3) titulos y descripciones duplicados
