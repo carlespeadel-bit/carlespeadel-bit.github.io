@@ -1185,7 +1185,8 @@ Con precios de mercado, no con intuición.</p>
       <li>Valor del catálogo completo</li>
       <li>Un correo, los lunes. Sin instalar nada</li>
     </ul>
-    <a class="btn" href="mailto:${esc(config.emailVentas)}?subject=Quiero%20el%20informe%20de%20prueba">Pedir el primero gratis</a>
+    <a class="btn ghost" href="/informe-muestra/">Ver informe de muestra</a>
+  <a class="btn" href="mailto:${esc(config.emailVentas)}?subject=Quiero%20el%20informe%20de%20prueba">Pedir el primero gratis</a>
   </div>
   <div class="plan destacado">
     <h2>Panel</h2>
@@ -1878,7 +1879,7 @@ await put(OUT('404.html'), layout({
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
