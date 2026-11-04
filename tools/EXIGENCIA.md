@@ -190,3 +190,15 @@ Lo que sigue es la enmienda del Contralor, aceptada:
 - **La métrica buena no es "% de tiempo ocupado"**, es **valor por turno**. Un turno cada 30 minutos que produce un enlace vale más que cien turnos que producen notas.
 - **Cuando no hay faena:** se tira de `RESERVA.md`, que es finita y con tope. Si la reserva también está agotada, se escribe **"sin faena"** y se cierra el turno. Un turno vacío declarado es honesto; un turno lleno de nada, no.
 - **El Optimizador no puede crear trabajo:** puede reasignar turnos, cerrar puestos sin turno y borrar tareas de reserva que no producen efecto. Nada más.
+
+## 21. El puente: el Optimizador detecta, el Enlace coloca
+
+Faltaba el circuito entre los dos puestos nuevos. Queda así:
+
+1. **El Optimizador detecta** trabajo inventado: turnos sin prueba, tareas que no tocan M1/M2/M3, actividad que no deja rastro. Lo escribe en `TURNOS.md` bajo **"sospechas"**, con el puesto y la prueba.
+2. **El Enlace coloca** a ese puesto en **trabajo real**: busca en `RESERVA.md` o en la necesidad no cubierta de otro agente, y le asigna una tarea con prueba exigida y plazo de 24 h.
+3. **Si no encuentra trabajo real, lo dice por escrito**: el puesto queda **"sin faena"** y su turno se reasigna. No se le inventa nada ni se le sanciona por no tener qué hacer.
+
+**Regla dura:** ningún puesto puede recibir dos turnos seguidos de trabajo inventado. A la segunda sospecha confirmada, el turno se reasigna y el puesto queda en espera activa (mirando `RESERVA.md`) hasta que haya algo de verdad.
+
+Así el Optimizador no es un policía: es el que dispara la búsqueda de trabajo, y el Enlace el que la ejecuta.

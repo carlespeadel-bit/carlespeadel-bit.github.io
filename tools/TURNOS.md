@@ -31,3 +31,10 @@ Cada turno deja **una línea**: quién, qué hizo, qué produjo y si sirvió. Si
 
 ## Lo que dice el Contralor (aceptado)
 *"El 100 % de ocupación es una fantasía de fábrica. Aquí se espera a Google, a las tiendas y a los relays. Un agente que finge trabajar cuesta lo mismo que uno que trabaja y contamina las métricas."*
+
+## Sospechas de trabajo inventado (las escribe el Optimizador)
+| Fecha | Puesto | Prueba de la sospecha | Trabajo real asignado por el Enlace | Plazo | Resuelto |
+|---|---|---|---|---|---|
+| 04-11 | Vigía | 48 turnos/día y casi todos «sin cambios» | Bajado a 30 min; el resto del tiempo no se llena con nada | 05-11 | ✅ |
+
+**El circuito:** el Optimizador sospecha → el Enlace busca trabajo real (RESERVA.md o necesidad de otro agente) → si no hay, se escribe "sin faena" y el turno se reasigna. **Nadie hace dos turnos seguidos de relleno.**
