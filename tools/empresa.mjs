@@ -102,17 +102,17 @@ for (const e of empresa.empleados) {
     }
     if (e.fallos >= R.fallos_para_suspension) e.estado = 'suspendido';
     else if (e.fallos >= R.fallos_para_degradacion) e.nivel = 'C';
-    else if (e.fallos >= R.fallos_para_bajada_sueldo) e.sueldo = Math.round(e.sueldo * (1 - R.descuento_por_fallo));
   } else if (cumple) {
     e.fallos = 0;
     e.ultima_evaluacion = hoyISO2;
     if (e.estado === 'suspendido') e.estado = 'activo';
   }
 
-  // Sin ingresos no hay nómina: el sueldo virtual solo se cobra sobre dinero real.
+  // No hay sueldo fijo: la bolsa es el 50 % de los ingresos repartido por peso entre los que cumplen.
   const ingresosMes = 0;
-  const reparto = Math.min(1, ingresosMes / 1000);
-  const pago = e.estado === 'activo' && cumple ? Math.round(e.sueldo * reparto) : 0;
+  const bolsa = Math.round(ingresosMes * (empresa.reparto_ingresos ?? 0.5));
+  const pesoTotal = empresa.empleados.filter((x) => x.estado === 'activo').reduce((a, x) => a + (x.peso ?? 1), 0);
+  const pago = e.estado === 'activo' && cumple && pesoTotal ? Math.round(bolsa * (e.peso ?? 1) / pesoTotal) : 0;
   masaSalarial += pago;
   const kpiTxt = k.medido ? `${k.valor}/${k.meta} ${k.unidad}${cumple ? ' ✅' : ' ❌'}` : 'NO MEDIDO';
   lineas.push(`| ${e.nombre} | ${kpiTxt} | ${e.estado}${e.fallos ? ` (fallos: ${e.fallos})` : ''} | ${pago} € |`);
@@ -125,15 +125,15 @@ const informe = `# Consejo de administración — ${hoy}
 
 **Visitas totales:** ${visitas ?? 'no medido'} · **Tareas cerradas:** ${hechas} · **Pendientes:** ${pendientes}
 
-| Empleado | KPI | Estado | Sueldo virtual |
+| Empleado | KPI | Estado | Reparto |
 |---|---|---|---|
 ${lineas.join('\n')}
 
 **Suelo diario:** ${huboAvance ? 'cumplido hoy' : `DÍA PERDIDO (${EXIG.dias_perdidos} seguidos)`} · **Racha:** ${EXIG.racha_dias_con_avance} días con avance · **Canales muertos:** ${(EXIG.canales_muertos ?? []).length}
 
-**Masa salarial pagada:** ${masaSalarial} €/mes · **Ingresos reales:** 0 €/mes
-**Regla de pago:** sueldo × (ingresos / 1.000), tope 100 %. Sin ingresos, nómina cero. **Intentos restantes:** cada fallo gasta uno; a cero, el agente sale del organigrama.
-**Déficit:** ${masaSalarial} €/mes. La empresa lleva 3 días sin ingresos y 18 visitas.
+**Reparto pagado este mes:** ${masaSalarial} € · **Ingresos reales:** 0 €/mes
+**Regla de pago:** 50 % de los ingresos repartidos por peso entre los que cumplen KPI. Coste fijo: 0 €. Sin ingresos, cero. **Intentos restantes:** cada fallo gasta uno; a cero, el agente sale del organigrama.
+**Coste fijo:** 0 €/mes. Visitas medidas: ${visitas ?? 'no medido'} · Días sin ingresos: ${EXIG.dias_perdidos ?? 0}.
 
 ## Nota del director
 ${masaSalarial > 0 ? 'Ningún sueldo está justificado por ingresos. El único KPI que manda es `ingresos_mes` y está en 0. Todo lo demás son medios, no fines.' : ''}

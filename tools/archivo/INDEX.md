@@ -15,3 +15,5 @@ Si necesitas una regla, está en `ORGANIGRAMA.md`, `CADENA.md`, `PARTES.md` o `T
 | `COMPETENCIA.md` | informe de rivales | fichas en `competencia/` |
 | `INCOMODIDAD.md` | ensayo de autocrítica | solo historia |
 | `IDEAS.md` | depósito de ideas no pedidas | solo historia |
+
+| `PUESTO-TURNO.md` | 22 puestos con turno y prueba | tabla de `ORGANIGRAMA.md` §3-4 |

@@ -23,157 +23,169 @@
       "id": "director",
       "nombre": "Dirección",
       "nivel": "A",
-      "sueldo": 2250,
+      "sueldo": 0,
       "objetivo": "Ingresos mensuales >= 1000 EUR",
       "kpi": "ingresos_mes",
       "turno": "09:00 diario",
       "area": "Dirección",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 3
     },
     {
       "id": "demanda",
       "nombre": "Analista de demanda",
       "nivel": "B",
-      "sueldo": 1800,
+      "sueldo": 0,
       "objetivo": "10 consultas nuevas/semana con fuente",
       "kpi": "consultas_semana",
       "turno": "10:00 diario",
       "area": "Demanda",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 2
     },
     {
       "id": "contenido",
       "nombre": "Redactor jefe",
       "nivel": "B",
-      "sueldo": 1800,
+      "sueldo": 0,
       "objetivo": "5 páginas publicadas/semana",
       "kpi": "paginas_semana",
       "turno": "10:00 diario",
       "area": "Demanda",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 2
     },
     {
       "id": "distribucion",
       "nombre": "Distribución",
       "nivel": "A",
-      "sueldo": 1500,
+      "sueldo": 0,
       "objetivo": "1 canal publicando a diario",
       "kpi": "canales_activos",
       "turno": "09:30 · cada 3 h · 18:00",
       "area": "Demanda",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 2
     },
     {
       "id": "constructor",
       "nombre": "Ingeniería",
       "nivel": "A",
-      "sueldo": 2200,
+      "sueldo": 0,
       "objetivo": "0 builds rojos y 1 mejora/semana",
       "kpi": "builds_ok",
       "turno": "07:10 diario",
       "area": "Producto",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 3
     },
     {
       "id": "seo",
       "nombre": "SEO técnico",
       "nivel": "A",
-      "sueldo": 1650,
+      "sueldo": 0,
       "objetivo": "Sitemap leído y >=10 páginas indexadas",
       "kpi": "paginas_indexadas",
       "turno": "SIN RELOJ",
       "area": "Producto",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 2
     },
     {
       "id": "datos",
       "nombre": "Datos",
       "nivel": "B",
-      "sueldo": 1600,
+      "sueldo": 0,
       "objetivo": "Panel actualizado a diario y sin cifras fantasma",
       "kpi": "panel_al_dia",
       "turno": "11:00 diario",
       "area": "Producto",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 2
     },
     {
       "id": "afiliados",
       "nombre": "Afiliados",
       "nivel": "A",
-      "sueldo": 1500,
+      "sueldo": 0,
       "objetivo": "100% de enlaces a /dp/ y >=20 ASIN",
       "kpi": "enlaces_producto",
       "turno": "11:00 diario",
       "area": "Monetización",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 2
     },
     {
       "id": "auditor",
       "nombre": "Auditoría",
       "nivel": "B",
-      "sueldo": 1700,
+      "sueldo": 0,
       "objetivo": "3 fallos con evidencia/semana",
       "kpi": "hallazgos",
       "turno": "21:00 diario",
       "area": "Control",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 2
     },
     {
       "id": "soporte",
       "nombre": "Soporte",
       "nivel": "C",
-      "sueldo": 1200,
+      "sueldo": 0,
       "objetivo": "0 caídas sin avisar",
       "kpi": "sin_caidas",
       "turno": "cada 30 min (vigía)",
       "area": "Control",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 1
     },
     {
       "id": "inteligencia",
       "nombre": "Inteligencia competitiva",
       "nivel": "B",
-      "sueldo": 2100,
+      "sueldo": 0,
       "objetivo": "5 fichas de rival con prueba/semana",
       "kpi": "hallazgos_accionables",
       "turno": "cada 2 h",
       "area": "Estudio",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 2
     },
     {
       "id": "enlace",
       "nombre": "Enlace de ideas",
       "nivel": "A",
-      "sueldo": 2200,
+      "sueldo": 0,
       "objetivo": "3 conexiones ejecutadas/semana",
       "kpi": "conexiones_accionadas",
       "turno": "22:00 diario",
       "area": "Estudio",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 2
     },
     {
       "id": "divergente",
@@ -186,7 +198,8 @@
       "area": "Estudio",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 1
     },
     {
       "id": "abstraedor",
@@ -199,7 +212,8 @@
       "area": "Estudio",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 1
     },
     {
       "id": "optimizador",
@@ -208,11 +222,12 @@
       "sueldo": 0,
       "objetivo": "Detectar turnos sin valor y recolocarlos",
       "kpi": "valor_por_turno",
-      "turno": "Consejo semanal",
+      "turno": "20:00 diario",
       "area": "Control",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 1
     },
     {
       "id": "estrategia",
@@ -221,11 +236,40 @@
       "sueldo": 0,
       "objetivo": "Hitos M1-M3 en fecha",
       "kpi": "hitos_a_tiempo",
-      "turno": "Consejo semanal",
+      "turno": "vie 19:00 (Comité)",
       "area": "Dirección",
       "fallos": 0,
       "intentos": 3,
-      "estado": "activo"
+      "estado": "activo",
+      "peso": 2
+    },
+    {
+      "id": "fiscal",
+      "nombre": "Fiscal",
+      "nivel": "B",
+      "sueldo": 0,
+      "objetivo": "Cierra un hueco real al día (404, dato falso, enlace roto)",
+      "kpi": "huecos_cerrados",
+      "turno": "16:00 diario",
+      "area": "Control",
+      "fallos": 0,
+      "intentos": 3,
+      "estado": "activo",
+      "peso": 2
+    },
+    {
+      "id": "creativa",
+      "nombre": "Dirección creativa",
+      "nivel": "B",
+      "sueldo": 0,
+      "objetivo": "Vídeo con 8/10 en CRITERIOS_VIDEO antes de publicar",
+      "kpi": "videos_aprobados",
+      "turno": "12:30 diario",
+      "area": "Estudio",
+      "fallos": 0,
+      "intentos": 3,
+      "estado": "activo",
+      "peso": 2
     }
   ],
   "banquillo": [
@@ -296,7 +340,39 @@
       "id": "video",
       "nombre": "Calidad de vídeo",
       "criterio": "CRITERIOS_VIDEO.md: 10 preguntas, 3 'no' bloquean la publicación",
-      "aplica": "quien publica"
+      "aplica": "Dirección creativa"
+    },
+    {
+      "id": "prueba",
+      "nombre": "Prueba por turno",
+      "criterio": "Sin URL, cifra o commit no es avance",
+      "aplica": "Auditoría"
     }
-  ]
+  ],
+  "coste_fijo_mes": 0,
+  "reparto_ingresos": 0.5,
+  "grupos": {
+    "plantilla": [
+      "director",
+      "demanda",
+      "contenido",
+      "distribucion",
+      "constructor",
+      "seo",
+      "datos",
+      "afiliados",
+      "auditor",
+      "soporte",
+      "inteligencia",
+      "enlace",
+      "optimizador",
+      "fiscal",
+      "creativa"
+    ],
+    "estudio": [
+      "divergente",
+      "abstraedor",
+      "estrategia"
+    ]
+  }
 }

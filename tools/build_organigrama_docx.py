@@ -42,10 +42,21 @@ def borde_inferior(p, color="E0A800", size=12):
     pPr.append(pbdr)
 
 
+def anchos_fijos(t):
+    t.autofit = False
+    tblPr = t._tbl.tblPr
+    layout = OxmlElement("w:tblLayout")
+    layout.set(qn("w:type"), "fixed")
+    tblPr.append(layout)
+
+
 def tabla(doc, cabeceras, filas, anchos, fuente=8.5):
     t = doc.add_table(rows=1, cols=len(cabeceras))
     t.style = "Table Grid"
     t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    anchos_fijos(t)
+    for i, w in enumerate(anchos):
+        t.columns[i].width = Cm(w)
     for i, (h, w) in enumerate(zip(cabeceras, anchos)):
         c = t.rows[0].cells[i]
         c.width = Cm(w)
@@ -86,7 +97,7 @@ p2 = doc.add_paragraph()
 r = p2.add_run("Organigrama")
 r.bold = True; r.font.size = Pt(30); r.font.color.rgb = NEGRO
 p3 = doc.add_paragraph()
-r = p3.add_run("Versión 2 · 4 de noviembre de 2026 · fuente única: tools/EMPRESA.json")
+r = p3.add_run("Versión 3 · 4 de noviembre de 2026 · fuente única: tools/EMPRESA.json")
 r.font.size = Pt(9); r.font.color.rgb = GRIS
 borde_inferior(p3)
 
@@ -98,8 +109,8 @@ r.bold = True; r.font.size = Pt(14)
 p = doc.add_paragraph()
 r = p.add_run("ingresos_mes ≥ 1.000 €.  ")
 r.bold = True; r.font.size = Pt(11)
-r = p.add_run("Todo lo demás —páginas, enlaces, ASIN, vídeos— son medios. Ninguna función cobra sin ingresos: "
-              "el sueldo es compromiso presupuestado, no gasto.")
+r = p.add_run("Todo lo demás —páginas, enlaces, ASIN, vídeos— son medios. Coste fijo de la estructura: 0 €/mes. "
+              "Si entran ingresos, se reparte el 50 % por peso entre los que cumplan su KPI; si no, cero.")
 r.font.size = Pt(9.5)
 
 # ---------- estructura ----------
@@ -112,43 +123,46 @@ tabla(doc,
        ["**Demanda**", "Analista de demanda · Redactor jefe · Distribución"],
        ["**Producto**", "Ingeniería · SEO técnico · Datos"],
        ["**Monetización**", "Afiliados"],
-       ["**Control**", "Auditoría · Soporte · Optimizador de turnos"],
-       ["**Estudio**", "Inteligencia competitiva · Enlace · Abstraedor · Divergente · Estrategia 90 d"],
-       ["**Puerta de calidad**", "Vídeo: 10 criterios, 3 «no» bloquean la publicación (CRITERIOS_VIDEO.md)"]],
+       ["**Control**", "Auditoría · Soporte · Fiscal"],
+       ["**Estudio**", "Inteligencia · Enlace · Creativa · Optimizador · Divergente · Abstraedor · Estrategia"],
+       ["**Puertas de calidad**", "Vídeo: 3 «no» bloquean la publicación · Turno: sin URL, cifra o commit no es avance"]],
       [3.6, 13.4])
 
 # ---------- plantilla ----------
 doc.add_paragraph()
 p = doc.add_paragraph()
-r = p.add_run("3. Plantilla con sueldo y reloj (12)")
+r = p.add_run("3. Plantilla: 15 puestos (14 con reloj; SEO sin él)")
 r.bold = True; r.font.size = Pt(14)
 orden = ["director", "demanda", "contenido", "distribucion", "constructor", "seo",
-         "datos", "afiliados", "auditor", "soporte", "inteligencia", "enlace"]
+         "datos", "afiliados", "auditor", "soporte", "inteligencia", "enlace", "fiscal", "optimizador", "creativa"]
 filas = []
 for k in orden:
     x = e[k]
-    filas.append([f"**{x['nombre']}**", x["objetivo"], x["turno"], f"{x['sueldo']:,}".replace(",", ".") + " €"])
-tabla(doc, ["Puesto", "KPI", "Turno", "Sueldo"], filas, [3.3, 7.3, 4.4, 2.0])
+    filas.append([f"**{x['nombre']}**", x["objetivo"], x["turno"]])
+tabla(doc, ["Puesto", "KPI", "Turno"], filas, [4.0, 8.6, 4.4])
 
 # ---------- estudio ----------
 doc.add_paragraph()
 p = doc.add_paragraph()
-r = p.add_run("4. Estudio (0 € de sueldo fijo)")
+r = p.add_run("4. Estudio: 3 puestos sin turno diario propio")
 r.bold = True; r.font.size = Pt(14)
-filas = [[f"**{e[k]['nombre']}**", e[k]["objetivo"], e[k]["turno"]] for k in ["divergente", "abstraedor", "optimizador", "estrategia"]]
-tabla(doc, ["Puesto", "Qué hace", "Turno"], filas, [3.3, 9.3, 4.4])
+filas = [[f"**{e[k]['nombre']}**", e[k]["objetivo"], e[k]["turno"]] for k in ["divergente", "abstraedor", "estrategia"]]
+tabla(doc, ["Puesto", "Qué hace", "Turno"], filas, [3.6, 9.0, 4.4])
 
 # ---------- nómina ----------
 doc.add_paragraph()
 p = doc.add_paragraph()
-r = p.add_run("5. Nómina")
+r = p.add_run("5. Dinero")
 r.bold = True; r.font.size = Pt(14)
 t = doc.add_table(rows=1, cols=2)
 t.style = "Table Grid"
+anchos_fijos(t)
+t.columns[0].width = Cm(8.5)
+t.columns[1].width = Cm(8.5)
 c = t.rows[0].cells
 c[0].width = Cm(8.5); c[1].width = Cm(8.5)
-for celda, (etq, val, nota) in zip(c, [("Comprometido", f"{comprometido:,} €/mes".replace(",", "."), "12 puestos · estudio y puertas a 0 €"),
-                                       ("Pagado hoy", "0 €", "sueldo × min(1, ingresos/1.000)")]):
+for celda, (etq, val, nota) in zip(c, [("Coste fijo", "0 €/mes", "no hay sueldos: 18 fichas sin coste"),
+                                       ("Reparto si hay ingresos", "50 %", "de ingresos_mes, por peso (34 puntos)")]):
     p = celda.paragraphs[0]
     r = p.add_run(etq); r.font.size = Pt(9); r.font.color.rgb = GRIS
     p = celda.add_paragraph()
@@ -157,13 +171,13 @@ for celda, (etq, val, nota) in zip(c, [("Comprometido", f"{comprometido:,} €/m
     r = p.add_run(nota); r.font.size = Pt(8); r.font.color.rgb = GRIS
 p = doc.add_paragraph()
 r = p.add_run("Quedan muertos los tres números que circulaban: 19.500 € escrito a mano, 41.000 € sumando fichas duplicadas y 0 € pagado. "
-              "Se escribe uno solo y lo calcula el JSON.")
+              "Ahora el dinero solo se calcula y solo existe si entra.")
 r.font.size = Pt(8.5); r.font.color.rgb = GRIS
 
 # ---------- relojes ----------
-doc.add_paragraph()
+doc.add_page_break()
 p = doc.add_paragraph()
-r = p.add_run("6. Relojes: 76 disparos al día")
+r = p.add_run("6. Relojes: 80 disparos al día")
 r.bold = True; r.font.size = Pt(14)
 tabla(doc, ["Turno", "Puesto", "Disparos/día"],
       [["07:10 mantenimiento", "Ingeniería", "1"],
@@ -171,7 +185,10 @@ tabla(doc, ["Turno", "Puesto", "Disparos/día"],
        ["09:30 nota Nostr", "Distribución", "1"],
        ["10:00 contenido y demanda", "Demanda · Redactor", "1"],
        ["11:00 afiliados y datos", "Afiliados · Datos", "1"],
+       ["12:30 vídeo", "Dirección creativa", "1"],
+       ["16:00 caza de huecos", "Fiscal", "1"],
        ["18:00 Pinterest", "Distribución", "1"],
+       ["20:00 optimizador", "Optimizador", "1"],
        ["21:00 supervisión", "Auditoría", "1"],
        ["22:00 enlace y principios", "Enlace · Abstraedor", "1"],
        ["cada 3 h tráfico", "Distribución", "8"],
@@ -180,8 +197,8 @@ tabla(doc, ["Turno", "Puesto", "Disparos/día"],
        ["semanal", "Consejo · Comité · Ruptura", "~0,6"]],
       [6.6, 7.4, 3.0])
 p = doc.add_paragraph()
-r = p.add_run("El vigía se lleva el 63 % de los disparos. Un hueco declarado: SEO técnico no tiene reloj. "
-              "Riesgo estructural: los 14 relojes cuelgan de una sola sesión.")
+r = p.add_run("El vigía se lleva el 60 % de los disparos. Un hueco declarado: SEO técnico no tiene reloj. "
+              "Riesgo estructural: los 17 relojes cuelgan de una sola sesión.")
 r.font.size = Pt(8.5); r.font.color.rgb = GRIS
 
 # ---------- reglas ----------
@@ -194,7 +211,7 @@ reglas = [
     "Suelo diario. Cada día, un avance medible. Día sin avance = perdido; 2 seguidos ⇒ sanción; 5 al mes ⇒ fuera.",
     "No es avance leer, planificar, «dejar preparado» ni refactorizar sin efecto medible.",
     "Muertes. Limpia (se midió) no cuesta y suma un descubrimiento; sucia (sin medir o repetida) cuesta 2 intentos.",
-    "Sanciones. 1 aviso · 2 −25 % · 3 nivel C · 4 suspensión · 5 cese (entra el banquillo, nunca se duplica la ficha).",
+    "Sanciones. 1 aviso · 2 nivel C · 3 suspensión · 4 cese (entra el banquillo, nunca se duplica la ficha). No hay sueldo que descontar.",
     "Veto con caducidad: 48 h código y contenido, 6 h canales externos; máximo 3 vivos.",
     "Freno de reglamentación: máximo 2 reglas nuevas por semana. Una regla sin turno que la ejecute no se escribe.",
     "Nadie asciende por actividad: se asciende por KPI cumplido dos semanas seguidas.",
