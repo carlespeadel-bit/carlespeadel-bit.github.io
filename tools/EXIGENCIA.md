@@ -210,3 +210,12 @@ Faltaba el circuito entre los dos puestos nuevos. Queda así:
 - **Del Contralor:** una sospecha **caduca en 24 h**, no en 72. Si en ese plazo no hay trabajo asignado ni "sin faena" escrito, la sospecha se cierra y el turno se reasigna igual. Una lista de sospechas eternas no arregla nada.
 
 Así el Optimizador no es un policía: es el que dispara la búsqueda de trabajo, y el Enlace el que la ejecuta.
+
+## 22. Freno de reglamentación (autolímite)
+
+Hoy se han creado **21 puestos, 22 reglas y 9 ficheros de gobierno** sin cobrar un euro. Eso también es una forma de no avanzar: diseñar el sistema en vez de usarlo.
+
+- **Máximo 2 reglas nuevas por semana.** La tercera espera al lunes.
+- **Ningún puesto nuevo** hasta que exista uno que haya producido dinero o una visita externa.
+- Toda reunión y todo reglamento **cuestan un turno**: si ese turno se podía haber dedicado a vender, se dice en el informe.
+- La pregunta que cierra cada comité: **¿esto ha acercado el primer euro o solo ha ordenado el desorden?**
