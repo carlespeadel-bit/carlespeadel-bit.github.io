@@ -79,3 +79,20 @@ Un solo disidente se convierte en tirano o en cuello de botella. Dos se corrigen
 **Límite:** 2 vetos vivos por cabeza, 4 en total. Con el quinto, el más antiguo caduca automáticamente.
 
 **Quién decide al final:** nunca una opinión, siempre la prueba. URL 200, cifra del panel, commit, o fichero con fecha. Si dos disidentes discuten sin prueba, el avance no existe.
+
+## 11. El Fiscal no espera: caza huecos
+
+Un disidente parado es un disidente inútil. Si no hay nada que auditar, el Fiscal **busca faena** con una lista cerrada de huecos:
+
+1. **Objetivos sin dueño** en `BACKLOG.md`.
+2. **KPIs sin instrumentar** ("NO MEDIDO" en `EMPRESA.json`).
+3. **Hipótesis abiertas más de 48 h** sin cerrar en `CADENA.md`.
+4. **Canales muertos** a los que alguien ha vuelto.
+5. **Promesas sin prueba** en `PREGUNTAS.md` (afirmaciones sin URL, cifra o commit).
+6. **Suelo diario incumplido**: días sin avance medible en `EXIGENCIA.json`.
+
+**Regla del hueco:** el que encuentra el hueco **se lo queda** si nadie lo reclama en 6 h, con un experimento asignado y su criterio de muerte. No se reporta y se espera: se ocupa.
+
+**Su KPI pasa a ser `huecos cerrados/semana`**, no huecos encontrados. Encontrar es fácil; cerrar es el trabajo.
+
+**Tiempo vacío = fallo.** Si un turno del Fiscal termina sin un hueco cerrado ni un veto resuelto, es un día perdido y lo paga como cualquiera.
