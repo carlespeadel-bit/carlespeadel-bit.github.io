@@ -9,19 +9,24 @@
     "fallos_para_degradacion": 3,
     "fallos_para_suspension": 4,
     "fallos_para_cese": 5,
-    "kpi_no_medido": "no penaliza; se marca NO MEDIDO y se exige instrumentarlo"
+    "kpi_no_medido": "no penaliza; se marca NO MEDIDO y se exige instrumentarlo",
+    "pago_condicionado_a_ingresos": true,
+    "reparto_ingresos": 0.5,
+    "intentos_por_agente": 3
   },
   "empleados": [
     {
       "id": "director",
       "nombre": "Dirección",
-      "nivel": "A",
-      "sueldo": 3000,
+      "nivel": "C",
+      "sueldo": 2250,
       "objetivo": "Ingresos mensuales >= 1000 EUR",
       "kpi": "ingresos_mes",
-      "fallos": 1,
-      "estado": "activo",
-      "suplente": "direccion-2"
+      "fallos": 5,
+      "estado": "cesado",
+      "suplente": "direccion-2",
+      "intentos": 0,
+      "sustituido_por": "direccion-2"
     },
     {
       "id": "demanda",
@@ -30,9 +35,10 @@
       "sueldo": 1800,
       "objetivo": "10 consultas nuevas/semana con fuente",
       "kpi": "consultas_semana",
-      "fallos": 0,
+      "fallos": 1,
       "estado": "activo",
-      "suplente": "demanda-2"
+      "suplente": "demanda-2",
+      "intentos": 2
     },
     {
       "id": "contenido",
@@ -41,9 +47,10 @@
       "sueldo": 1800,
       "objetivo": "5 páginas publicadas/semana",
       "kpi": "paginas_semana",
-      "fallos": 0,
+      "fallos": 1,
       "estado": "activo",
-      "suplente": "contenido-2"
+      "suplente": "contenido-2",
+      "intentos": 2
     },
     {
       "id": "constructor",
@@ -54,40 +61,47 @@
       "kpi": "builds_ok",
       "fallos": 0,
       "estado": "activo",
-      "suplente": "ingenieria-2"
+      "suplente": "ingenieria-2",
+      "intentos": 2
     },
     {
       "id": "seo",
       "nombre": "SEO técnico",
-      "nivel": "A",
-      "sueldo": 2200,
+      "nivel": "C",
+      "sueldo": 1650,
       "objetivo": "Sitemap leído y >=10 páginas indexadas",
       "kpi": "paginas_indexadas",
-      "fallos": 1,
-      "estado": "activo",
-      "suplente": "seo-2"
+      "fallos": 5,
+      "estado": "cesado",
+      "suplente": "seo-2",
+      "intentos": 0,
+      "sustituido_por": "seo-2"
     },
     {
       "id": "afiliados",
       "nombre": "Afiliados",
-      "nivel": "A",
-      "sueldo": 2000,
+      "nivel": "C",
+      "sueldo": 1500,
       "objetivo": "100% de enlaces a /dp/ y >=20 ASIN",
       "kpi": "enlaces_producto",
-      "fallos": 1,
-      "estado": "activo",
-      "suplente": "afiliados-2"
+      "fallos": 5,
+      "estado": "cesado",
+      "suplente": "afiliados-2",
+      "intentos": 0,
+      "sustituido_por": "afiliados-2"
     },
     {
       "id": "distribucion",
       "nombre": "Distribución",
-      "nivel": "A",
-      "sueldo": 2000,
+      "nivel": "C",
+      "sueldo": 1500,
       "objetivo": "1 canal publicando a diario",
       "kpi": "canales_activos",
-      "fallos": 1,
-      "estado": "activo",
-      "suplente": "distribucion-2"
+      "fallos": 5,
+      "estado": "cesado",
+      "suplente": "distribucion-2",
+      "intentos": 0,
+      "sustituido_por": "distribucion-2"
     },
     {
       "id": "datos",
@@ -98,18 +112,21 @@
       "kpi": "panel_al_dia",
       "fallos": 0,
       "estado": "activo",
-      "suplente": "datos-2"
+      "suplente": "datos-2",
+      "intentos": 2
     },
     {
       "id": "auditor",
       "nombre": "Auditoría",
       "nivel": "B",
       "sueldo": 1700,
-      "objetivo": "3 fallos con evidencia/semana",
-      "kpi": "hallazgos",
+      "objetivo": "% de avances verificados sin falso positivo (y vetos con prueba)",
+      "kpi": "verificacion",
       "fallos": 0,
       "estado": "activo",
-      "suplente": "auditoria-2"
+      "suplente": "auditoria-2",
+      "intentos": 2,
+      "rol": "contralor"
     },
     {
       "id": "soporte",
@@ -120,20 +137,73 @@
       "kpi": "alertas",
       "fallos": 0,
       "estado": "activo",
-      "suplente": "soporte-2"
+      "suplente": "soporte-2",
+      "intentos": 2
+    },
+    {
+      "id": "direccion-2",
+      "nombre": "Dirección (direccion-2)",
+      "nivel": "C",
+      "sueldo": 2250,
+      "objetivo": "Ingresos mensuales >= 1000 EUR",
+      "kpi": "ingresos_mes",
+      "fallos": 0,
+      "estado": "activo",
+      "suplente": "direccion-2-b",
+      "intentos": 3,
+      "sustituye_a": "director"
+    },
+    {
+      "id": "seo-2",
+      "nombre": "SEO técnico (seo-2)",
+      "nivel": "C",
+      "sueldo": 1650,
+      "objetivo": "Sitemap leído y >=10 páginas indexadas",
+      "kpi": "paginas_indexadas",
+      "fallos": 0,
+      "estado": "activo",
+      "suplente": "seo-2-b",
+      "intentos": 3,
+      "sustituye_a": "seo"
+    },
+    {
+      "id": "afiliados-2",
+      "nombre": "Afiliados (afiliados-2)",
+      "nivel": "C",
+      "sueldo": 1500,
+      "objetivo": "100% de enlaces a /dp/ y >=20 ASIN",
+      "kpi": "enlaces_producto",
+      "fallos": 0,
+      "estado": "activo",
+      "suplente": "afiliados-2-b",
+      "intentos": 3,
+      "sustituye_a": "afiliados"
+    },
+    {
+      "id": "distribucion-2",
+      "nombre": "Distribución (distribucion-2)",
+      "nivel": "C",
+      "sueldo": 1500,
+      "objetivo": "1 canal publicando a diario",
+      "kpi": "canales_activos",
+      "fallos": 0,
+      "estado": "activo",
+      "suplente": "distribucion-2-b",
+      "intentos": 3,
+      "sustituye_a": "distribucion"
     }
   ],
   "banquillo": [
-    "direccion-2",
     "demanda-2",
     "contenido-2",
     "ingenieria-2",
-    "seo-2",
-    "afiliados-2",
-    "distribucion-2",
     "datos-2",
     "auditoria-2",
-    "soporte-2"
+    "soporte-2",
+    "direccion-2-b",
+    "seo-2-b",
+    "afiliados-2-b",
+    "distribucion-2-b"
   ],
   "historial": [
     {
@@ -142,6 +212,34 @@
       "tareasHechas": 22,
       "tareasPendientes": 4,
       "masaSalarial": 19500
+    },
+    {
+      "fecha": "2026-11-04",
+      "visitas": 18,
+      "tareasHechas": 22,
+      "tareasPendientes": 4,
+      "masaSalarial": 17200
+    },
+    {
+      "fecha": "2026-11-04",
+      "visitas": 19,
+      "tareasHechas": 22,
+      "tareasPendientes": 10,
+      "masaSalarial": 0
+    },
+    {
+      "fecha": "2026-11-04",
+      "visitas": 19,
+      "tareasHechas": 22,
+      "tareasPendientes": 10,
+      "masaSalarial": 0
+    },
+    {
+      "fecha": "2026-11-04",
+      "visitas": 19,
+      "tareasHechas": 22,
+      "tareasPendientes": 10,
+      "masaSalarial": 0
     }
   ]
 }

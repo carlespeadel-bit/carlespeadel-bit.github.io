@@ -24,3 +24,33 @@ Cada semana mi hipótesis debe atacar **una métrica que aún no haya movido**. 
 
 ## 6. Las tres muertes
 Un canal muere cuando acumula 3 hipótesis muertas con evidencia. Muerto el canal, no se vuelve a él: se abre otro o se declara el objetivo inalcanzable por esa vía.
+
+## 7. Libertad para imaginar y probar (prevalece sobre el castigo)
+
+Lo que mueve a un agente no es el miedo a perder intentos: es poder imaginar y probar. Por eso:
+
+- **Imaginar es gratis e ilimitado.** Cada agente puede escribir cuantas hipótesis quiera; solo ejecutar gasta recursos.
+- **5 experimentos por semana, sin pedir permiso.** Cada uno con su criterio de muerte. Si sirve para descartar un camino, ya ha valido.
+- **Solo el fallo sucio cuesta.** Se distinguen dos muertes:
+  - **MUERTA LIMPIA**: se midió, no funcionó, queda el porqué ⇒ **no cuesta intentos**, suma un descubrimiento.
+  - **MUERTA SUCIA**: no se midió, o se repitió una hipótesis ya enterrada ⇒ **cuesta 2 intentos**.
+- **Ganar da munición:** cada enlace conseguido, canal abierto o página indexada ⇒ **+1 intento** (máximo 5).
+- **Un descubrimiento negativo bien documentado vale tanto como un acierto** en el consejo del domingo.
+
+La exigencia no baja: cambia el objeto. No se exige no fallar, se exige **probar mucho y medirlo todo**.
+
+## 8. El Contralor (Auditoría): veto con caducidad
+
+Auditoría deja de ser un informe y pasa a ser **la puerta**: ningún avance se da por bueno sin su visto bueno. Pero el veto tiene precio y fecha, o se convierte en la excusa perfecta para no mover nada.
+
+**Cómo veta:**
+- Escribe en `VETOS.md`: qué avance bloquea, **qué prueba exacta** lo desbloquearía y **fecha límite (48 h)**.
+- Mientras el veto esté vivo, ese avance no cuenta para el KPI de nadie. El trabajo puede seguir; lo que no avanza es el reconocimiento.
+- Si llega la prueba, el veto cae y el emisor gana +1 intento por haberla producido.
+- Si no llega en 48 h, **muere el avance, no el agente**: se borra de la cadena y el intento se pierde.
+
+**Límites al Contralor (si no, bloquea la empresa):**
+- Máximo **3 vetos vivos** a la vez. Con el cuarto, debe levantar uno.
+- Un veto sin prueba pedible es nulo: "no me convence" no bloquea nada.
+- Si en una semana veta **más de la mitad** de los avances y **no ha falsado ninguno**, se sustituye por `auditoria-2`. Obstruir no es auditar.
+- Su propio trabajo lo audita Dirección, y su KPI pasa a ser **% de avances verificados sin falsos positivos**, no número de hallazgos.
