@@ -2,6 +2,7 @@
 # Publica dist en la rama gh-pages, pero solo si el guardia lo permite.
 set -e
 cd "$(dirname "$0")/.."
+node scripts/informe-tiendas.mjs >/dev/null 2>&1 || true
 node ../dinero/guardia.mjs || { echo "Despliegue bloqueado por el guardia."; exit 1; }
 cd dist
 rm -rf .git
