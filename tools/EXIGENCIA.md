@@ -54,3 +54,10 @@ Auditoría deja de ser un informe y pasa a ser **la puerta**: ningún avance se 
 - Un veto sin prueba pedible es nulo: "no me convence" no bloquea nada.
 - Si en una semana veta **más de la mitad** de los avances y **no ha falsado ninguno**, se sustituye por `auditoria-2`. Obstruir no es auditar.
 - Su propio trabajo lo audita Dirección, y su KPI pasa a ser **% de avances verificados sin falsos positivos**, no número de hallazgos.
+
+## 9. El veto cuesta al que veta (enmienda de Dirección)
+
+- **Veto caducado sin prueba ⇒ el Contralor gasta un intento.** Vetar sale gratis; por eso todos vetarían por reflejo. Si no hay prueba en plazo, paga el que bloqueó.
+- **Veto exprés de 6 h** para canales externos (enlaces, publicaciones, plataformas que pueden cambiar en un día). El de 48 h queda para cambios de código y de contenido, que no se evaporan.
+- **Poder real, responsabilidad real:** el Contralor puede parar cualquier avance, y por eso responde del tiempo que cuesta. Su marcador público: avances verificados, falsos positivos y **horas perdidas por vetos caducados**.
+- Un aviso de "no me convence" sin prueba pedible sigue siendo nulo, y además cuenta como veto fallido.
