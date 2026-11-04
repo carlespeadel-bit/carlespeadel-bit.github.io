@@ -1223,6 +1223,14 @@ await put(
 <p class="lede">El formato cambia el precio por sobre más que la tienda. Antes de comprar, mira qué te llevas
 y cuánto estás pagando por cada sobre; luego compara.</p>
 
+// fichas de producto con página propia: enlazarlas aquí para que no queden huérfanas
+<div class="grid">
+  <a class="set-card" href="/comprar/etb-30/"><span class="set-name">ETB 30.º aniversario</span><span class="muted">La nº1 en ventas de Amazon · 52,99 €</span><span class="set-total">Ver análisis</span></a>
+  <a class="set-card" href="/comprar/lote-30/"><span class="set-name">Lote de 6 sobres del 30.º</span><span class="muted">4,99 € por sobre: la referencia</span><span class="set-total">Ver análisis</span></a>
+  <a class="set-card" href="/comprar/etb-dominio-delta/"><span class="set-name">ETB Dominio Delta</span><span class="muted">Qué trae y cuándo conviene</span><span class="set-total">Ver análisis</span></a>
+  <a class="set-card" href="/comprar/regalos/"><span class="set-name">Qué regalar</span><span class="muted">Nueve ideas por presupuesto</span><span class="set-total">Ver guía</span></a>
+</div>
+
 <table class="listado">
 <thead><tr><th>Formato</th><th>Cuándo tiene sentido</th><th class="num">Ver precios</th></tr></thead>
 <tbody>
