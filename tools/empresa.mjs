@@ -93,5 +93,21 @@ ${lineas.join('\n')}
 ## Nota del director
 ${masaSalarial > 0 ? 'Ningún sueldo está justificado por ingresos. El único KPI que manda es `ingresos_mes` y está en 0. Todo lo demás son medios, no fines.' : ''}
 `;
+// preguntas de cada agente: el bucle de autointerrogación
+const preguntas = empresa.empleados
+  .filter((e) => e.estado !== 'cesado')
+  .map((e) => {
+    const k = kpi(e.id);
+    const falta = k.medido ? Math.max(0, k.meta - k.valor) : null;
+    return `## ${e.nombre} (${e.estado}, nivel ${e.nivel})
+1. **¿Qué me falta?** ${k.medido ? `${falta} ${k.unidad} para llegar a ${k.meta} (voy ${k.valor}).` : 'KPI NO MEDIDO: mi primera tarea es instrumentarlo.'}
+2. **Hipótesis más barata:** (la escribe el agente en su siguiente turno)
+3. **Qué hice y qué pasó:** (dato o "no medido")
+4. **Qué aprendí y qué pregunto ahora:** (abierta)
+`;
+  })
+  .join('\n');
+
+await writeFile(path.join(ROOT, 'PREGUNTAS.md'), `# Autointerrogación — ${hoy}\n\n${preguntas}`);
 await writeFile(path.join(ROOT, 'CONSEJO.md'), informe);
 console.log(informe);
