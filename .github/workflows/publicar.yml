@@ -80,19 +80,25 @@ jobs:
           if git diff --cached --quiet; then echo "sin cambios"; else git commit -m "precios $(date -u +%F)"; fi
           git push || echo "nada que subir"
 
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+      # Pages sirve desde la rama gh-pages: publicamos empujando dist allí.
+      - name: Publicar en gh-pages
+        run: |
+          touch dist/.nojekyll
+          cd dist
+          git init -q
+          git checkout -q -b gh-pages
+          git add -A
+          git -c user.email=bot@valorcarta.es -c user.name=valorcarta commit -qm "dist $(date -u +%F)"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Despliegue hecho en el job anterior
+        run: echo "gh-pages actualizado"
+
+      - uses: actions/checkout@v4
 
       - name: Avisar a los buscadores (IndexNow)
         continue-on-error: true
