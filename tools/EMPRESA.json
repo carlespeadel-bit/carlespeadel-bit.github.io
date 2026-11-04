@@ -217,6 +217,19 @@
       "estado": "activo",
       "suplente": "estrategia-2",
       "rol": "plan"
+    },
+    {
+      "id": "inteligencia",
+      "nombre": "Inteligencia competitiva",
+      "nivel": "A",
+      "sueldo": 2100,
+      "objetivo": "3 hallazgos accionables por semana sobre cómo ganan los que ya ganan",
+      "kpi": "hallazgos_accionables",
+      "fallos": 0,
+      "intentos": 3,
+      "estado": "activo",
+      "suplente": "inteligencia-2",
+      "rol": "competencia"
     }
   ],
   "banquillo": [

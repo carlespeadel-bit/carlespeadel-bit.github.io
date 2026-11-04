@@ -1,0 +1,199 @@
+[
+  {
+    "dom": "otakura.com",
+    "status": 200,
+    "final": "https://otakura.com/",
+    "pix": {
+      "Google Ads": [
+        "AW-11360071294"
+      ],
+      "GA4": [
+        "G-KDS8SXFVVJ"
+      ],
+      "Klaviyo": [
+        "klaviyo",
+        "static.klaviyo.com"
+      ],
+      "Trustpilot": [
+        "trustpilot",
+        "widget.trustpilot"
+      ],
+      "Shopify": [
+        "cdn.shopify.com",
+        "Shopify.theme"
+      ]
+    },
+    "redes": {
+      "Instagram": [
+        "otakurastore"
+      ],
+      "TikTok": [
+        "otakurastore"
+      ],
+      "YouTube": [
+        "@otakurastore"
+      ],
+      "Facebook": [
+        "otakurastore",
+        "sharer.php"
+      ],
+      "X": [
+        "otakurastore"
+      ]
+    },
+    "email": [
+      "Klaviyo"
+    ],
+    "pistas": [
+      "newsletter"
+    ]
+  },
+  {
+    "dom": "elparaisofriki.com",
+    "status": 200,
+    "final": "https://elparaisofriki.com/",
+    "pix": {
+      "gtag/GTM": [
+        "gtag("
+      ],
+      "GA4": [
+        "G-43955S1YTH",
+        "gtag('config', 'G-"
+      ],
+      "PrestaShop": [
+        "prestashop",
+        "var prestashop"
+      ]
+    },
+    "redes": {
+      "Instagram": [
+        "_elparaisofriki_"
+      ],
+      "Facebook": [
+        "elparaisofriki"
+      ]
+    },
+    "email": [],
+    "pistas": [
+      "newsletter"
+    ]
+  },
+  {
+    "dom": "laescotillajuegos.com",
+    "status": 200,
+    "final": "https://laescotillajuegos.com/",
+    "pix": {
+      "Google Ads": [
+        "AW-790705499"
+      ],
+      "GA4": [
+        "G-CLQL0SK0VH"
+      ],
+      "Shopify": [
+        "cdn.shopify.com",
+        "Shopify.theme"
+      ]
+    },
+    "redes": {
+      "Instagram": [
+        "laescotillamurcia"
+      ]
+    },
+    "email": [],
+    "pistas": [
+      "newsletter"
+    ]
+  },
+  {
+    "dom": "topdeck.es",
+    "status": 200,
+    "final": "https://topdeck.es/",
+    "pix": {
+      "gtag/GTM": [
+        "googletagmanager.com/gtm.js",
+        "GTM-5G7M4HS5"
+      ],
+      "WooCommerce": [
+        "woocommerce"
+      ]
+    },
+    "redes": {
+      "Instagram": [
+        "tcg_topdeck"
+      ],
+      "X": [
+        "tcgtopdeck"
+      ]
+    },
+    "email": [],
+    "pistas": []
+  },
+  {
+    "dom": "plazatcg.com",
+    "status": 200,
+    "final": "https://plazatcg.com/",
+    "pix": {
+      "gtag/GTM": [
+        "gtag("
+      ],
+      "Trustpilot": [
+        "trustpilot",
+        "widget.trustpilot"
+      ],
+      "PrestaShop": [
+        "PrestaShop",
+        "var prestashop"
+      ]
+    },
+    "redes": {
+      "Instagram": [
+        "plazatcg"
+      ],
+      "TikTok": [
+        "plazatcg"
+      ],
+      "Facebook": [
+        "policies"
+      ]
+    },
+    "email": [],
+    "pistas": [
+      "newsletter"
+    ]
+  },
+  {
+    "dom": "alldaytcg.com",
+    "status": 200,
+    "final": "https://alldaytcg.com/",
+    "pix": {
+      "Google Ads": [
+        "AW-17582912737"
+      ],
+      "GA4": [
+        "G-03YR67ZKQY"
+      ],
+      "Trustpilot": [
+        "trustpilot"
+      ],
+      "Shopify": [
+        "cdn.shopify.com",
+        "Shopify.theme"
+      ]
+    },
+    "redes": {
+      "Instagram": [
+        "alldaytcgcom"
+      ],
+      "TikTok": [
+        "alldaytcg"
+      ],
+      "Facebook": [
+        "alldaytcg"
+      ]
+    },
+    "email": [],
+    "pistas": [
+      "newsletter"
+    ]
+  }
+]

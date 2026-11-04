@@ -123,3 +123,12 @@ El sistema estaba diseñado para ejecutar: hipótesis abiertas, KPI, intentos, s
 - **Dirección deja 1 idea al día**, y no puede ser sobre algo que ya esté abierto en el backlog.
 - Una idea no se castiga por ser mala: se castiga **no tener ninguna**.
 - Se mide y se publica el **origen de las ideas** (`IDEAS.md`). Si el 100 % viene del dueño, el organigrama está roto aunque todos los KPI estén verdes.
+
+## 14. Antes de inventar, mirar quién ya lo hace
+
+Regla nacida de un fallo repetido: cada vez que el dueño ha preguntado "¿y esto lo habéis mirado?", la respuesta era no. Se acabó el ensayo a ciegas.
+
+- **Ninguna táctica nueva se aprueba sin un estudio previo de quién la está usando** y con qué resultado: URL, píxel, precio o dato concreto.
+- **Inteligencia competitiva** (puesto nuevo) entrega **3 hallazgos accionables por semana**, cada uno con: quién lo hace, dónde se ve, qué costaría copiarlo y qué lo mataría.
+- Un hallazgo sin URL no cuenta. Una recomendación genérica ("usar redes") es un fallo sucio.
+- El estudio se hace **antes** de la hipótesis, no después de que el dueño lo pida.
