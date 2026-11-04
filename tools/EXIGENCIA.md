@@ -199,10 +199,14 @@ Faltaba el circuito entre los dos puestos nuevos. Queda así:
 2. **El Enlace coloca** a ese puesto en **trabajo real**: busca en `RESERVA.md` o en la necesidad no cubierta de otro agente, y le asigna una tarea con prueba exigida y plazo de 24 h.
 3. **Si no encuentra trabajo real, lo dice por escrito**: el puesto queda **"sin faena"** y su turno se reasigna. No se le inventa nada ni se le sanciona por no tener qué hacer.
 
+**Sospecha inmediata, no a los tres días:** el Optimizador revisa al **cierre de cada turno**, no cuando le apetece. Una tarea sin rastro se marca **en ese mismo turno**; esperar tres días es dejar que el relleno se consolide.
+
+**El Enlace avisa al Contralor antes de asignar:** ninguna conexión ni tarea asignada sale sin pasar por el Contralor. Él tiene **6 h** para objetarla con prueba (veto exprés); si no dice nada, se ejecuta. Así el que conecta no decide solo a quién se le da trabajo.
+
 **Regla dura:** ningún puesto puede recibir dos turnos seguidos de trabajo inventado. A la segunda sospecha confirmada, el turno se reasigna y el puesto queda en espera activa (mirando `RESERVA.md`) hasta que haya algo de verdad.
 
 **Dos enmiendas aceptadas de los disidentes:**
 - **Del Fiscal:** el trabajo que asigna el Enlace no basta con ser verificable: tiene que tocar **M1, M2 o M3**. Si no toca ninguno, no es trabajo real, es relleno con firma.
-- **Del Contralor:** una sospecha **caduca en 72 h**. Si en ese plazo no hay trabajo asignado ni "sin faena" escrito, la sospecha se cierra y el turno se reasigna igual. Una lista de sospechas eternas no arregla nada.
+- **Del Contralor:** una sospecha **caduca en 24 h**, no en 72. Si en ese plazo no hay trabajo asignado ni "sin faena" escrito, la sospecha se cierra y el turno se reasigna igual. Una lista de sospechas eternas no arregla nada.
 
 Así el Optimizador no es un policía: es el que dispara la búsqueda de trabajo, y el Enlace el que la ejecuta.

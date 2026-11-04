@@ -18,3 +18,13 @@ El Enlace también responde de **colocar** a los puestos que el Optimizador marc
 1. Busca una necesidad real sin dueño (de otro agente, de la auditoría o de `RESERVA.md`).
 2. La asigna con prueba exigida y plazo de 24 h.
 3. Si no existe, escribe **"sin faena"** y el turno se reasigna. No se inventa nada.
+
+## El Enlace informa al Contralor (antes de asignar)
+Toda conexión y toda tarea asignada se anota aquí con **visto bueno del Contralor**. Si en 6 h no ha objetado con prueba, se ejecuta.
+
+| Conexión | Contralor avisado | Objeción (6 h) | Ejecutada |
+|---|---|---|---|
+| YouTube es el canal, no los enlaces | 04-11 20:15 | sin objeción | sí (canal bloqueado por verificación de teléfono) |
+| Datos sucios antes de publicar vídeo | 04-11 20:15 | pendiente | no |
+
+**Si el Contralor objeta, el Enlace no puede asignar**: se vuelve a `RESERVA.md` o se escribe "sin faena".
