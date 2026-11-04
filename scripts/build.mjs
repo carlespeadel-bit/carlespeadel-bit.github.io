@@ -460,6 +460,12 @@ for (let i = 0; i < priced.length; i += BATCH) {
         )
         .join('');
 
+      const ctaAmazon = ASINS[c.setId]?.length
+        ? `<a class="btn comprar" style="display:block;text-align:center;font-size:1.12rem;padding:16px 18px;margin:14px 0 6px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/dp/${ASINS[c.setId][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(ASINS[c.setId][0].nombre)} en Amazon</a>
+    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. El producto es el sellado del set, no esta carta.</p>`
+        : `<a class="btn comprar" style="display:block;text-align:center;font-size:1.12rem;padding:16px 18px;margin:14px 0 6px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/s?k=${encodeURIComponent(`${c.name} ${c.setName || ""} pokemon`)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(c.name)} en Amazon</a>
+    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. Sin ASIN verificado del set, el enlace lleva a la búsqueda del producto.</p>`;
+
       const body = `
 <nav class="migas"><a href="/cartas/">Cartas</a> / <a href="/set/${c.setId}/">${esc(c.setName)}</a> / ${esc(c.name)}</nav>
 <div class="carta-layout">
@@ -470,6 +476,7 @@ for (let i = 0; i < priced.length; i += BATCH) {
     <h1>¿Cuánto vale ${esc(c.name)}?</h1>
     <p class="precio-grande">${eur(c.price)}<span class="muted"> · referencia ${c.variants?.[0]?.type ?? 'normal'}</span></p>
     ${trendLine(c)}
+    ${ctaAmazon}
     <p class="muted">${esc(descripcion)}. Número ${esc(c.localId ?? '—')}/${total}.</p>
     ${priceTable(c)}
     ${
@@ -486,13 +493,6 @@ for (let i = 0; i < priced.length; i += BATCH) {
     }
     ${contexto ? `<p class="contexto">${esc(contexto)}</p>` : ''}
     <p class="nota">Precio de referencia de Cardmarket (media de ventas, no tasación). Una carta en estado Near Mint vale más; una con desgaste, bastante menos.</p>
-    ${
-      ASINS[c.setId]?.length
-        ? `<a class="btn" href="https://www.amazon.es/dp/${ASINS[c.setId][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(ASINS[c.setId][0].nombre)} en Amazon</a>
-    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. El producto es el sellado del set, no esta carta.</p>`
-        : `<a class="btn" href="https://www.amazon.es/s?k=${encodeURIComponent(`${c.name} ${c.setName || ""} pokemon`)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(c.name)} en Amazon</a>
-    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. Sin ASIN verificado del set, el enlace lleva a la búsqueda del producto.</p>`
-    }
     <p class="nota"><a href="/guardar-cartas/">¿Cómo guardar esta carta? →</a> · <a href="/caras/">Las 100 más caras →</a></p>
     <div class="acciones">
       <button class="btn ghost" data-add="${slug}">Añadir a mi colección</button>
