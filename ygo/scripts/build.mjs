@@ -2,11 +2,14 @@
 // Web de precios de Yu-Gi-Oh. Se publica dentro del repo de ValorCarta, bajo /ygo/.
 import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import path from 'node:path';
+import { readFileSync } from 'node:fs';
+const CONFIG = JSON.parse(readFileSync(new URL('../../config.json', import.meta.url), 'utf8'));
+const HOST = (process.env.SITE_URL || CONFIG.site).replace(/\/$/, '');
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const DIST = path.resolve(ROOT, '..', 'dist', 'ygo');
 const B = '/ygo';
-const SITE = 'https://carlespeadel-bit.github.io/ygo';
+const SITE = `${HOST}/${'ygo'}`;
 const TAG = 'valorcarta-21';
 const BRAND = 'CartaYGO';
 
@@ -71,7 +74,7 @@ for (let i = 0; i < lista.length; i += 200) {
 ${c.atk != null ? `<p class="muted">ATK ${c.atk} · DEF ${c.def ?? '?'}</p>` : ''}
 <p>${esc(c.desc ?? '')}</p>
 <p class="nota">Precio de referencia (Cardmarket ${eur(c.priceCm)} / TCGplayer ${eur(c.priceTcg)}). No es una tasación: el estado manda.</p>
-<a class="btn" href="https://carlespeadel-bit.github.io/guardar-cartas/">Fundas y toploaders para esta carta</a>
+<a class="btn" href="${HOST}/guardar-cartas/">Fundas y toploaders para esta carta</a>
 </div></div>`;
     await put(`carta/${slug(c)}/index.html`, layout({ noindex: !INDEXABLES.has(c.id), title: `${c.name} — precio Yu-Gi-Oh`, description: `¿Cuánto vale ${c.name}? Precio de mercado: ${eur(c.price)}.`, url: `/carta/${slug(c)}/`, body, image: c.image }));
     n++;

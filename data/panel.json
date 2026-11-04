@@ -1,13 +1,9 @@
 {
- "actualizado": "2026-11-03T13:59:58.703Z",
- "desde": "2026-10-04",
- "hasta": "2026-11-03",
- "total": 10,
+ "actualizado": "2026-11-04T06:10:05.077Z",
+ "desde": "2026-10-05",
+ "hasta": "2026-11-04",
+ "total": 16,
  "porDia": [
-  {
-   "dia": "2026-10-27",
-   "visitas": 0
-  },
   {
    "dia": "2026-10-28",
    "visitas": 0
@@ -34,24 +30,40 @@
   },
   {
    "dia": "2026-11-03",
-   "visitas": 10
+   "visitas": 16
   },
   {
    "dia": "2026-11-04",
+   "visitas": 0
+  },
+  {
+   "dia": "2026-11-05",
    "visitas": 0
   }
  ],
  "paginas": [
   {
+   "ruta": "/",
+   "visitas": 4
+  },
+  {
+   "ruta": "/carta/swsh6-201-blaziken-vmax",
+   "visitas": 2
+  },
+  {
+   "ruta": "/cartas",
+   "visitas": 2
+  },
+  {
    "ruta": "/comprar",
    "visitas": 2
   },
   {
-   "ruta": "/",
-   "visitas": 2
+   "ruta": "evento-prueba",
+   "visitas": 1
   },
   {
-   "ruta": "/carta/swsh6-201-blaziken-vmax",
+   "ruta": "amazon-click",
    "visitas": 1
   },
   {
@@ -60,10 +72,6 @@
   },
   {
    "ruta": "/mercado",
-   "visitas": 1
-  },
-  {
-   "ruta": "/cartas",
    "visitas": 1
   },
   {
@@ -78,7 +86,7 @@
  "referidores": [
   {
    "ref": "directo",
-   "visitas": 4
+   "visitas": 7
   }
  ]
 }

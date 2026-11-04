@@ -4,7 +4,8 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const HOST = (process.env.SITE_HOST || 'carlespeadel-bit.github.io').replace(/^https?:\/\//, '').replace(/\/$/, '');
+import config from '../config.json' with { type: 'json' };
+const HOST = (process.env.SITE_HOST || config.site).replace(/^https?:\/\//, '').replace(/\/$/, '');
 const KEY = (await readFile(path.join(ROOT, 'data', 'indexnow-key.txt'), 'utf8')).trim();
 
 // 1) indice de sitemaps de la web principal -> sus bloques

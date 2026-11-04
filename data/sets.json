@@ -108,18 +108,6 @@
   "symbol": "https://assets.tcgdex.net/univ/tk/tk-ex-latio/symbol"
  },
  {
-  "id": "ex10",
-  "name": "EX Fuerzas Ocultas",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 115,
-   "official": 115
-  },
-  "logo": null,
-  "symbol": "https://assets.tcgdex.net/univ/ex/ex10/symbol"
- },
- {
   "id": "exu",
   "name": "EX Fuerzas Ocultas Unown",
   "serie": null,
@@ -132,16 +120,16 @@
   "symbol": null
  },
  {
-  "id": "tk-ex-m",
-  "name": "Kit de Entrenador EX (Ninun)",
+  "id": "ex10",
+  "name": "EX Fuerzas Ocultas",
   "serie": null,
   "releaseDate": null,
   "cardCount": {
-   "total": 12,
-   "official": 12
+   "total": 115,
+   "official": 115
   },
   "logo": null,
-  "symbol": null
+  "symbol": "https://assets.tcgdex.net/univ/ex/ex10/symbol"
  },
  {
   "id": "tk-ex-p",
@@ -154,6 +142,18 @@
   },
   "logo": null,
   "symbol": "https://assets.tcgdex.net/univ/tk/tk-ex-p/symbol"
+ },
+ {
+  "id": "tk-ex-m",
+  "name": "Kit de Entrenador EX (Ninun)",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 12,
+   "official": 12
+  },
+  "logo": null,
+  "symbol": null
  },
  {
   "id": "dpp",
@@ -576,18 +576,6 @@
   "symbol": null
  },
  {
-  "id": "tk-xy-n",
-  "name": "Kit de Entrenador XY (Noivern)",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 30,
-   "official": 30
-  },
-  "logo": null,
-  "symbol": "https://assets.tcgdex.net/univ/tk/tk-xy-n/symbol"
- },
- {
   "id": "tk-xy-sy",
   "name": "Kit de Entrenador XY (Pikachu Enmascarada)",
   "serie": null,
@@ -598,6 +586,18 @@
   },
   "logo": null,
   "symbol": "https://assets.tcgdex.net/univ/tk/tk-xy-sy/symbol"
+ },
+ {
+  "id": "tk-xy-n",
+  "name": "Kit de Entrenador XY (Noivern)",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 30,
+   "official": 30
+  },
+  "logo": null,
+  "symbol": "https://assets.tcgdex.net/univ/tk/tk-xy-n/symbol"
  },
  {
   "id": "xy2",
@@ -672,18 +672,6 @@
   "symbol": "https://assets.tcgdex.net/univ/xy/xy5/symbol"
  },
  {
-  "id": "tk-xy-latio",
-  "name": "Kit de Entrenador XY (Latios)",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 30,
-   "official": 30
-  },
-  "logo": null,
-  "symbol": "https://assets.tcgdex.net/univ/tk/tk-xy-latio/symbol"
- },
- {
   "id": "tk-xy-latia",
   "name": "Kit de Entrenador XY (Latias)",
   "serie": null,
@@ -694,6 +682,18 @@
   },
   "logo": null,
   "symbol": "https://assets.tcgdex.net/univ/tk/tk-xy-latia/symbol"
+ },
+ {
+  "id": "tk-xy-latio",
+  "name": "Kit de Entrenador XY (Latios)",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 30,
+   "official": 30
+  },
+  "logo": null,
+  "symbol": "https://assets.tcgdex.net/univ/tk/tk-xy-latio/symbol"
  },
  {
   "id": "xy6",
@@ -756,18 +756,6 @@
   "symbol": "https://assets.tcgdex.net/univ/xy/g1/symbol"
  },
  {
-  "id": "tk-xy-p",
-  "name": "Kit de Entrenador XY (Pikachu Enmascarada)",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 30,
-   "official": 30
-  },
-  "logo": null,
-  "symbol": "https://assets.tcgdex.net/univ/tk/tk-xy-p/symbol"
- },
- {
   "id": "tk-xy-su",
   "name": "Kit de Entrenador XY (Suicune)",
   "serie": null,
@@ -778,6 +766,18 @@
   },
   "logo": null,
   "symbol": "https://assets.tcgdex.net/univ/tk/tk-xy-su/symbol"
+ },
+ {
+  "id": "tk-xy-p",
+  "name": "Kit de Entrenador XY (Pikachu Enmascarada)",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 30,
+   "official": 30
+  },
+  "logo": null,
+  "symbol": "https://assets.tcgdex.net/univ/tk/tk-xy-p/symbol"
  },
  {
   "id": "xy10",
@@ -816,18 +816,6 @@
   "symbol": "https://assets.tcgdex.net/univ/xy/xy12/symbol"
  },
  {
-  "id": "sm1",
-  "name": "Sol y Luna",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 163,
-   "official": 149
-  },
-  "logo": null,
-  "symbol": "https://assets.tcgdex.net/univ/sm/sm1/symbol"
- },
- {
   "id": "smp",
   "name": "SL Cartas de promoción",
   "serie": null,
@@ -840,16 +828,16 @@
   "symbol": "https://assets.tcgdex.net/univ/sm/smp/symbol"
  },
  {
-  "id": "tk-sm-r",
-  "name": "Kit de Entrenador Sol y Luna (Raichu de Alola)",
+  "id": "sm1",
+  "name": "Sol y Luna",
   "serie": null,
   "releaseDate": null,
   "cardCount": {
-   "total": 30,
-   "official": 30
+   "total": 163,
+   "official": 149
   },
   "logo": null,
-  "symbol": "https://assets.tcgdex.net/univ/tk/tk-sm-r/symbol"
+  "symbol": "https://assets.tcgdex.net/univ/sm/sm1/symbol"
  },
  {
   "id": "tk-sm-l",
@@ -862,6 +850,18 @@
   },
   "logo": null,
   "symbol": "https://assets.tcgdex.net/univ/tk/tk-sm-l/symbol"
+ },
+ {
+  "id": "tk-sm-r",
+  "name": "Kit de Entrenador Sol y Luna (Raichu de Alola)",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 30,
+   "official": 30
+  },
+  "logo": null,
+  "symbol": "https://assets.tcgdex.net/univ/tk/tk-sm-r/symbol"
  },
  {
   "id": "sm2",
@@ -1020,18 +1020,6 @@
   "symbol": "https://assets.tcgdex.net/univ/sm/sm11/symbol"
  },
  {
-  "id": "sma",
-  "name": "Destinos Ocultos Tesoro Brillante",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 94,
-   "official": 94
-  },
-  "logo": null,
-  "symbol": "https://assets.tcgdex.net/univ/sm/sma/symbol"
- },
- {
   "id": "sm115",
   "name": "Destinos Ocultos",
   "serie": null,
@@ -1042,6 +1030,18 @@
   },
   "logo": null,
   "symbol": "https://assets.tcgdex.net/univ/sm/sm115/symbol"
+ },
+ {
+  "id": "sma",
+  "name": "Destinos Ocultos Tesoro Brillante",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 94,
+   "official": 94
+  },
+  "logo": null,
+  "symbol": "https://assets.tcgdex.net/univ/sm/sma/symbol"
  },
  {
   "id": "sm12",
@@ -1140,18 +1140,6 @@
   "symbol": "https://assets.tcgdex.net/univ/mc/2021swsh/symbol"
  },
  {
-  "id": "swsh4.5",
-  "name": "Destinos Brillantes",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 73,
-   "official": 72
-  },
-  "logo": "https://assets.tcgdex.net/es/swsh/swsh4.5/logo",
-  "symbol": "https://assets.tcgdex.net/univ/swsh/swsh4.5/symbol"
- },
- {
   "id": "swsh4.5sv",
   "name": "Destinos Brillantes Tesoro Brillante",
   "serie": null,
@@ -1162,6 +1150,18 @@
   },
   "logo": null,
   "symbol": null
+ },
+ {
+  "id": "swsh4.5",
+  "name": "Destinos Brillantes",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 73,
+   "official": 72
+  },
+  "logo": "https://assets.tcgdex.net/es/swsh/swsh4.5/logo",
+  "symbol": "https://assets.tcgdex.net/univ/swsh/swsh4.5/symbol"
  },
  {
   "id": "swsh5",
@@ -1200,18 +1200,6 @@
   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh7/symbol"
  },
  {
-  "id": "cel25cc",
-  "name": "Celebraciones Colección Clásica",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 25,
-   "official": 25
-  },
-  "logo": null,
-  "symbol": null
- },
- {
   "id": "cel25",
   "name": "Celebraciones",
   "serie": null,
@@ -1222,6 +1210,18 @@
   },
   "logo": "https://assets.tcgdex.net/es/swsh/cel25/logo",
   "symbol": "https://assets.tcgdex.net/univ/swsh/cel25/symbol"
+ },
+ {
+  "id": "cel25cc",
+  "name": "Celebraciones Colección Clásica",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 25,
+   "official": 25
+  },
+  "logo": null,
+  "symbol": null
  },
  {
   "id": "swsh8",
@@ -1260,18 +1260,6 @@
   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh9/symbol"
  },
  {
-  "id": "swsh10",
-  "name": "Resplandor Astral",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 216,
-   "official": 189
-  },
-  "logo": "https://assets.tcgdex.net/es/swsh/swsh10/logo",
-  "symbol": "https://assets.tcgdex.net/univ/swsh/swsh10/symbol"
- },
- {
   "id": "swsh10tg",
   "name": "Resplandor Astral Galería de Entrenador",
   "serie": null,
@@ -1282,6 +1270,18 @@
   },
   "logo": null,
   "symbol": null
+ },
+ {
+  "id": "swsh10",
+  "name": "Resplandor Astral",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 216,
+   "official": 189
+  },
+  "logo": "https://assets.tcgdex.net/es/swsh/swsh10/logo",
+  "symbol": "https://assets.tcgdex.net/univ/swsh/swsh10/symbol"
  },
  {
   "id": "swsh10.5",
@@ -1332,6 +1332,18 @@
   "symbol": null
  },
  {
+  "id": "swsh12tg",
+  "name": "Tempestad Plateada Galería de Entrenador",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 30,
+   "official": 30
+  },
+  "logo": null,
+  "symbol": null
+ },
+ {
   "id": "swsh12",
   "name": "Tempestad Plateada",
   "serie": null,
@@ -1344,13 +1356,13 @@
   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh12/symbol"
  },
  {
-  "id": "swsh12tg",
-  "name": "Tempestad Plateada Galería de Entrenador",
+  "id": "swsh12.5gg",
+  "name": "Cenit Supremo Galería de Galar",
   "serie": null,
   "releaseDate": null,
   "cardCount": {
-   "total": 30,
-   "official": 30
+   "total": 70,
+   "official": 70
   },
   "logo": null,
   "symbol": null
@@ -1366,18 +1378,6 @@
   },
   "logo": "https://assets.tcgdex.net/es/swsh/swsh12.5/logo",
   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh12.5/symbol"
- },
- {
-  "id": "swsh12.5gg",
-  "name": "Cenit Supremo Galería de Galar",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 70,
-   "official": 70
-  },
-  "logo": null,
-  "symbol": null
  },
  {
   "id": "sv01",
@@ -1536,18 +1536,6 @@
   "symbol": null
  },
  {
-  "id": "P-A",
-  "name": "Promo-A",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 92,
-   "official": 0
-  },
-  "logo": null,
-  "symbol": null
- },
- {
   "id": "A1",
   "name": "Genes Formidables",
   "serie": null,
@@ -1558,6 +1546,18 @@
   },
   "logo": null,
   "symbol": "https://assets.tcgdex.net/univ/tcgp/A1/symbol"
+ },
+ {
+  "id": "P-A",
+  "name": "Promo-A",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 92,
+   "official": 0
+  },
+  "logo": null,
+  "symbol": null
  },
  {
   "id": "sv08",
@@ -1680,18 +1680,6 @@
   "symbol": "https://assets.tcgdex.net/univ/sv/sv10/symbol"
  },
  {
-  "id": "sv10.5b",
-  "name": "Fulgor Negro",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 172,
-   "official": 86
-  },
-  "logo": null,
-  "symbol": "https://assets.tcgdex.net/univ/sv/sv10.5b/symbol"
- },
- {
   "id": "sv10.5w",
   "name": "Llama Blanca",
   "serie": null,
@@ -1702,6 +1690,18 @@
   },
   "logo": null,
   "symbol": "https://assets.tcgdex.net/univ/sv/sv10.5w/symbol"
+ },
+ {
+  "id": "sv10.5b",
+  "name": "Fulgor Negro",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 172,
+   "official": 86
+  },
+  "logo": null,
+  "symbol": "https://assets.tcgdex.net/univ/sv/sv10.5b/symbol"
  },
  {
   "id": "A4a",
@@ -1721,8 +1721,20 @@
   "serie": null,
   "releaseDate": null,
   "cardCount": {
-   "total": 8,
-   "official": 8
+   "total": 16,
+   "official": 16
+  },
+  "logo": null,
+  "symbol": null
+ },
+ {
+  "id": "mep",
+  "name": "MEP Black Star Promos",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 96,
+   "official": 0
   },
   "logo": null,
   "symbol": null
@@ -1738,18 +1750,6 @@
   },
   "logo": "https://assets.tcgdex.net/es/me/me01/logo",
   "symbol": "https://assets.tcgdex.net/univ/me/me01/symbol"
- },
- {
-  "id": "mep",
-  "name": "MEP Black Star Promos",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 88,
-   "official": 0
-  },
-  "logo": null,
-  "symbol": null
  },
  {
   "id": "me02",
@@ -1848,25 +1848,25 @@
   "symbol": "https://assets.tcgdex.net/univ/me/me05/symbol"
  },
  {
-  "id": "30th",
-  "name": "Celebración 30.º Aniversario",
-  "serie": null,
-  "releaseDate": null,
-  "cardCount": {
-   "total": 158,
-   "official": 128
-  },
-  "logo": null,
-  "symbol": null
- },
- {
   "id": "30th-c",
   "name": "Colección Clásica del 30.º Aniversario",
   "serie": null,
   "releaseDate": null,
   "cardCount": {
    "total": 30,
-   "official": 0
+   "official": 30
+  },
+  "logo": null,
+  "symbol": null
+ },
+ {
+  "id": "30th",
+  "name": "Celebración 30.º Aniversario",
+  "serie": null,
+  "releaseDate": null,
+  "cardCount": {
+   "total": 161,
+   "official": 128
   },
   "logo": null,
   "symbol": null
