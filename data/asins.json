@@ -1,15 +1,68 @@
 {
   "sv01": [
-    { "asin": "B0BTRN9FT5", "nombre": "Caja de 36 sobres · Escarlata y Púrpura" },
-    { "asin": "B0FDGXLR5L", "nombre": "Elite Trainer Box · Escarlata y Púrpura (Koraidon)" }
+    {
+      "asin": "B0BTRN9FT5",
+      "nombre": "Caja de 36 sobres · Escarlata y Púrpura"
+    },
+    {
+      "asin": "B0FDGXLR5L",
+      "nombre": "Elite Trainer Box · Escarlata y Púrpura (Koraidon)"
+    }
   ],
   "sv08.5": [
-    { "asin": "B0DM6HQ8X5", "nombre": "Elite Trainer Box · Evoluciones Prismáticas" },
-    { "asin": "B0DWGBC38K", "nombre": "Colección Súper Premium · Evoluciones Prismáticas" }
+    {
+      "asin": "B0DM6HQ8X5",
+      "nombre": "Elite Trainer Box · Evoluciones Prismáticas"
+    },
+    {
+      "asin": "B0DWGBC38K",
+      "nombre": "Colección Súper Premium · Evoluciones Prismáticas"
+    }
   ],
-  "me02.5": [{ "asin": "B0G4NT3SH1", "nombre": "Elite Trainer Box · Héroes Ascendentes" }],
-  "me02": [{ "asin": "B0FTG3C43P", "nombre": "Lote de 6 sobres · Fuegos Fantasmales" }],
-  "me03": [{ "asin": "B0GGHXWSDC", "nombre": "Elite Trainer Box · Equilibrio Perfecto" }],
-  "30th": [{ "asin": "B0H8T5GC4W", "nombre": "Elite Trainer Box · Celebración 30.º Aniversario" }],
-  "swsh7": [{ "asin": "B09CQGL1SH", "nombre": "Elite Trainer Box · Cielos Evolutivos" }]
+  "me02.5": [
+    {
+      "asin": "B0G4NT3SH1",
+      "nombre": "Elite Trainer Box · Héroes Ascendentes"
+    }
+  ],
+  "me02": [
+    {
+      "asin": "B0FTG3C43P",
+      "nombre": "Lote de 6 sobres · Fuegos Fantasmales"
+    }
+  ],
+  "me03": [
+    {
+      "asin": "B0GGHXWSDC",
+      "nombre": "Elite Trainer Box · Equilibrio Perfecto"
+    }
+  ],
+  "30th": [
+    {
+      "asin": "B0H8T5GC4W",
+      "nombre": "Caja de Entrenador Élite · 30.º Aniversario (52,99 €, nº1 en Juguetes)"
+    },
+    {
+      "asin": "B0H8SXRLT4",
+      "nombre": "Lote de 6 sobres · 30.º Aniversario (nº2)"
+    },
+    {
+      "asin": "B0H8SXC5L9",
+      "nombre": "Colección con póster · 30.º Aniversario (nº3)"
+    },
+    {
+      "asin": "B0H8T4YLGT",
+      "nombre": "Baraja Combate Umbreon ex · 30.º Aniversario (nº4)"
+    },
+    {
+      "asin": "B0H8T274VV",
+      "nombre": "Baraja Combate Espeon ex · 30.º Aniversario (nº5)"
+    }
+  ],
+  "swsh7": [
+    {
+      "asin": "B09CQGL1SH",
+      "nombre": "Elite Trainer Box · Cielos Evolutivos"
+    }
+  ]
 }
