@@ -21,11 +21,23 @@ if (prohibidas.length) add('alta', 'Privacidad', `${prohibidas.length} páginas 
 
 const muestra = urls.filter((_, i) => i % 40 === 0).slice(0, 15);
 const caidas = [];
+const comprobar = async (u) => {
+  for (let intento = 0; intento < 2; intento++) {
+    try {
+      const r = await fetch(u, { method: 'GET', headers: { 'user-agent': 'ValorCartaAudit/1.0' } });
+      if (r.ok) return null;
+      if (intento === 0) { await new Promise((x) => setTimeout(x, 40000)); continue; } // Pages tarda en propagar
+      return `${u} → ${r.status}`;
+    } catch (e) {
+      if (intento === 0) { await new Promise((x) => setTimeout(x, 20000)); continue; }
+      return `${u} → error ${e.message}`;
+    }
+  }
+  return null;
+};
 for (const u of muestra) {
-  try {
-    const r = await fetch(u, { method: 'GET', headers: { 'user-agent': 'ValorCartaAudit/1.0' } });
-    if (!r.ok) caidas.push(`${u} → ${r.status}`);
-  } catch (e) { caidas.push(`${u} → error ${e.message}`); }
+  const fallo = await comprobar(u);
+  if (fallo) caidas.push(fallo);
 }
 if (caidas.length) add('alta', 'Disponibilidad', `${caidas.length}/${muestra.length} URLs de la muestra no responden`, caidas.slice(0, 3).join(' · '), 'Soporte');
 

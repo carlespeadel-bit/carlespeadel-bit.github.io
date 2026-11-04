@@ -48,6 +48,26 @@ const kpi = (id) => {
   }
 };
 
+// cesado => entra el suplente con el mismo objetivo y el contador a cero
+for (const e of empresa.empleados) {
+  if (e.estado === 'cesado' && !e.sustituido_por) {
+    const nuevo = {
+      ...e,
+      id: e.suplente,
+      nombre: `${e.nombre} (${e.suplente})`,
+      estado: 'activo',
+      fallos: 0,
+      intentos: empresa.reglas.intentos_por_agente ?? 3,
+      suplente: `${e.suplente}-b`,
+      sustituye_a: e.id,
+      sustituido_por: undefined,
+      motivo: undefined,
+    };
+    e.sustituido_por = e.suplente;
+    empresa.empleados.push(nuevo);
+    empresa.banquillo = [...empresa.banquillo.filter((b) => b !== e.suplente), `${e.suplente}-b`];
+  }
+}
 const R = empresa.reglas;
 const lineas = [];
 let masaSalarial = 0;
@@ -58,9 +78,12 @@ for (const e of empresa.empleados) {
   const cumple = k.medido && k.valor >= k.meta;
   const ratio = k.medido ? Math.min(1, k.valor / k.meta) : null;
 
-  if (k.medido && !cumple) {
+  const hoyISO2 = new Date().toISOString().slice(0, 10);
+  const yaEvaluadoHoy = e.ultima_evaluacion === hoyISO2;
+  if (k.medido && !cumple && !yaEvaluadoHoy) {
     e.fallos = (e.fallos || 0) + 1;
     e.intentos = Math.max(0, (e.intentos ?? 3) - 1);
+    e.ultima_evaluacion = hoyISO2;
     if (e.fallos >= R.fallos_para_cese) {
       const suplente = e.suplente;
       e.estado = 'cesado';
@@ -73,6 +96,7 @@ for (const e of empresa.empleados) {
     else if (e.fallos >= R.fallos_para_bajada_sueldo) e.sueldo = Math.round(e.sueldo * (1 - R.descuento_por_fallo));
   } else if (cumple) {
     e.fallos = 0;
+    e.ultima_evaluacion = hoyISO2;
     if (e.estado === 'suspendido') e.estado = 'activo';
   }
 

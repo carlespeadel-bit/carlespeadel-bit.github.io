@@ -24,7 +24,10 @@ Toda conexión y toda tarea asignada se anota aquí con **visto bueno del Contra
 
 | Conexión | Contralor avisado | Objeción (6 h) | Ejecutada |
 |---|---|---|---|
-| YouTube es el canal, no los enlaces | 04-11 20:15 | sin objeción | sí (canal bloqueado por verificación de teléfono) |
+| YouTube es el canal, no los enlaces | 04-11 20:15 | sin objeción | **sí: short publicado 20:47** — la "verificación de teléfono" no bloqueaba la subida |
 | Datos sucios antes de publicar vídeo | 04-11 20:15 | pendiente | no |
+| Un Short no aparece en "Vídeos" de Studio | 04-11 20:47 | — | sí: vive en la pestaña "Shorts"; comprobar con oembed, no en la lista de vídeos |
+
+**Por qué fallaban las subidas (04-11 20:47).** El vídeo sí subía; se quedaba en borrador porque en la descripción el `->` marcaba el campo `aria-invalid`, "Siguiente" quedaba deshabilitado y el asistente no llegaba a Visibilidad. Y el "No hay contenido disponible" era la pestaña "Vídeos": un Short solo aparece en "Shorts". Receta corregida en `tools/youtube_subir.py`.
 
 **Si el Contralor objeta, el Enlace no puede asignar**: se vuelve a `RESERVA.md` o se escribe "sin faena".
