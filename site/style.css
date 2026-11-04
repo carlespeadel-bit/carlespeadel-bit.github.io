@@ -199,3 +199,21 @@ footer{max-width:1080px;margin:0 auto;padding:34px 20px 60px;border-top:1px soli
   .total-caja{position:static}
   .top nav a:first-child{display:none}
 }
+
+.mapa-cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:18px 0}
+.cifra{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.cifra span{display:block;font-size:1.7rem;font-weight:700;color:var(--accent)}
+.cifra b{font-weight:500;color:var(--muted);font-size:.85rem}
+.mapa-hitos,.mapa-cadena{list-style:none;padding:0;margin:0 0 18px}
+.mapa-hitos li,.mapa-cadena li{border-left:3px solid var(--line);padding:8px 0 8px 14px;margin:0}
+.mapa-hitos li.hecho{border-left-color:#3fb950}
+.mapa-hitos li.pendiente{border-left-color:#d29922}
+.mapa-cadena li{margin-bottom:10px}
+.etiqueta{display:inline-block;font-size:.72rem;padding:2px 8px;border-radius:999px;margin-top:4px}
+.etiqueta.muerta{background:#4b1d1d;color:#ff9d9d}
+.etiqueta.viva{background:#143a1c;color:#7ee787}
+.etiqueta.neutra{background:#2b2b33;color:#c9c9d1}
+.mapa-lista{list-style:none;padding:0;margin:0 0 18px}
+.mapa-lista li{padding:6px 0 6px 22px;position:relative;border-bottom:1px solid var(--line)}
+.mapa-lista.cerrado li::before{content:"✓";position:absolute;left:0;color:#3fb950}
+.mapa-lista.abierto li::before{content:"○";position:absolute;left:0;color:#d29922}
