@@ -1197,6 +1197,13 @@ const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '
   .concat(guias.map((g) => `${SITE}/guia/${g.slug}/`));
 // sitemap plano: con menos de 2.000 URLs no hace falta indice
 const lastmod = (cards[0]?.updated ?? new Date().toISOString()).slice(0, 10);
+// copia con nombre alternativo: fuerza a Google a rastrear una URL nueva
+await put(
+  'sitemap-google.xml',
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
+    .map((u) => `<url><loc>${u}</loc><lastmod>${lastmod}</lastmod></url>`)
+    .join('\n')}\n</urlset>`,
+);
 await put(
   'sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
