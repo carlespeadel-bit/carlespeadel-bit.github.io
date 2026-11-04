@@ -1,11 +1,14 @@
-node_modules/
-dist/
-data/cache/
-out/
-.DS_Store
-data/cards.json
-ygo/data/
-.env
-magic/data/
-keys.json
-tools/nostr/node_modules/
+# datos internos de la empresa: nunca al repositorio público
+dinero/
+tools/EMPRESA.json
+tools/EMPRESA*.json
+tools/CONSEJO.md
+tools/PARTES.md
+tools/INCOMODIDAD.md
+tools/OBJETIVOS-AGENTES.md
+tools/PUESTO-TURNO.md
+tools/TURNOS-AUDIT.md
+tools/TURNOS-ESPERADOS.json
+tools/EXIGENCIA.json
+tools/VETOS.md
+tools/competencia/
