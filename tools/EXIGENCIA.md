@@ -171,3 +171,13 @@ El sistema producía piezas sueltas: hallazgos de competencia que no llegaban a 
 - **Abstraedor** (`PRINCIPIOS.md`): convierte **todo lo ejecutado** —commits, despliegues, pruebas, fallos— en principios reutilizables, cada uno con la prueba que lo sostiene. Un principio sin prueba no entra.
 
 Ambos se leen en el consejo del domingo: si el Enlace no ha conectado nada y el Abstraedor no ha destilado nada, los dos pierden intento.
+
+## 19. Economía de turnos
+
+Un turno cuesta y no todos valen lo mismo. El **Optimizador de turnos** responde de tres números:
+
+- **Turnos por puesto y semana:** si un puesto no recibe turno, no se le puede pedir el KPI. Antes de sancionar a alguien, comprobar que tuvo turno.
+- **Turnos sin prueba:** todo turno debe dejar URL, cifra, commit o fichero. El que no, es turno perdido y cuenta como día perdido del puesto.
+- **Valor por turno:** qué produjo ese turno que acerque a M1, M2 o M3. Si un turno no toca ninguno de los tres, se elimina del calendario.
+
+**Reasignación mensual:** los turnos de lo que no mueve nada pasan a lo que sí. Y si un puesto lleva dos semanas sin turno, se fusiona: no se mantiene una silla vacía cobrando.

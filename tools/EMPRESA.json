@@ -269,6 +269,19 @@
       "estado": "activo",
       "suplente": "abstraedor-2",
       "rol": "abstraccion"
+    },
+    {
+      "id": "optimizador",
+      "nombre": "Optimizador de turnos",
+      "nivel": "A",
+      "sueldo": 2000,
+      "objetivo": "Subir el valor por turno y bajar los turnos que no producen nada medible",
+      "kpi": "valor_por_turno",
+      "fallos": 0,
+      "intentos": 3,
+      "estado": "activo",
+      "suplente": "optimizador-2",
+      "rol": "turnos"
     }
   ],
   "banquillo": [
