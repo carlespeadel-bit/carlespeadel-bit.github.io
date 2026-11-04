@@ -62,7 +62,8 @@
       "fallos": 0,
       "estado": "activo",
       "suplente": "ingenieria-2",
-      "intentos": 2
+      "intentos": 2,
+      "ultima_evaluacion": "2026-11-04"
     },
     {
       "id": "seo",
@@ -110,10 +111,11 @@
       "sueldo": 1600,
       "objetivo": "Panel actualizado a diario",
       "kpi": "panel_al_dia",
-      "fallos": 0,
+      "fallos": 1,
       "estado": "activo",
       "suplente": "datos-2",
-      "intentos": 2
+      "intentos": 1,
+      "ultima_evaluacion": "2026-11-04"
     },
     {
       "id": "auditor",
@@ -126,7 +128,8 @@
       "estado": "activo",
       "suplente": "auditoria-2",
       "intentos": 2,
-      "rol": "contralor"
+      "rol": "contralor",
+      "ultima_evaluacion": "2026-11-04"
     },
     {
       "id": "soporte",
@@ -138,7 +141,8 @@
       "fallos": 0,
       "estado": "activo",
       "suplente": "soporte-2",
-      "intentos": 2
+      "intentos": 2,
+      "ultima_evaluacion": "2026-11-04"
     },
     {
       "id": "direccion-2",
@@ -282,6 +286,19 @@
       "estado": "activo",
       "suplente": "optimizador-2",
       "rol": "turnos"
+    },
+    {
+      "id": "creativo",
+      "nombre": "Dirección creativa",
+      "nivel": "A",
+      "sueldo": 2100,
+      "objetivo": "Que ningún vídeo se publique con menos de 8 de los 10 criterios",
+      "kpi": "videos_aprobados",
+      "fallos": 0,
+      "intentos": 3,
+      "estado": "activo",
+      "suplente": "creativo-2",
+      "rol": "estetica"
     }
   ],
   "banquillo": [
@@ -330,6 +347,20 @@
       "visitas": 19,
       "tareasHechas": 22,
       "tareasPendientes": 10,
+      "masaSalarial": 0
+    },
+    {
+      "fecha": "2026-11-04",
+      "visitas": 39,
+      "tareasHechas": 22,
+      "tareasPendientes": 13,
+      "masaSalarial": 0
+    },
+    {
+      "fecha": "2026-11-04",
+      "visitas": null,
+      "tareasHechas": 22,
+      "tareasPendientes": 13,
       "masaSalarial": 0
     }
   ]
