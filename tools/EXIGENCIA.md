@@ -114,3 +114,12 @@ Nada se hace si no acerca **el primer euro cobrado**. No los 1.000 €/mes: el p
 - **Último:** más fichas, más juegos, más idiomas, más diseño. Eso no factura nada hasta que haya alguien mirando.
 
 **Prohibido** abrir una tarea que no diga qué escalón mueve y para cuándo.
+
+## 13. Cuota de ideas no pedidas (la que faltaba)
+
+El sistema estaba diseñado para ejecutar: hipótesis abiertas, KPI, intentos, sanciones. Todo eso optimiza **caminos conocidos**. Ninguna regla pedía inventar uno nuevo, y por eso las ideas las trajo el dueño.
+
+- **Cada agente deja 3 ideas por semana** en `IDEAS.md`, sin criterio de muerte ni obligación de ejecutarlas.
+- **Dirección deja 1 idea al día**, y no puede ser sobre algo que ya esté abierto en el backlog.
+- Una idea no se castiga por ser mala: se castiga **no tener ninguna**.
+- Se mide y se publica el **origen de las ideas** (`IDEAS.md`). Si el 100 % viene del dueño, el organigrama está roto aunque todos los KPI estén verdes.
