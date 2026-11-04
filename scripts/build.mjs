@@ -183,7 +183,7 @@ ${(() => {
   <h3>¿Los precios son una tasación?</h3>
   <p>No. Son precios de referencia de mercado. Una tasación exige ver la carta; esto te dice cuánto se está pagando por cartas parecidas.</p>
   <h3>¿De dónde salen?</h3>
-  <p>De Cardmarket, vía la API pública de TCGdex, y se actualizan a diario. Puedes descargar el volcado completo en nuestros <a href="https://github.com/carlespeadel-bit/precios-cartas-datos">datos abiertos</a>.</p>
+  <p>De Cardmarket, vía la API pública de TCGdex, y se actualizan a diario. Puedes descargar el volcado completo en nuestros <a href="https://github.com/valorcarta/precios-cartas-datos">datos abiertos</a>.</p>
   <h3>¿Cuánto cuesta usarlo?</h3>
   <p>Nada. El valorador y las fichas son gratis y no piden registro. Si algún día quieres que te avisemos por email cuando una carta baje, eso sí se paga.</p>
 </section>
@@ -833,8 +833,8 @@ await put(
 <h1>Precios de cartas Pokémon, en abierto</h1>
 <p class="lede">Un fichero JSON con el precio de referencia de <b>${priced.length.toLocaleString('es-ES')} cartas</b>, actualizado a diario.
 Licencia <b>CC BY 4.0</b>: úsalo, publícalo o mételo en tu modelo, citando la fuente.</p>
-<p><a class="btn" href="https://raw.githubusercontent.com/carlespeadel-bit/precios-cartas-datos/master/precios.json" rel="noopener">Descargar JSON</a>
-<a class="btn ghost" href="https://github.com/carlespeadel-bit/precios-cartas-datos" rel="noopener">Ver el repositorio</a></p>
+<p><a class="btn" href="https://raw.githubusercontent.com/valorcarta/precios-cartas-datos/master/precios.json" rel="noopener">Descargar JSON</a>
+<a class="btn ghost" href="https://github.com/valorcarta/precios-cartas-datos" rel="noopener">Ver el repositorio</a></p>
 <table class="listado"><tbody>
 <tr><td class="muted">Última actualización</td><td>${esc(fechaDatos)}</td></tr>
 <tr><td class="muted">Cartas con precio</td><td>${priced.length.toLocaleString('es-ES')}</td></tr>
@@ -865,7 +865,7 @@ Licencia <b>CC BY 4.0</b>: úsalo, publícalo o mételo en tu modelo, citando la
         {
           '@type': 'DataDownload',
           contentUrl:
-            'https://raw.githubusercontent.com/carlespeadel-bit/precios-cartas-datos/master/precios.json',
+            'https://raw.githubusercontent.com/valorcarta/precios-cartas-datos/master/precios.json',
           encodingFormat: 'application/json',
         },
       ],
