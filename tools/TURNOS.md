@@ -23,3 +23,11 @@ Cada turno deja **una línea**: quién, qué hizo, qué produjo y si sirvió. Si
 2. **Turnos sin prueba** — los que no dejan URL, cifra o commit.
 3. **Valor por turno** — qué produjo cada turno que acerque a M1, M2 o M3.
 4. **Reasignación** — quitar turnos a lo que no mueve nada y dárselos a lo que sí.
+
+## Cuando no hay faena
+1. Se busca en `RESERVA.md` (finita, con tope).
+2. Si la reserva está agotada o no aplica, se escribe **"sin faena"** y se cierra.
+3. **Prohibido inventar actividad** para justificar el turno: eso es lo que el Optimizador cuenta como turno sin valor.
+
+## Lo que dice el Contralor (aceptado)
+*"El 100 % de ocupación es una fantasía de fábrica. Aquí se espera a Google, a las tiendas y a los relays. Un agente que finge trabajar cuesta lo mismo que uno que trabaja y contamina las métricas."*

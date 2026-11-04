@@ -181,3 +181,12 @@ Un turno cuesta y no todos valen lo mismo. El **Optimizador de turnos** responde
 - **Valor por turno:** qué produjo ese turno que acerque a M1, M2 o M3. Si un turno no toca ninguno de los tres, se elimina del calendario.
 
 **Reasignación mensual:** los turnos de lo que no mueve nada pasan a lo que sí. Y si un puesto lleva dos semanas sin turno, se fusiona: no se mantiene una silla vacía cobrando.
+
+## 20. El 100 % de ocupación no existe (y perseguirlo cuesta dinero)
+
+Lo que sigue es la enmienda del Contralor, aceptada:
+
+- **Un agente esperando una respuesta externa no está desocupado: está esperando.** Google tarda días, las tiendas contestan o no, los relays deciden. Llenar ese hueco con actividad es gastar para sentir movimiento.
+- **La métrica buena no es "% de tiempo ocupado"**, es **valor por turno**. Un turno cada 30 minutos que produce un enlace vale más que cien turnos que producen notas.
+- **Cuando no hay faena:** se tira de `RESERVA.md`, que es finita y con tope. Si la reserva también está agotada, se escribe **"sin faena"** y se cierra el turno. Un turno vacío declarado es honesto; un turno lleno de nada, no.
+- **El Optimizador no puede crear trabajo:** puede reasignar turnos, cerrar puestos sin turno y borrar tareas de reserva que no producen efecto. Nada más.
