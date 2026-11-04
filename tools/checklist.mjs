@@ -53,5 +53,5 @@ const checklist = `# Checklist — ${hoy}
 ## La pregunta del plan
 ¿La tarea de hoy acerca a M1, M2 o M3? Si no, no es trabajo: es entretenimiento.
 `;
-await writeFile(path.join(ROOT, 'informes', 'CHECKLIST.md'), checklist);
+await writeFile(path.join(ROOT, '..', '..', 'dinero', 'informes', 'CHECKLIST.md'), checklist);
 console.log(checklist.split('\n').slice(0, 12).join('\n'));

@@ -153,6 +153,6 @@ const preguntas = empresa.empleados
   })
   .join('\n');
 
-await writeFile(path.join(ROOT, 'informes', 'PREGUNTAS.md'), `# Autointerrogación — ${hoy}\n\n${preguntas}`);
-await writeFile(path.join(ROOT, 'informes', 'CONSEJO.md'), informe);
+await writeFile(path.join(ROOT, '..', '..', 'dinero', 'informes', 'PREGUNTAS.md'), `# Autointerrogación — ${hoy}\n\n${preguntas}`);
+await writeFile(path.join(ROOT, '..', '..', 'dinero', 'informes', 'CONSEJO.md'), informe);
 console.log(informe);
