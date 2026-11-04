@@ -1160,6 +1160,45 @@ for (const g of GUIAS_COMPRA) {
   );
 }
 
+
+// ---------- guía de regalo (intención de compra de Pinterest) ----------
+const REGALOS = [
+  ['Menos de 25 €', [
+    ['B0H8T4YLGT', 'Baraja de liga Umbreon ex (30.º)', 'Lista para jugar: 60 cartas y accesorios. El regalo que se usa el mismo día.'],
+    ['B0H8SXC5L9', 'Colección con póster (30.º)', 'Tres promos y un póster: lo que se cuelga, no lo que se guarda.'],
+    ['B0DSGB5Q6B', 'Colección Ursaluna Luna Carmesí', 'Cuatro holográficas y cuatro sobres para abrir en casa.'],
+  ]],
+  ['De 25 a 50 €', [
+    ['B0H8SXRLT4', 'Lote de 6 sobres (30.º)', 'A 4,99 € el sobre es la mejor referencia de precio del set.'],
+    ['B0CJYK29Y9', 'Baraja de liga Miraidon ex', 'Baraja competitiva lista para jugar.'],
+    ['B0C4V8F77B', 'Estadio Combina y Combate', 'Dos barajas para jugar contra otra persona: el regalo de dos.'],
+  ]],
+  ['Más de 50 €', [
+    ['B0H8T5GC4W', 'ETB del 30.º aniversario', 'La caja más vendida de Juguetes en Amazon España.'],
+    ['B0HGG226FP', 'ETB Dominio Delta', 'Caja de élite de Megaevolución, con promo y accesorios.'],
+    ['B0D6WLBJKX', 'ETB Fábula Sombría', 'Para quien colecciona cajas cerradas, no para abrirlas.'],
+  ]],
+];
+await put(
+  OUT('comprar/regalos/index.html'),
+  layout({
+    title: `Qué regalar a alguien que le gusta Pokémon | ${config.brand}`,
+    description: 'Tres tramos de precio con productos concretos de Pokémon TCG: qué se regala bien, qué se guarda y qué se abre el mismo día.',
+    url: '/comprar/regalos/',
+    body: `
+<nav class="migas"><a href="/comprar/">Comprar</a> / Regalos</nav>
+<h1>Qué regalar a alguien que le gusta Pokémon</h1>
+<p class="aviso-afiliado">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. · Revisado: ${new Date().toISOString().slice(0, 10)}</p>
+<p class="lede">Ordenado por presupuesto, con el motivo de cada uno. No es una lista de lo más caro: es lo que se acierta.</p>
+${REGALOS.map(([tramo, items]) => `
+<h2>${esc(tramo)}</h2>
+<ul class="pasos">${items.map(([asin, nombre, motivo]) => `
+<li><a href="https://www.amazon.es/dp/${asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>${esc(nombre)}</b></a> — ${esc(motivo)}</li>`).join('')}</ul>`).join('')}
+<p class="nota">El precio lo pone Amazon y cambia: comprueba antes de pagar. Si la persona colecciona, pregunta por el set antes de regalar una carta suelta.</p>
+<p class="nota"><a href="/valorar/">Valorar una colección →</a> · <a href="/comprar/">Comparar formatos →</a></p>`,
+  }),
+);
+
 // ---------- comprar (intencion de compra -> afiliado) ----------
 const PRODUCTOS = [
   ['Sobres sueltos', null, 'Para probar suerte sin comprometerte. El precio por sobre siempre es peor que en caja.'],
@@ -1970,7 +2009,7 @@ await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.
 Sitemap: ${SITE}/sitemap-en.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lote-30/', '/comprar/etb-dominio-delta/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lote-30/', '/comprar/etb-dominio-delta/', '/comprar/regalos/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
