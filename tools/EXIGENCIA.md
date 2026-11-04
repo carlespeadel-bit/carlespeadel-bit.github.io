@@ -152,3 +152,13 @@ No una vez por semana: **cada día, 3 webs de `COMPETENCIA.md`**, rotando hasta 
 **Todo hallazgo entra en la cola de copia con dueño y plazo de 72 h.** Copiar no es calcar el texto: es replicar la estructura que funciona con nuestros datos. Lo que no se copia, se justifica por escrito.
 
 **Se mide el efecto de copiar:** si lo copiado no mueve visitas o clics en 14 días, se abandona y se anota. Copiar sin medir es coleccionar capturas de pantalla.
+
+## 17. Inteligencia competitiva 24/7
+
+No tres webs al día: **tres webs cada dos horas**, sin parar. Cuando se acaben las 30, se buscan más hasta tener 100 en el registro.
+
+- Cada visita deja una **ficha completa** en `competencia/<dominio>.md` con la plantilla de 13 campos, rellenada con lo que se ve en su código y sus páginas.
+- **Dónde se publicitan:** se busca la etiqueta exacta (`fbq(`, `analytics.tiktok.com`, `AW-`, `pintrk`) y, si se puede, se comprueba si aparecen como **patrocinado** al buscar su marca.
+- **Cómo lo hacen:** estructura de URLs, schema, oferta y orden del primer pantallazo. Eso es lo que se copia; el texto no.
+- Cada ronda añade **5 webs nuevas** al registro buscando tiendas y webs TCG que no estén ya.
+- Cada ronda **copia al menos una cosa** y la verifica en producción.
