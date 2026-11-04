@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Mapa privado del negocio</title>
+<style>
+:root{--bg:#0a0a0b;--surface:#14141a;--line:#26262e;--fg:#f5f5f7;--muted:#9a9aa5;--accent:#ffcb05;--ok:#3fb950;--warn:#d29922;--bad:#f85149}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:28px 20px 60px}
+.wrap{max-width:1080px;margin:0 auto}
+h1{font-size:1.6rem;margin:0 0 4px}h2{font-size:1.15rem;margin:30px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.muted{color:var(--muted)}.small{font-size:.85rem}
+.medidor{margin:0 0 14px}
+.medidor-cab{display:flex;justify-content:space-between;gap:10px;font-size:.9rem;margin-bottom:5px;flex-wrap:wrap}
+.medidor-barra{background:#14141a;border:1px solid #26262e;border-radius:999px;height:14px;overflow:hidden}
+.medidor-barra i{display:block;height:100%;background:linear-gradient(90deg,#ffcb05,#ff8a00);border-radius:999px;min-width:2px}
+.cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:18px 0}
+.cifra{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.cifra span{display:block;font-size:1.6rem;font-weight:700;color:var(--accent)}.cifra b{font-weight:500;color:var(--muted);font-size:.85rem}
+.barra{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+input{flex:1 1 240px;background:var(--surface);border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:9px 12px}
+button{background:var(--surface);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 14px;cursor:pointer}
+button.activo{background:var(--accent);border-color:var(--accent);color:#0a0a0b;font-weight:700}
+section[hidden]{display:none}
+ol,ul{list-style:none;padding:0;margin:0}
+li{padding:7px 0 7px 20px;position:relative;border-bottom:1px solid var(--line)}
+.hecho li::before{content:"✓";position:absolute;left:0;color:var(--ok)}
+.pend li::before{content:"○";position:absolute;left:0;color:var(--warn)}
+.cad li::before{content:"▸";position:absolute;left:0;color:var(--muted)}
+.et{font-size:.72rem;padding:2px 8px;border-radius:999px;margin-left:6px}
+.m{background:#4b1d1d;color:#ff9d9d}.v{background:#143a1c;color:#7ee787}.n{background:#2b2b33;color:#c9c9d1}
+table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:500}
+</style></head><body><div class="wrap">
+<h1>Mapa privado del negocio</h1>
+<p class="muted small">Generado el 2026-11-04 18:21 · no se publica en ninguna web</p>
+<h2>Cuánto queda para el objetivo</h2>
+<div class="medidor">
+  <div class="medidor-cab"><b>Comisión del mes</b><span>0 € de 1000 · <b>0.00 %</b></span></div>
+  <div class="medidor-barra"><i style="width:0%"></i></div>
+</div>
+<div class="medidor">
+  <div class="medidor-cab"><b>Pedidos</b><span>0 pedidos de 358 · <b>0.00 %</b></span></div>
+  <div class="medidor-barra"><i style="width:0%"></i></div>
+</div>
+<div class="medidor">
+  <div class="medidor-cab"><b>Clics con etiqueta</b><span>1 clics de 11.934 · <b>0.01 %</b></span></div>
+  <div class="medidor-barra"><i style="width:0.008379420144126027%"></i></div>
+</div>
+<div class="medidor">
+  <div class="medidor-cab"><b>Visitas totales</b><span>16 visitas de 596.700 · <b>0.00 %</b></span></div>
+  <div class="medidor-barra"><i style="width:0.0026814144461203286%"></i></div>
+</div>
+<p class="muted small">Supuestos (HIPÓTESIS, no datos): comisión 7 %, venta media 40 €, conversión 3 %, clic por visita 2 %. Para el <b>primer euro</b> hacen falta ~1667 visitas cualificadas y hoy hay 16.</p>
+<p class="muted small"><b>Fecha estimada a este ritmo:</b> no calculable — no hay visitas externas todavía</p>
+
+<div class="cifras">
+  <div class="cifra"><span>0</span><b>visitas</b></div>
+  <div class="cifra"><span>0,00 €</span><b>ingresos del mes</b></div>
+  <div class="cifra"><span>3</span><b>días con avance</b></div>
+  <div class="cifra"><span>3</span><b>hipótesis probadas</b></div>
+  <div class="cifra"><span>16</span><b>agentes</b></div>
+</div>
+<div class="barra">
+  <input id="q" placeholder="Buscar (carta, set, agente, hipótesis)" aria-label="Buscar">
+  <button data-f="todo" class="activo">Todo</button>
+  <button data-f="abierto">Abierto</button>
+  <button data-f="cerrado">Cerrado</button>
+  <button data-f="cadena">Hipótesis</button>
+  <button data-f="equipo">Equipo</button>
+</div>
+<section data-s="hitos"><h2>Plan a 90 días</h2><ol class="pend" id="hitos">
+<li data-t>M1 · Google rastrea la web <span class="muted small">11-11-2026 · ≥10 páginas indexadas en Search Console</span></li><li data-t>M2 · Primer tráfico externo <span class="muted small">18-11-2026 · ≥10 visitas en 7 días con referidor que no sea propio</span></li><li data-t>M3 · Primer euro <span class="muted small">25-11-2026 · ≥1 clic con etiqueta y ≥1 pedido en el informe de Amazon</span></li><li data-t>M4 · 10 €/mes <span class="muted small">16-12-2026 · comisión acumulada del mes ≥10 €</span></li><li data-t>M5 · 100 €/mes <span class="muted small">15-01-2027 · comisión del mes ≥100 €</span></li><li data-t>M6 · 1.000 €/mes <span class="muted small">04-02-2027 · comisión del mes ≥1.000 €</span></li>
+</ol></section>
+<section data-s="cadena"><h2>Cadena de hipótesis</h2><ol class="cad" id="cadena">
+<li data-t><b>H1</b> El sitemap falla por una entrada en caché del envío original<div class="small muted">Acción: Crear y enviar `/sitemap-google.xml` con 472 URLs</div><div class="small">Google lo marcó &quot;no se ha podido obtener&quot; al instante</div><span class="et m">MUERTA</span></li><li data-t><b>H2</b> El problema es el host `github.io`<div class="small muted">Acción: Buscar sitios github.io indexados en Google</div><div class="small">Google indexa otros `github.io` (p. ej. inakicalvo.github.io)</div><span class="et m">MUERTA</span></li><li data-t><b>H4</b> ## Regla
+- Si el resultado no se puede medir, la hipótesis no se cierra: se instrumenta primero.
+- Una hipótesis muerta se queda escrita con su porqué. No se vuelve a proponer.
+- La cadena no se salta eslabones: no se abre H5 sin cerrar H4.
+
+## Objetivos que ha destapado la acción
+
+Cada acción ejecutada no solo cierra un eslabón: abre objetivos nuevos. Se ordenan por impacto sobre `ingresos_mes` y se pasan a `BACKLOG.md` con dueño.<div class="small muted">Acción: Objetivo descubierto</div><div class="small">Por qué acción salió</div><span class="et n">Impacto estimado</span></li>
+</ol></section>
+<section data-s="cerrado"><h2>Cerrado (19)</h2><ol class="hecho" id="cerradas">
+<li data-t>A1 — 14 ASINs de producto sellado con precio (ETB, caja de 36, latas, colección premium, fundas, binder). Verificado: viven en `data/asins.json` y en `/com</li><li data-t>A2 — Cero enlaces `s?k=` en las 28.000 páginas. Verificado con `grep` sobre `dist` y sobre la web publicada. Hecho 04-11.</li><li data-t>C1 — 5 guías de compra por formato publicadas con ASIN real: /comprar/sobres, /caja-36, /etb, /lata, /blister. Verificado 200 en producción el 04-11.</li><li data-t>C2 — Enlazado entre versiones de la misma carta en todos los sets (Charizard, Umbreon…). Verificado en producción el 04-11: cada ficha enlaza a sus reimpre</li><li data-t>D2 — Dataset abierto publicado en github.com/carlespeadel-bit/precios-cartas-datos (9.830 cartas, CC BY) y enlazado desde el pie de las 28.000 páginas. Ver</li><li data-t>S1 — Cada ficha enlaza a su set, a /guardar-cartas/ y a /caras/. Verificado 04-11.</li><li data-t>P1 — Cada clic a Amazon se registra como evento `amazon-click` en GoatCounter. Verificado 04-11: el evento aparece en la API tras un clic real.</li><li data-t>T1n — Portada reforzada: 600 palabras propias, 4 factores de valor y FAQ con schema (3 preguntas). Verificado 05-11 en producción.</li><li data-t>T4n — Portada con **bloque diario de movimientos** y fecha visible (&quot;actualizado el 3 de noviembre&quot;). Verificado 05-11 en producción: el bloque aparece y ca</li><li data-t>T5n — Contexto calculado en cada ficha: puesto en su set, número de reimpresiones y variación real frente a la media de 30 días. Verificado 05-11 en producc</li><li data-t>T6n — **Pivote de foco:** solo las **300 cartas más caras** son indexables (472 URLs en total con sets, guías y herramientas). El resto queda `noindex,follo</li><li data-t>T7n — Sitemap **plano** de 472 URLs (sin índice ni bloques). Verificado 05-11 en producción: `&lt;urlset&gt;` con 472 `&lt;loc&gt;`, un fichero.</li><li data-t>T8n — Yu-Gi-Oh y Magic con el mismo criterio: **top 100 indexable** por juego, resto `noindex,follow`. Verificado 05-11: `/ygo/sitemap.xml` y `/magic/sitema</li><li data-t>T9n — Diagnóstico completo con las tres tácticas muertas y las cuatro palancas que dependen del dueño (`dinero/DIAGNOSTICO.md`).</li><li data-t>SC1 — Propiedad `https://valorcarta.github.io/` **añadida y verificada** en Search Console (04-11). Resuelto con Playwright en Python (`tools/searchconsole.</li><li data-t>SC2 — `sitemap.xml` enviado a la propiedad nueva (04-11, estado inicial &quot;no se ha podido obtener&quot;, Google reintenta).</li><li data-t>SC3 — Inspección de URLs operativa con `tools/sc_inspect.py`: la portada sale **indexada**; el resto «no indexada: Google no reconoce esta URL».</li><li data-t>T3n — Página `/datos/` con schema **Dataset** (licencia CC BY 4.0, distribución al JSON de GitHub) para entrar en Google Dataset Search. Verificada 200 el 0</li><li data-t>X1 — Presupuesto de rastreo: `noindex,follow` en las 5.442 fichas de menos de 1 € y sitemap reducido a 4.559 URLs. Verificado 05-11 (`30th-047` lleva noind</li>
+</ol></section>
+<section data-s="abierto"><h2>Abierto (13)</h2><ol class="pend" id="abiertas">
+<li data-t>D1 — Canal de Telegram: no se puede crear sin el dueño; si no existe, seguir.</li><li data-t>S2 — Schema de producto con precio y disponibilidad en las 28.000 fichas.</li><li data-t>SC4 — Esperar a que Google reintente el sitemap: el estado «no se ha podido obtener» es de la primera pasada (justo al cambiar de dominio). Ahora el sitemap</li><li data-t>T2n — Comprobar en 72 h si Google pasa de 1 página indexada a 10. Si no, marcar SEO como muerto y decidir con el dueño.</li><li data-t>O1 — Probar el sitemap en un host distinto (aislar archivo vs propiedad). Dueño: SEO.</li><li data-t>O2 — Dominio propio con 301 desde valorcarta.github.io. Dueño: Dirección. (Coste ~10-15 €/año, decide el dueño.)</li><li data-t>O3 — Cuarto y quinto enlace externo real. Dueño: Distribución.</li><li data-t>O4 — Catálogo en inglés con precios USD/GBP. Dueño: Contenido.</li><li data-t>O5 — Indexar /datos/ en Google Dataset Search. Dueño: Datos.</li><li data-t>O6 — Canal propio de publicación automática. Dueño: Distribución.</li><li data-t>O7 — Limpiar `changes.json` de movimientos fantasma (comparar solo precios con dato previo y variación &lt; 1000 %). Dueño: Datos.</li><li data-t>O8 — Excluir el tráfico de automatización de GoatCounter (filtrar por IP/UA o usar un prefijo de ruta). Dueño: Datos.</li><li data-t>O9 — Publicar en Nostr con etiquetas de comunidad y a hora de audiencia. Dueño: Distribución.</li>
+</ol></section>
+<section data-s="equipo"><h2>Quién responde de qué</h2>
+<table><thead><tr><th>Agente</th><th>Objetivo</th><th>Estado</th><th>Intentos</th><th>Fallos</th></tr></thead><tbody id="equipo">
+<tr data-t><td>Dirección</td><td class="small">Ingresos mensuales &gt;= 1000 EUR</td><td>cesado</td><td>0</td><td>5</td></tr><tr data-t><td>Analista de demanda</td><td class="small">10 consultas nuevas/semana con fuente</td><td>activo</td><td>2</td><td>1</td></tr><tr data-t><td>Redactor jefe</td><td class="small">5 páginas publicadas/semana</td><td>activo</td><td>2</td><td>1</td></tr><tr data-t><td>Ingeniería</td><td class="small">0 builds rojos y 1 mejora/semana</td><td>activo</td><td>2</td><td>0</td></tr><tr data-t><td>SEO técnico</td><td class="small">Sitemap leído y &gt;=10 páginas indexadas</td><td>cesado</td><td>0</td><td>5</td></tr><tr data-t><td>Afiliados</td><td class="small">100% de enlaces a /dp/ y &gt;=20 ASIN</td><td>cesado</td><td>0</td><td>5</td></tr><tr data-t><td>Distribución</td><td class="small">1 canal publicando a diario</td><td>cesado</td><td>0</td><td>5</td></tr><tr data-t><td>Datos</td><td class="small">Panel actualizado a diario</td><td>activo</td><td>2</td><td>0</td></tr><tr data-t><td>Auditoría</td><td class="small">% de avances verificados sin falso positivo (y vetos con prueba)</td><td>activo</td><td>2</td><td>0</td></tr><tr data-t><td>Soporte</td><td class="small">0 caídas sin avisar</td><td>activo</td><td>2</td><td>0</td></tr><tr data-t><td>Dirección (direccion-2)</td><td class="small">Ingresos mensuales &gt;= 1000 EUR</td><td>activo</td><td>3</td><td>0</td></tr><tr data-t><td>SEO técnico (seo-2)</td><td class="small">Sitemap leído y &gt;=10 páginas indexadas</td><td>activo</td><td>3</td><td>0</td></tr><tr data-t><td>Afiliados (afiliados-2)</td><td class="small">100% de enlaces a /dp/ y &gt;=20 ASIN</td><td>activo</td><td>3</td><td>0</td></tr><tr data-t><td>Distribución (distribucion-2)</td><td class="small">1 canal publicando a diario</td><td>activo</td><td>3</td><td>0</td></tr><tr data-t><td>Fiscal (auditoria-2)</td><td class="small">Cerrar 3 huecos por semana (sin dueño, sin medir, sin cerrar)</td><td>activo</td><td>3</td><td>0</td></tr><tr data-t><td>Estrategia (90 días)</td><td class="small">Hitos M1-M6 cumplidos en fecha</td><td>activo</td><td>3</td><td>0</td></tr>
+</tbody></table></section>
+<p class="muted small" id="cuenta">—</p>
+<p class="muted small">Última fila de OBJETIVO.md:  ·  04-11 (t18)  ·  0,00 €  ·  0  ·  29 (19 propias)  ·  1  ·  EN publicado (577 URLs), aviso de afiliado corregido, Nostr con 2 notas  · </p>
+</div>
+<script>
+const S=[...document.querySelectorAll('[data-s]')],T=[...document.querySelectorAll('[data-t]')],B=[...document.querySelectorAll('[data-f]')],q=document.getElementById('q');
+function pintar(f,txt){const s=(txt||'').toLowerCase().trim();S.forEach(x=>{const k=x.dataset.s;x.hidden=!(f==='todo'||k===f)});T.forEach(x=>{x.style.display=!s||x.textContent.toLowerCase().includes(s)?'':'none'});document.getElementById('cuenta').textContent=T.filter(x=>x.style.display!=='none').length+' elementos visibles'}
+B.forEach(b=>b.onclick=()=>{B.forEach(x=>x.classList.toggle('activo',x===b));pintar(b.dataset.f,q.value)});
+q.oninput=()=>pintar((B.find(x=>x.classList.contains('activo'))||{}).dataset?.f||'todo',q.value);
+pintar('todo','');
+</script></body></html>

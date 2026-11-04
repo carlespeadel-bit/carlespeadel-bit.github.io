@@ -1,0 +1,15 @@
+{
+  "nota": "Qué turno debe dejar rastro cada día y en qué fichero. El auditor compara la hora de modificación con la esperada. Rutas relativas a dinero/: ../valorcarta/* es código, informes/* es salida generada.",
+  "turnos": [
+    { "turno": "07:10 Ingeniería", "hora": "07:10", "evidencia": ["../valorcarta/data/changes.json"] },
+    { "turno": "09:00 Dirección", "hora": "09:00", "evidencia": ["OBJETIVO.md", "CADENA.md"] },
+    { "turno": "09:30 Nostr", "hora": "09:30", "evidencia": ["../valorcarta/data/changes.json"] },
+    { "turno": "10:00 Contenido y demanda", "hora": "10:00", "evidencia": ["CADENA.md", "informes/PREGUNTAS.md"] },
+    { "turno": "11:00 Afiliados y datos", "hora": "11:00", "evidencia": ["../valorcarta/data/asins.json", "../valorcarta/data/widget.json"] },
+    { "turno": "12:30 Dirección creativa", "hora": "12:30", "evidencia": ["CRITERIOS_VIDEO.md"] },
+    { "turno": "16:00 Fiscal", "hora": "16:00", "evidencia": ["PARTES.md"] },
+    { "turno": "20:00 Optimizador", "hora": "20:00", "evidencia": ["TURNOS.md"] },
+    { "turno": "21:00 Supervisión", "hora": "21:00", "evidencia": ["AUDITORIA-INTERNA.md", "../valorcarta/tools/EMPRESA.json"] },
+    { "turno": "22:00 Enlace y Abstraedor", "hora": "22:00", "evidencia": ["CONEXIONES.md", "CADENA.md"] }
+  ]
+}

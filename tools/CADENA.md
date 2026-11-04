@@ -1,1 +1,1 @@
-../../dinero/CADENA.md
+../dinero/CADENA.md

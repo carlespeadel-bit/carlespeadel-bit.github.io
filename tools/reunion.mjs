@@ -58,5 +58,5 @@ Ningún cambio de organigrama entra sin **dueño, número y fecha de muerte**. U
 - Un experimento por cambio, añadido a \`CADENA.md\`.
 - Lo que no se aplique hoy, no se decide: se aparca con fecha.
 `;
-await writeFile(path.join(ROOT, '..', '..', 'dinero', 'informes', 'REUNION.md'), md);
+await writeFile(path.join(ROOT, '..', 'dinero', 'informes', 'REUNION.md'), md);
 console.log(md.split('\n').slice(0, 14).join('\n'));

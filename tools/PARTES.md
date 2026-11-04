@@ -1,1 +1,1 @@
-../../dinero/PARTES.md
+../dinero/PARTES.md

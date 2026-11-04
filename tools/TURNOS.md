@@ -1,1 +1,1 @@
-../../dinero/TURNOS.md
+../dinero/TURNOS.md

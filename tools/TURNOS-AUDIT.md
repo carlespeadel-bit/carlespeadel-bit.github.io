@@ -1,1 +1,1 @@
-../../dinero/TURNOS-AUDIT.md
+../dinero/TURNOS-AUDIT.md

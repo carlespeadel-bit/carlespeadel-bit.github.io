@@ -1,1 +1,1 @@
-../../dinero/PLAN-90D.md
+../dinero/PLAN-90D.md

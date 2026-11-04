@@ -1,1 +1,6 @@
-{ "ultima_visita_total": 16, "ultima_hora": "2026-11-04T20:05:00Z", "ultimo_hallazgo": "2 hallazgos abiertos (Datos)", "nota": "el vigía solo escribe cuando cambia algo" }
+{
+ "ultima_visita_total": 39,
+ "ultima_hora": "2026-11-04T21:07:27Z",
+ "ultimo_hallazgo": "2 hallazgos abiertos (Datos)",
+ "nota": "+21 visitas desde el último chequeo, ninguna con referidor externo (tráfico de automatización)"
+}

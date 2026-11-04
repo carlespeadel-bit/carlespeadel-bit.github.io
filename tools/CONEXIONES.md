@@ -1,1 +1,1 @@
-../../dinero/CONEXIONES.md
+../dinero/CONEXIONES.md

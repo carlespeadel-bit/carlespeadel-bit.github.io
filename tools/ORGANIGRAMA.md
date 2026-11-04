@@ -1,1 +1,1 @@
-../../dinero/ORGANIGRAMA.md
+../dinero/ORGANIGRAMA.md
