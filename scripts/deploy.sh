@@ -11,3 +11,6 @@ git add -A
 git -c user.email=bot@valorcarta.es -c user.name=valorcarta commit -qm "sitio compilado $(date -u +%F)"
 git push -f "https://valorcarta:${GH_TOKEN}@github.com/valorcarta/valorcarta.github.io.git" HEAD:gh-pages
 echo "publicado en gh-pages"
+cd ..
+echo "--- auditoría interna tras el despliegue ---"
+node scripts/auditoria.mjs | head -14
