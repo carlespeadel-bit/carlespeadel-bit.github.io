@@ -28,3 +28,17 @@ Dueño: **Estrategia** (nuevo rol, depende de Dirección). Su KPI no son tareas:
 - **Publicidad de pago:** no hay presupuesto.
 - **Cuentas que exijan teléfono:** no están disponibles.
 - **Contenido en más juegos:** hasta que M2 no se cumpla, más catálogo no factura.
+
+## Rotación de hitos (aparcar sin abandonar)
+
+Si un hito se atasca después de agotar sus hipótesis, **se aparca y se pasa al siguiente**, con tres condiciones que impiden que esto sea abandonar con estilo:
+
+1. **Máximo 1 hito aparcado a la vez.** Dos aparcados simultáneos = el plan no existe.
+2. **Reapertura obligatoria a los 14 días**, con fecha escrita en `CHECKLIST.md`. Un hito aparcado no desaparece: se le pone alarma.
+3. **Al volver no se repite el método.** Las hipótesis muertas quedan en `CADENA.md`; reintentar la misma acción es un fallo sucio y cuesta 2 intentos.
+
+**Y el hito aparcado conserva dueño y contador**: sigue gastando intentos, no se libera al agente.
+
+**Independencia de hitos (esto es clave):** M1 (indexación) y M2 (visitas externas) **no son secuenciales**. Nostr, un enlace o una comunidad pueden dar visitas sin que Google haya rastreado nada. Por tanto, si M1 se atasca, M2 puede seguir viva — y de hecho es la que más importa, porque las visitas son el escalón que falta.
+
+**Lo que NO se puede aparcar nunca:** M3 (el primer euro). Mientras M3 no llegue, todo lo demás es preparación.
