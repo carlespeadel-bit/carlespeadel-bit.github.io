@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "moneda": "EUR virtual",
+  "reglas": {
+    "evaluacion": "semanal",
+    "descuento_por_fallo": 0.25,
+    "fallos_para_aviso": 1,
+    "fallos_para_bajada_sueldo": 2,
+    "fallos_para_degradacion": 3,
+    "fallos_para_suspension": 4,
+    "fallos_para_cese": 5,
+    "kpi_no_medido": "no penaliza; se marca NO MEDIDO y se exige instrumentarlo"
+  },
+  "empleados": [
+    {
+      "id": "director",
+      "nombre": "Dirección",
+      "nivel": "A",
+      "sueldo": 3000,
+      "objetivo": "Ingresos mensuales >= 1000 EUR",
+      "kpi": "ingresos_mes",
+      "fallos": 1,
+      "estado": "activo",
+      "suplente": "direccion-2"
+    },
+    {
+      "id": "demanda",
+      "nombre": "Analista de demanda",
+      "nivel": "B",
+      "sueldo": 1800,
+      "objetivo": "10 consultas nuevas/semana con fuente",
+      "kpi": "consultas_semana",
+      "fallos": 0,
+      "estado": "activo",
+      "suplente": "demanda-2"
+    },
+    {
+      "id": "contenido",
+      "nombre": "Redactor jefe",
+      "nivel": "B",
+      "sueldo": 1800,
+      "objetivo": "5 páginas publicadas/semana",
+      "kpi": "paginas_semana",
+      "fallos": 0,
+      "estado": "activo",
+      "suplente": "contenido-2"
+    },
+    {
+      "id": "constructor",
+      "nombre": "Ingeniería",
+      "nivel": "A",
+      "sueldo": 2200,
+      "objetivo": "0 builds rojos y 1 mejora/semana",
+      "kpi": "builds_ok",
+      "fallos": 0,
+      "estado": "activo",
+      "suplente": "ingenieria-2"
+    },
+    {
+      "id": "seo",
+      "nombre": "SEO técnico",
+      "nivel": "A",
+      "sueldo": 2200,
+      "objetivo": "Sitemap leído y >=10 páginas indexadas",
+      "kpi": "paginas_indexadas",
+      "fallos": 1,
+      "estado": "activo",
+      "suplente": "seo-2"
+    },
+    {
+      "id": "afiliados",
+      "nombre": "Afiliados",
+      "nivel": "A",
+      "sueldo": 2000,
+      "objetivo": "100% de enlaces a /dp/ y >=20 ASIN",
+      "kpi": "enlaces_producto",
+      "fallos": 1,
+      "estado": "activo",
+      "suplente": "afiliados-2"
+    },
+    {
+      "id": "distribucion",
+      "nombre": "Distribución",
+      "nivel": "A",
+      "sueldo": 2000,
+      "objetivo": "1 canal publicando a diario",
+      "kpi": "canales_activos",
+      "fallos": 1,
+      "estado": "activo",
+      "suplente": "distribucion-2"
+    },
+    {
+      "id": "datos",
+      "nombre": "Datos",
+      "nivel": "B",
+      "sueldo": 1600,
+      "objetivo": "Panel actualizado a diario",
+      "kpi": "panel_al_dia",
+      "fallos": 0,
+      "estado": "activo",
+      "suplente": "datos-2"
+    },
+    {
+      "id": "auditor",
+      "nombre": "Auditoría",
+      "nivel": "B",
+      "sueldo": 1700,
+      "objetivo": "3 fallos con evidencia/semana",
+      "kpi": "hallazgos",
+      "fallos": 0,
+      "estado": "activo",
+      "suplente": "auditoria-2"
+    },
+    {
+      "id": "soporte",
+      "nombre": "Soporte",
+      "nivel": "C",
+      "sueldo": 1200,
+      "objetivo": "0 caídas sin avisar",
+      "kpi": "alertas",
+      "fallos": 0,
+      "estado": "activo",
+      "suplente": "soporte-2"
+    }
+  ],
+  "banquillo": [
+    "direccion-2",
+    "demanda-2",
+    "contenido-2",
+    "ingenieria-2",
+    "seo-2",
+    "afiliados-2",
+    "distribucion-2",
+    "datos-2",
+    "auditoria-2",
+    "soporte-2"
+  ],
+  "historial": [
+    {
+      "fecha": "2026-11-04",
+      "visitas": 18,
+      "tareasHechas": 22,
+      "tareasPendientes": 4,
+      "masaSalarial": 19500
+    }
+  ]
+}
