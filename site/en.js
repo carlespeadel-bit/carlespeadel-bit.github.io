@@ -77,7 +77,7 @@
       .map((row) => {
         const [slug, name, set, price, , img] = row;
         return `<div class="res" data-slug="${esc(slug)}">
-          ${img ? `<img src="${esc(img)}/low.webp" alt="" loading="lazy">` : ''}
+          ${img ? `<img src="${esc(img)}/low.webp" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
           <span class="res-n">${esc(name)}<br><span class="res-s">${esc(set)}</span></span>
           <span class="res-p">${eur(price)}<br><span class="res-s">≈ ${usd(price)}</span></span>
         </div>`;
@@ -165,7 +165,7 @@
         const [, name, set, price, , img] = row;
         const sub = price * it.q;
         return `<div class="fila" data-slug="${esc(it.s)}">
-          ${img ? `<img src="${esc(img)}/low.webp" alt="" loading="lazy">` : '<span></span>'}
+          ${img ? `<img src="${esc(img)}/low.webp" alt="" loading="lazy" onerror="this.style.display='none'">` : '<span></span>'}
           <span><span class="f-n">${esc(name)}</span><br><span class="f-s">${esc(set)}</span></span>
           <input type="number" min="1" max="99" value="${it.q}" aria-label="Quantity">
           <span class="f-p">${eur(sub)}<br><span class="f-s">≈ ${usd(sub)}</span></span>
@@ -264,6 +264,11 @@
           document.addEventListener('click', (e) => {
             if (!e.target.closest('.buscador')) $('#resultados-en')?.classList.remove('on');
           });
+          const initial = new URLSearchParams(location.search).get('q');
+          if (initial) {
+            q.value = initial;
+            search(initial);
+          }
         }
       })
       .catch(() => {});

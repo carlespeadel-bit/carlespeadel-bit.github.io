@@ -24,10 +24,52 @@ let CAMBIOS = null;
 try { CAMBIOS = JSON.parse(await readFile(path.join(ROOT, 'data', 'changes.json'), 'utf8')); } catch {}
 let ASINS = {};
 try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
+let SETS_EN = {};
+try { SETS_EN = JSON.parse(await readFile(path.join(ROOT, 'data', 'sets-en.json'), 'utf8')); } catch {}
+let CARDS_EN = {};
+try { CARDS_EN = JSON.parse(await readFile(path.join(ROOT, 'data', 'cards-en.json'), 'utf8')); } catch {}
 
 const priced = cards.filter((c) => c.price > 0);
 const TOP_INDEXABLE = 300;
 const indexables = new Set(priced.slice(0, TOP_INDEXABLE).map((c) => c.id));
+
+// ---------- edición inglesa: 100 cartas más caras y páginas núcleo ----------
+const TOP_EN = 100;
+const enCards = priced.slice(0, TOP_EN);
+const enMeta = (c) => CARDS_EN[c.id] ?? {};
+const enName = (c) => enMeta(c).name || c.name;
+const enSlug = (c) => `${c.id}-${slugify(enName(c).replace(/['’]/g, ''))}`;
+const enSlugById = new Map(enCards.map((c) => [c.id, enSlug(c)]));
+const setNameEn = (c) => SETS_EN[c.setId]?.name ?? c.setName;
+const setYearEn = (c) => {
+  const d = SETS_EN[c.setId]?.releaseDate ?? c.releaseDate;
+  return d ? String(d).slice(0, 4) : null;
+};
+// Tipos de cambio FIJOS de la sección inglesa. No son tipos en vivo: están
+// declarados aquí para que el build sea reproducible y la página lo diga.
+const FX = { USD: 1.08, GBP: 0.85 };
+const nfEurEn = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' });
+const nfUsdEn = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+const nfGbpEn = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' });
+const eurEn = (n) => (n == null || !isFinite(n) ? '—' : nfEurEn.format(n));
+const usdEn = (n) => (n == null || !isFinite(n) ? '—' : nfUsdEn.format(n * FX.USD));
+const gbpEn = (n) => (n == null || !isFinite(n) ? '—' : nfGbpEn.format(n * FX.GBP));
+const FX_NOTE = `USD and GBP are an approximate conversion at fixed build rates (€1 = $${FX.USD.toFixed(2)} = £${FX.GBP.toFixed(2)}), not live exchange rates.`;
+const amazonDp = (asin) => `https://www.amazon.es/dp/${asin}?tag=${encodeURIComponent(config.amazonTag)}`;
+const ASIN_LABEL_EN = {
+  B0BTRN9FT5: '36-pack booster box · Scarlet & Violet',
+  B0FDGXLR5L: 'Elite Trainer Box · Scarlet & Violet (Koraidon)',
+  B0DM6HQ8X5: 'Elite Trainer Box · Prismatic Evolutions',
+  B0DWGBC38K: 'Super Premium Collection · Prismatic Evolutions',
+  B0G4NT3SH1: 'Elite Trainer Box · Ascended Heroes',
+  B0FNX69YSZ: "Collector's EX tin (4 packs)",
+};
+// hreflang recíproco: el x-default apunta a la versión española, que es la original.
+const altPair = (es, en) => [
+  { hreflang: 'es', href: SITE + es },
+  { hreflang: 'en', href: SITE + en },
+  { hreflang: 'x-default', href: SITE + es },
+];
 const porNombre = new Map();
 for (const c of priced) {
   const k = c.name.toLowerCase();
@@ -72,7 +114,7 @@ await put(`${INDEXNOW_KEY}.txt`, INDEXNOW_KEY);
 await put('_headers', await readFile(path.join(ROOT, 'site', '_headers')));
 
 // assets estaticos
-for (const f of ['style.css', 'app.js']) {
+for (const f of ['style.css', 'app.js', 'en.js']) {
   await put(OUT(`assets/${f}`), await readFile(path.join(ROOT, 'site', f)));
 }
 await put(
@@ -210,6 +252,7 @@ await put(
     title: `${config.brand} — ¿Cuánto valen tus cartas Pokémon? Precios de hoy`,
     description: `Calcula el valor de tu colección de cartas Pokémon con precios reales de Cardmarket actualizados a diario. ${priced.length.toLocaleString('es-ES')} cartas, gratis y sin registro.`,
     url: '/',
+    alternates: altPair('/', '/en/'),
     body: homeBody,
     jsonld: {
       '@context': 'https://schema.org',
@@ -289,12 +332,12 @@ ${
 <p class="acciones">
   ${
     ASINS[id]?.length
-      ? `<a class="btn" href="https://www.amazon.es/dp/${ASINS[id][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(ASINS[id][0].nombre)} en Amazon</a>`
+      ? `<a class="btn" href="https://www.amazon.es/dp/${ASINS[id][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(ASINS[id][0].nombre)} en Amazon</a>`
       : `<a class="btn" href="/guardar-cartas/">Fundas y toploaders para estas cartas</a>`
   }
   <a class="btn ghost" href="/valorar/">¿Cuánto vale mi colección?</a>
 </p>
-<p class="nota small">Enlace de afiliado. El precio lo pone Amazon; la comisión no te cuesta nada.</p>
+${ASINS[id]?.length ? '<p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. El producto es el sellado del set, no una carta concreta.</p>' : '<p class="nota small">Este botón lleva a nuestra guía de fundas, que es donde están los enlaces de afiliado a Amazon.</p>'}
 
 <h2>Listado completo con precios</h2>
 <table class="listado">
@@ -416,10 +459,11 @@ for (let i = 0; i < priced.length; i += BATCH) {
     <p class="nota">Precio de referencia de Cardmarket (media de ventas, no tasación). Una carta en estado Near Mint vale más; una con desgaste, bastante menos.</p>
     ${
       ASINS[c.setId]?.length
-        ? `<a class="btn" href="https://www.amazon.es/dp/${ASINS[c.setId][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(ASINS[c.setId][0].nombre)} en Amazon</a>`
-        : `<a class="btn" href="/guardar-cartas/">Fundas y toploaders para esta carta</a>`
+        ? `<a class="btn" href="https://www.amazon.es/dp/${ASINS[c.setId][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(ASINS[c.setId][0].nombre)} en Amazon</a>
+    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. El producto es el sellado del set, no esta carta.</p>`
+        : `<a class="btn" href="/guardar-cartas/">Fundas y toploaders para esta carta</a>
+    <p class="nota small">Este botón lleva a nuestra guía de fundas, que es donde están los enlaces de afiliado a Amazon.</p>`
     }
-    <p class="nota small">Enlace de afiliado: si compras, nos llevamos una comisión sin coste extra para ti.</p>
     <p class="nota"><a href="/guardar-cartas/">¿Cómo guardar esta carta? →</a> · <a href="/caras/">Las 100 más caras →</a></p>
     <div class="acciones">
       <button class="btn ghost" data-add="${slug}">Añadir a mi colección</button>
@@ -443,10 +487,12 @@ ${(() => {
   <div class="grid">${otras.map(cardTile).join('')}</div></section>`;
 })()}`;
 
+      const enSlugFor = enSlugById.get(c.id);
       const html = layout({
         title: `${c.name} ${c.localId ?? ''} — ${c.setName}: precio y valor | ${config.brand}`,
         description: `¿Cuánto vale ${c.name} de ${c.setName}? Precio de mercado hoy: ${eur(c.price)}. Media de 30 días y mínimo, actualizado a diario.`,
         url: `/carta/${slug}/`,
+        alternates: enSlugFor ? altPair(`/carta/${slug}/`, `/en/card/${enSlugFor}/`) : undefined,
         noindex: !indexables.has(c.id),
         image: c.image ? `${c.image}/high.webp` : undefined,
         body,
@@ -531,6 +577,7 @@ await put(
     description:
       'Calcula gratis cuánto vale tu colección de cartas Pokémon con precios de mercado actualizados. Añade cartas, guarda el enlace y sigue el valor con el tiempo.',
     url: '/valorar/',
+    alternates: altPair('/valorar/', '/en/price-check/'),
     body: `
 <h1>Valorar mi colección</h1>
 <p class="lede">Busca cada carta, pon cuántas tienes y el total se calcula con el precio de mercado de hoy.
@@ -636,6 +683,7 @@ await put(
     description:
       'Radar de precios de cartas Pokémon: qué sube y qué baja en los últimos 7 días frente a la media de 30, recalculado a diario.',
     url: '/mercado/',
+    alternates: altPair('/mercado/', '/en/market/'),
     body: `
 <h1>Qué se mueve esta semana</h1>
 <p class="lede">Comparación de la media de 7 días frente a la de 30, sobre ${radar.length.toLocaleString('es-ES')} cartas con liquidez suficiente.
@@ -718,9 +766,9 @@ const PRODUCTOS_GUARDAR = [
   },
   {
     tramo: 'La colección entera',
-    que: 'Binder con cremallera',
+    que: 'Álbum con cremallera',
     asin: 'B0D7W2PJR8',
-    nombre: 'Card Guardian Binder 720, 9 bolsillos',
+    nombre: 'Álbum de 540 cartas, 9 bolsillos y cremallera',
     veredicto: 'Para lo que no se vende ni se toca cada día: la colección entera fuera del polvo, del sol y de las anillas metálicas.',
     porque: 'Cierre y páginas cosidas: las anillas clásicas marcan la carta con el tiempo.',
     precio: 'desde 25,98 €',
@@ -882,6 +930,7 @@ await put(
     description:
       'Ranking de las 100 cartas Pokémon con mayor precio de mercado, actualizado a diario. Con set, rareza y enlace a su ficha.',
     url: '/caras/',
+    alternates: altPair('/caras/', '/en/most-expensive/'),
     body: `
 <h1>Las 100 cartas Pokémon más caras</h1>
 <p class="lede">Ordenadas por precio de mercado hoy. La lista se recalcula en cada actualización, así que cambia:
@@ -960,8 +1009,8 @@ const GUIAS_COMPRA = [
     cta: 'Lata Mega-Charizard',
   },
   {
-    slug: 'blister', asin: 'B0H1HDKXGH', h1: 'Blíster de 3: comodidad cara',
-    entradilla: 'El blíster existe para regalar y para tienda física. Por sobre es de los formatos más caros.',
+    slug: 'blister', asin: null, h1: 'Comprar por sobres sueltos: cuándo sale caro',
+    entradilla: 'Los formatos de sobre suelto existen para regalar y para tienda física. Por sobre suelen ser los más caros, y por eso aquí no enlazamos ninguno: preferimos decirte el precio por sobre y que decidas.',
     puntos: [
       'Es el formato con peor precio por sobre de todos los habituales.',
       'Útil si necesitas un regalo rápido o comprar en tienda física.',
@@ -1178,6 +1227,615 @@ await legal(
    <p>Contacto: ${esc(config.contactEmail)}.</p>`,
 );
 
+// ---------- English edition (/en/) ----------
+const enPaths = [];
+const enPage = async (route, html) => {
+  await put(OUT(`en/${route}index.html`), html);
+  enPaths.push(`/en/${route}`);
+};
+
+const enDate = (() => {
+  const d = new Date(`${fechaDatos}T12:00:00Z`);
+  return Number.isNaN(d.getTime())
+    ? fechaDatos
+    : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+})();
+
+const cardImageEn = (c) => enMeta(c).image ?? c.image ?? null;
+// Para la portada, prioriza cartas cuya imagen ya respondió en el chequeo del build.
+const topEn = [...top.filter((c) => enSlugById.has(c.id)), ...enCards]
+  .filter((c, i, arr) => arr.findIndex((x) => x.id === c.id) === i)
+  .slice(0, 12);
+const cardTotalEn = (c) => {
+  const meta = setsById.get(c.setId);
+  return meta?.cardCount?.official ?? meta?.cardCount?.total ?? bySet.get(c.setId)?.length ?? 0;
+};
+const legalEn = (legal) => {
+  if (!legal) return null;
+  if (legal.standard) return 'Standard & Expanded';
+  if (legal.expanded) return 'Expanded only';
+  return 'Not tournament legal';
+};
+const stageEn = (s) => (s ? String(s).replace(/^Stage(\d)$/, 'Stage $1') : null);
+const capEn = (s) => (s ? String(s).charAt(0).toUpperCase() + String(s).slice(1) : s);
+
+const VAR_TYPE_EN = {
+  holo: 'Holo',
+  normal: 'Normal',
+  reverse: 'Reverse holo',
+  'básico': 'Normal',
+  'reversa': 'Reverse holo',
+};
+const VAR_SUB_EN = { standard: 'standard', 'estándar': 'standard', jumbo: 'jumbo' };
+
+function variantLabelEn(v) {
+  const type = VAR_TYPE_EN[v.type] ?? capEn(v.type ?? 'Normal');
+  const sub = v.subtype ? (VAR_SUB_EN[v.subtype] ?? v.subtype) : '';
+  return sub && sub !== 'standard' ? `${type} · ${sub}` : type;
+}
+
+function priceTableEn(card) {
+  // Una fila por listado de Cardmarket. Cuando dos listados comparten etiqueta
+  // (misma versión, distinta edición o sello) se numeran para no ocultar el más barato.
+  const seen = new Set();
+  const items = [];
+  for (const v of card.variants ?? []) {
+    if (!(v.avg || v.trend || v.holoAvg)) continue;
+    const base = v.trend ?? v.avg;
+    if (base == null) continue;
+    const key = v.productId ?? `${v.type}|${v.subtype}|${items.length}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    items.push({ v, base, label: variantLabelEn(v) });
+  }
+  items.sort((a, b) => b.base - a.base);
+  const counts = new Map();
+  let duplicated = false;
+  const rows = items.map(({ v, base, label }) => {
+    const n = (counts.get(label) ?? 0) + 1;
+    counts.set(label, n);
+    if (n > 1) duplicated = true;
+    const shown = n === 1 ? label : `${label} · listing ${n}`;
+    return `<tr>
+      <td>${esc(shown)}</td>
+      <td class="num">${eurEn(base)}<br><span class="muted small">30d avg ${eurEn(v.avg30)} · low ${eurEn(v.low)}</span></td>
+      <td class="num muted">${usdEn(base)}</td>
+      <td class="num muted">${gbpEn(base)}</td>
+    </tr>`;
+  });
+  if (!rows.length) return '<p class="muted">No price data for this card yet.</p>';
+  return `<table class="prices">
+    <thead><tr><th>Version</th><th class="num">EUR</th><th class="num">≈ USD</th><th class="num">≈ GBP</th></tr></thead>
+    <tbody>${rows.join('')}</tbody>
+  </table>${
+    duplicated
+      ? '\n  <p class="nota small">Some versions have more than one Cardmarket listing (different edition or stamp); each listing is shown separately.</p>'
+      : ''
+  }`;
+}
+
+const FAQ_EN = [
+  [
+    'Are these prices an appraisal?',
+    'No. They are Cardmarket reference prices: the average of recent sales. An appraisal requires seeing the card, and condition can change the value by more than half.',
+  ],
+  [
+    'Why are USD and GBP approximate?',
+    'The source price is in euros. The English pages convert it at fixed rates declared in the build (€1 = $1.08 = £0.85). They are not live exchange rates.',
+  ],
+  [
+    'Why only 100 cards in English?',
+    'The English edition starts with the 100 most valuable cards. The full catalogue of 9,830 priced cards is available in Spanish.',
+  ],
+];
+
+const homeEnBody = `
+<section class="hero">
+  <p class="kicker">The 100 most valuable Pokémon cards · data updated ${enDate}</p>
+  <h1>What are your Pokémon cards worth?</h1>
+  <p class="lede">Today's market prices for the 100 most expensive Pokémon cards, in EUR with an approximate
+  USD and GBP conversion. Free, no signup, no cookies.</p>
+  <div id="buscador" class="buscador">
+    <input id="q-en" type="search" placeholder="Search the top 100: Charizard, Umbreon, Mew…" autocomplete="off" aria-label="Search cards">
+    <div id="resultados-en" class="resultados"></div>
+  </div>
+  <div class="acciones">
+    <a class="btn" href="/en/price-check/">Check my collection</a>
+    <a class="btn ghost" href="/en/most-expensive/">See the top 100</a>
+  </div>
+</section>
+
+<section class="bloque">
+  <h2>The most expensive cards right now</h2>
+  <p class="muted small">The ranking is rebuilt every day: a card that rises enters, a card that falls leaves.</p>
+  <div class="grid">
+    ${topEn.map(cardTileEn).join('\n')}
+  </div>
+  <p class="muted small"><a href="/en/most-expensive/">See all 100 with EUR, USD and GBP prices →</a></p>
+</section>
+
+<section class="bloque">
+  <h2>EUR first, USD and GBP as an approximation</h2>
+  <p>The reference price is in euros because the source, Cardmarket, is the European market. For US and UK
+  readers we add a conversion so the number is readable, but the euro price is the one that comes from the data.</p>
+  <p class="nota">${FX_NOTE}</p>
+  <p class="muted small">Prices are reference prices, not an appraisal. A Near Mint copy can sell for far more
+  than a played one; the number does not know the condition of your card.</p>
+</section>
+
+<section class="bloque">
+  <h2>How it works</h2>
+  <ol class="pasos">
+    <li>Search for a card in the top 100 and open its page.</li>
+    <li>Add it to your collection. Quantities are stored in your browser, not on a server.</li>
+    <li>Open the price check to see the total in EUR, with the approximate USD and GBP value.</li>
+  </ol>
+  <p><a class="btn ghost" href="/en/price-check/">Open the price check</a></p>
+</section>
+
+<section class="bloque">
+  <h2>Why two copies of the same card are not worth the same</h2>
+  <ul class="pasos">
+    <li><b>Condition.</b> Near Mint, Excellent and Played are different markets. The price shown is a reference, not a quote for your copy.</li>
+    <li><b>Edition and variant.</b> First edition, shadowless, holo and reverse holo can be different cards with different prices.</li>
+    <li><b>Language.</b> English, Japanese and Spanish copies do not trade at the same price.</li>
+    <li><b>Reprints.</b> A new printing of a popular character can pull the old version down.</li>
+  </ul>
+</section>
+
+<section class="bloque">
+  <h2>The top 30, ranked</h2>
+  <div class="indice">
+    ${enCards.slice(0, 30).map((c) => `<a href="/en/card/${enSlug(c)}/">${esc(enName(c))}</a>`).join(' · ')}
+  </div>
+  <p class="muted small"><a href="/en/most-expensive/">See all 100 with EUR, USD and GBP prices →</a></p>
+</section>
+
+<section class="bloque">
+  <h2>Questions</h2>
+  ${FAQ_EN.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('\n')}
+</section>
+
+<section class="bloque">
+  <h2>Looking for the full catalogue?</h2>
+  <p>The Spanish edition covers all ${priced.length.toLocaleString('en-US')} priced cards, with set pages and the full
+  market radar. <a href="/">Go to ValorCarta en español</a>.</p>
+</section>`;
+
+await enPage(
+  '',
+  layout({
+    lang: 'en',
+    title: `Pokémon Card Prices — Top 100 Most Valuable Cards | ${config.brand}`,
+    description:
+      'Today\'s market prices for the 100 most expensive Pokémon cards, with EUR and an approximate USD and GBP conversion. Free, no signup.',
+    url: '/en/',
+    alternates: altPair('/', '/en/'),
+    scripts: ['/assets/en.js'],
+    body: homeEnBody,
+    jsonld: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: `${config.brand} English`,
+        url: `${SITE}/en/`,
+        inLanguage: 'en',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: `${SITE}/en/price-check/?q={search_term_string}`,
+          'query-input': 'required name=search_term_string',
+        },
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: FAQ_EN.map(([q, a]) => ({
+          '@type': 'Question',
+          name: q,
+          acceptedAnswer: { '@type': 'Answer', text: a },
+        })),
+      },
+    ],
+  }),
+);
+
+const priceCheckEnBody = `
+<nav class="migas"><a href="/en/">Home</a> / Price check</nav>
+<h1>Pokémon card price check</h1>
+<p class="lede">Add the cards you own and see what they are worth at today's market price. This English version
+covers the 100 most valuable cards; the full ${priced.length.toLocaleString('en-US')}-card catalogue is in Spanish.</p>
+<div id="buscador" class="buscador grande">
+  <input id="q-en" type="search" placeholder="Search the top 100: Charizard, Umbreon, Mew…" autocomplete="off" aria-label="Search cards">
+  <div id="resultados-en" class="resultados"></div>
+</div>
+<div class="dos-col coleccion">
+  <div>
+    <h2>Your collection <span id="n-cartas-en" class="muted"></span></h2>
+    <div id="coleccion-en" class="coleccion-lista"><p class="muted">No cards yet. Search above to add one.</p></div>
+  </div>
+  <aside class="total-caja">
+    <p class="muted">Market value today</p>
+    <p id="total-en" class="total">€0.00</p>
+    <p id="total-usd" class="muted">≈ $0.00 USD</p>
+    <p id="total-gbp" class="muted">≈ £0.00 GBP</p>
+    <p id="delta-en" class="muted"></p>
+    <button id="compartir-en" class="btn">Copy share link</button>
+    <button id="csv-en" class="btn ghost">Download CSV</button>
+    <button id="vaciar-en" class="btn ghost">Clear</button>
+    <p class="nota small">Reference prices from Cardmarket. ${FX_NOTE}</p>
+    <a class="btn ghost" href="/valorar/">Full catalogue in Spanish</a>
+  </aside>
+</div>
+
+<section class="bloque">
+  <h2>How the total is calculated</h2>
+  <ol class="pasos">
+    <li>Each card is valued at its current Cardmarket reference price in euros.</li>
+    <li>Quantities are multiplied by that price and added up.</li>
+    <li>USD and GBP are converted at the fixed rates declared in the build: €1 = $${FX.USD.toFixed(2)} = £${FX.GBP.toFixed(2)}.</li>
+  </ol>
+  <p class="nota">The total is a market reference, not an offer. Condition, language and edition can move the real
+  value of a card by more than half. The collection is saved only in this browser.</p>
+</section>`;
+
+await enPage(
+  'price-check/',
+  layout({
+    lang: 'en',
+    title: `Pokémon Card Price Check — Collection Value Calculator | ${config.brand}`,
+    description:
+      'Add your Pokémon cards and see the collection value at today\'s market prices. The 100 most valuable cards in English, with EUR, USD and GBP.',
+    url: '/en/price-check/',
+    alternates: altPair('/valorar/', '/en/price-check/'),
+    scripts: ['/assets/en.js'],
+    body: priceCheckEnBody,
+    jsonld: {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Pokémon card price check',
+      url: `${SITE}/en/price-check/`,
+      applicationCategory: 'FinanceApplication',
+      operatingSystem: 'Any',
+      inLanguage: 'en',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    },
+  }),
+);
+
+const radarEn = enCards
+  .map((c) => {
+    const v = bestVariant(c);
+    if (!v || !v.avg30 || !v.avg7 || v.avg30 < 10 || v.avg7 <= 0) return null;
+    return { ...c, var7: ((v.avg7 - v.avg30) / v.avg30) * 100 };
+  })
+  .filter((c) => c && c.var7 > -60 && c.var7 < 60);
+const subenEn = [...radarEn].sort((a, b) => b.var7 - a.var7).slice(0, 15);
+const bajanEn = [...radarEn].sort((a, b) => a.var7 - b.var7).slice(0, 15);
+
+const filaRadarEn = (c, cls) => `<tr>
+  <td><a href="/en/card/${enSlug(c)}/">${esc(enName(c))}</a> <span class="muted small">${esc(setNameEn(c))}</span></td>
+  <td class="num">${eurEn(c.price)}<br><span class="muted small">≈ ${usdEn(c.price)} / ${gbpEn(c.price)}</span></td>
+  <td class="num ${cls}">${c.var7 >= 0 ? '+' : ''}${c.var7.toFixed(1)}%</td>
+</tr>`;
+
+const marketEnBody = `
+<nav class="migas"><a href="/en/">Home</a> / Market</nav>
+<h1>What moved this week</h1>
+<p class="lede">Seven-day average against the 30-day average, on the ${radarEn.length} cards in the English
+top 100 that have enough price history. Rebuilt on every update, so this is today's market, not an article.</p>
+
+<div class="dos-col">
+  <div>
+    <h2>Up</h2>
+    <table class="listado"><thead><tr><th>Card</th><th class="num">Price (EUR)</th><th class="num">7 days</th></tr></thead>
+    <tbody>${subenEn.map((c) => filaRadarEn(c, 'up')).join('')}</tbody></table>
+  </div>
+  <div>
+    <h2>Down</h2>
+    <table class="listado"><thead><tr><th>Card</th><th class="num">Price (EUR)</th><th class="num">7 days</th></tr></thead>
+    <tbody>${bajanEn.map((c) => filaRadarEn(c, 'down')).join('')}</tbody></table>
+  </div>
+</div>
+
+<section class="bloque">
+  <h2>How it is calculated</h2>
+  <p>A single sale can move the latest price, so we do not use it. We compare the 7-day average with the 30-day
+  average and discard moves above 60%, which in cards with few sales is noise rather than a trend.</p>
+  <p class="muted">Cardmarket reference prices via TCGdex. Not a prediction or a buying recommendation.</p>
+  <p class="nota small">${FX_NOTE} The English section tracks the 100 most valuable cards; the full market radar
+  is on the <a href="/mercado/">Spanish market page</a>.</p>
+</section>`;
+
+await enPage(
+  'market/',
+  layout({
+    lang: 'en',
+    title: `Pokémon Card Market — What Is Rising and Falling This Week | ${config.brand}`,
+    description:
+      'Seven-day versus 30-day price moves on the 100 most valuable Pokémon cards, rebuilt daily. Prices in EUR with approximate USD and GBP.',
+    url: '/en/market/',
+    alternates: altPair('/mercado/', '/en/market/'),
+    body: marketEnBody,
+  }),
+);
+
+const enTotal = enCards.reduce((s, c) => s + (c.price ?? 0), 0);
+const mostExpensiveEnBody = `
+<nav class="migas"><a href="/en/">Home</a> / Top 100</nav>
+<h1>The 100 most expensive Pokémon cards</h1>
+<p class="lede">Ranked by Cardmarket reference price. The list is rebuilt on every update, so a card that rises
+enters and a card that falls leaves. Prices in EUR, with an approximate USD and GBP conversion.</p>
+<p class="muted">Combined market value of the 100 cards: <b>${eurEn(enTotal)}</b>
+<span class="small">(≈ ${usdEn(enTotal)} / ${gbpEn(enTotal)})</span>.</p>
+<table class="listado ranking">
+<thead><tr><th>#</th><th>Card</th><th>Set</th><th class="num">EUR</th><th class="num">≈ USD</th><th class="num">≈ GBP</th></tr></thead>
+<tbody>
+${enCards
+  .map(
+    (c, i) => `<tr>
+  <td class="num muted">${i + 1}</td>
+  <td><a href="/en/card/${enSlug(c)}/">${esc(enName(c))}</a></td>
+  <td class="muted">${esc(setNameEn(c))}</td>
+  <td class="num">${eurEn(c.price)}</td>
+  <td class="num muted">${usdEn(c.price)}</td>
+  <td class="num muted">${gbpEn(c.price)}</td>
+</tr>`,
+  )
+  .join('')}
+</tbody></table>
+<p class="nota small">${FX_NOTE} Reference prices are not an appraisal: condition decides the real value.</p>
+<p class="acciones"><a class="btn" href="/en/price-check/">Check my collection</a>
+<a class="btn ghost" href="/en/market/">What moved this week</a></p>`;
+
+await enPage(
+  'most-expensive/',
+  layout({
+    lang: 'en',
+    title: `The 100 Most Expensive Pokémon Cards (Today's Prices) | ${config.brand}`,
+    description:
+      'Ranking of the 100 most expensive Pokémon cards by Cardmarket reference price, with EUR, approximate USD and GBP. Rebuilt daily.',
+    url: '/en/most-expensive/',
+    alternates: altPair('/caras/', '/en/most-expensive/'),
+    body: mostExpensiveEnBody,
+    jsonld: {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'The 100 most expensive Pokémon cards',
+      itemListElement: enCards.slice(0, 20).map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: enName(c),
+        url: `${SITE}/en/card/${enSlug(c)}/`,
+      })),
+    },
+  }),
+);
+
+const aboutEnBody = `
+<nav class="migas"><a href="/en/">Home</a> / About</nav>
+<h1>About ValorCarta</h1>
+<p class="lede">ValorCarta is an independent price guide for Pokémon cards. We publish Cardmarket reference
+prices, not appraisals, and we do not take custody of cards or run a marketplace.</p>
+
+<section class="bloque">
+  <h2>Where the prices come from</h2>
+  <p>Reference prices are daily Cardmarket data collected through the public TCGdex API, the same source used by
+  the Spanish edition. The price shown is a market reference: the average of recent sales, not a quote for a
+  specific card in a specific condition.</p>
+</section>
+
+<section class="bloque">
+  <h2>EUR, USD and GBP</h2>
+  <p>The source price is in euros. ${FX_NOTE}</p>
+</section>
+
+<section class="bloque">
+  <h2>Amazon affiliate links</h2>
+  <p>As an Amazon Associate I earn from qualifying purchases. Links use the tag <b>valorcarta-21</b> and go to
+  Amazon.es. When we have an ASIN for a set we link to that product; when we do not, the link goes to an Amazon
+  search. We do not invent ASINs. The price is set by Amazon, and the commission costs you nothing.</p>
+</section>
+
+<section class="bloque">
+  <h2>Privacy</h2>
+  <p>No account and no tracking cookies. Your collection and price alerts are stored in your browser's local
+  storage and are not sent to us. We use cookie-less GoatCounter analytics to count visits. If you subscribe to
+  the Spanish alerts service, payment is handled by Lemon Squeezy as merchant of record.</p>
+</section>
+
+<section class="bloque">
+  <h2>Not affiliated with Nintendo or The Pokémon Company</h2>
+  <p>ValorCarta is not affiliated, sponsored or endorsed by Nintendo, Creatures Inc., GAME FREAK or The Pokémon
+  Company. The trademarks cited belong to their owners.</p>
+  <p class="muted">Contact: <a href="mailto:${esc(config.contactEmail)}">${esc(config.contactEmail)}</a> ·
+  <a href="/aviso-legal/">Full legal notice (Spanish)</a> · <a href="/privacidad/">Privacy policy (Spanish)</a></p>
+</section>`;
+
+await enPage(
+  'about/',
+  layout({
+    lang: 'en',
+    title: `About ValorCarta — Prices, Affiliate Links and Privacy`,
+    description:
+      'How ValorCarta gets Pokémon card prices, why USD and GBP are an approximate conversion, how Amazon affiliate links work and what data we store.',
+    url: '/en/about/',
+    body: aboutEnBody,
+  }),
+);
+
+// 100 fichas inglesas: misma carta que la ficha ES, slug inglés y hreflang recíproco.
+await mkdir(OUT('en/card'), { recursive: true });
+for (const c of enCards) {
+  const slug = enSlug(c);
+  const meta = enMeta(c);
+  const setName = setNameEn(c);
+  const image = cardImageEn(c);
+  const total = cardTotalEn(c);
+  const year = setYearEn(c);
+  const vBest = bestVariant(c);
+  const var30 = vBest?.avg30 && c.price ? ((c.price - vBest.avg30) / vBest.avg30) * 100 : null;
+  const delSet = (bySet.get(c.setId) ?? []).filter((x) => x.price > 0);
+  const posSet = delSet.findIndex((x) => x.id === c.id) + 1;
+  const categoryEn = meta.category === 'Pokemon' ? 'Pokémon' : meta.category || 'Pokémon';
+  const kindEn = categoryEn === 'Trainer' ? 'Trainer card' : categoryEn === 'Energy' ? 'Energy card' : 'Pokémon card';
+  const rarityEn = meta.rarity ? capEn(meta.rarity) : '';
+  const typesEn = meta.types?.length ? meta.types.join(' / ') : null;
+  const descriptionEn = `${rarityEn ? `${rarityEn} ` : ''}${typesEn ? `${typesEn} ` : ''}${kindEn} from ${setName}${
+    year ? ` (${year})` : ''
+  }${meta.illustrator ? `, illustrated by ${meta.illustrator}` : ''}.${total ? ` Card ${c.localId ?? '—'}/${total}.` : ''}`;
+  const contextoEn = [
+    posSet === 1 && delSet.length > 2
+      ? `It is the most expensive card in ${setName}.`
+      : posSet > 0 && delSet.length > 2
+        ? `It ranks #${posSet} of ${delSet.length} by market value in ${setName}.`
+        : '',
+    var30 != null
+      ? `It is ${Math.abs(var30).toFixed(0)}% ${var30 >= 0 ? 'above' : 'below'} its 30-day average.`
+      : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const datosEn = [
+    ['Category', categoryEn],
+    ['Type', typesEn],
+    ['HP', meta.hp],
+    ['Stage', stageEn(meta.stage)],
+    ['Evolves from', meta.evolveFrom],
+    ['Ability', meta.abilities?.join(', ')],
+    ['Weakness', meta.weaknesses?.map((w) => `${w.type} ${w.value}`).join(' · ')],
+    ['Retreat cost', meta.retreat],
+    ['Legal', legalEn(meta.legal)],
+    ['Regulation mark', meta.regulationMark],
+    ['Rarity', meta.rarity ? capEn(meta.rarity) : null],
+    ['Illustrator', meta.illustrator],
+    ['Number', c.localId ? `${c.localId}/${total}` : null],
+  ].filter(([, v]) => v !== null && v !== undefined && v !== '');
+
+  const attacksEn = (meta.attacks ?? [])
+    .filter((a) => a.name || a.damage)
+    .slice(0, 4)
+    .map(
+      (a) => `<li>${a.name ? `<b>${esc(a.name)}</b> ` : ''}${
+        a.damage ? `<span class="dmg">${esc(String(a.damage))}</span>` : ''
+      }${a.cost?.length ? ` <span class="muted small">(${a.cost.map(esc).join(' · ')})</span>` : ''}</li>`,
+    )
+    .join('');
+
+  const asin = ASINS[c.setId]?.[0] ?? null;
+  const ctaEn = asin
+    ? `<a class="btn" href="${amazonDp(asin.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(
+        ASIN_LABEL_EN[asin.asin] ?? `Shop ${setName} on Amazon`,
+      )}</a>`
+    : `<a class="btn" href="/en/most-expensive/">See how this card compares</a>
+    <p class="nota small">This card is out of print, so there is no sealed product to link. Most copies are bought and sold between collectors; we do not link to a search page because that commission is lower and it is not a real product.</p>`;
+
+  const pos = enCards.findIndex((x) => x.id === c.id);
+  const more = [...enCards.slice(pos + 1), ...enCards.slice(0, pos)].slice(0, 6);
+  const pathEn = `/en/card/${slug}/`;
+
+  const body = `
+<nav class="migas"><a href="/en/">Home</a> / <a href="/en/most-expensive/">Top 100</a> / ${esc(enName(c))}</nav>
+<div class="carta-layout">
+  <div class="carta-img">
+    ${image ? `<img src="${esc(image)}/high.webp" alt="Pokémon card ${esc(enName(c))} from ${esc(setName)}" width="480" height="670" loading="eager" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">` : ''}
+  </div>
+  <div class="carta-info">
+    <h1>How much is ${esc(enName(c))} worth?</h1>
+    <p class="precio-grande">${eurEn(c.price)}<span class="muted"> · ${esc(vBest ? variantLabelEn(vBest).toLowerCase() : 'reference')}</span></p>
+    <p class="muted">≈ ${usdEn(c.price)} USD · ≈ ${gbpEn(c.price)} GBP <span class="small">(approximate conversion)</span></p>
+    ${trendLine(c, 'en')}
+    <p class="muted">${esc(descriptionEn)}</p>
+    ${priceTableEn(c)}
+    ${attacksEn ? `<h2 class="mini">Attacks</h2><ul class="ataques">${attacksEn}</ul>` : ''}
+    ${
+      datosEn.length
+        ? `<table class="prices datos"><tbody>${datosEn
+            .map(([k, v]) => `<tr><td class="muted">${esc(k)}</td><td>${esc(String(v))}</td></tr>`)
+            .join('')}</tbody></table>`
+        : ''
+    }
+    ${meta.effect ? `<p class="contexto"><b>Card effect:</b> ${esc(meta.effect)}</p>` : ''}
+    ${contextoEn ? `<p class="contexto">${esc(contextoEn)}</p>` : ''}
+    <p class="nota">Reference price from Cardmarket (sales average, not an appraisal). Near Mint copies sell
+    for more; played copies for much less.</p>
+    <p class="nota small">${FX_NOTE}</p>
+    ${ctaEn}
+    <p class="nota small">As an Amazon Associate I earn from qualifying purchases. Amazon sets the price.${
+      asin
+        ? ' We link to sealed products for this set, not to single cards.'
+        : ' This is a search link: check condition and language before buying.'
+    }</p>
+    <p class="nota"><a href="/carta/${cardSlug(c)}/" hreflang="es">Read this card in Spanish →</a> ·
+    <a href="/en/most-expensive/">See all 100 →</a></p>
+    <div class="acciones">
+      <button class="btn ghost" data-add-en="${esc(slug)}">Add to my collection</button>
+      <a class="btn ghost" href="/en/price-check/">Check a collection</a>
+    </div>
+  </div>
+</div>
+${
+  more.length
+    ? `<section class="bloque"><h2>More of the 100 most expensive cards</h2><div class="grid">${more
+        .map(cardTileEn)
+        .join('')}</div></section>`
+    : ''
+}`;
+
+  await put(
+    OUT(`en/card/${slug}/index.html`),
+    layout({
+      lang: 'en',
+      title: `${enName(c)}${c.localId ? ` ${c.localId}` : ''} — ${setName} card value | ${config.brand}`,
+      description: `What is ${enName(c)} from ${setName} worth? Market price today: ${eurEn(c.price)} (approx. ${usdEn(c.price)} / ${gbpEn(c.price)}). 30-day average and low, updated daily.`,
+      url: pathEn,
+      alternates: altPair(`/carta/${cardSlug(c)}/`, pathEn),
+      image: image ? `${image}/high.webp` : undefined,
+      scripts: ['/assets/en.js'],
+      body,
+      jsonld: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/en/` },
+            { '@type': 'ListItem', position: 2, name: 'Top 100', item: `${SITE}/en/most-expensive/` },
+            { '@type': 'ListItem', position: 3, name: enName(c), item: `${SITE}${pathEn}` },
+          ],
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: `${enName(c)} — ${setName}`,
+          image: image ? `${image}/high.webp` : undefined,
+          description: descriptionEn,
+          brand: { '@type': 'Brand', name: 'Pokémon' },
+          offers: {
+            '@type': 'Offer',
+            price: c.price,
+            priceCurrency: 'EUR',
+            availability: 'https://schema.org/InStock',
+            url: `${SITE}${pathEn}`,
+          },
+        },
+      ],
+    }),
+  );
+  enPaths.push(pathEn);
+}
+
+// índice ligero para el buscador y la calculadora ingleses
+const enIndex = enCards.map((c) => [
+  enSlug(c),
+  enName(c),
+  setNameEn(c),
+  c.price,
+  bestVariant(c)?.avg30 ?? null,
+  cardImageEn(c),
+  c.setId,
+]);
+await put(OUT('en/data/cards.json'), JSON.stringify({ fx: FX, cards: enIndex }));
+
 // ---------- assets ----------
 await put(OUT('404.html'), layout({
   title: `No encontrado | ${config.brand}`,
@@ -1194,7 +1852,8 @@ const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
-  .concat(guias.map((g) => `${SITE}/guia/${g.slug}/`));
+  .concat(guias.map((g) => `${SITE}/guia/${g.slug}/`))
+  .concat(enPaths.map((u) => `${SITE}${u}`));
 // sitemap plano: con menos de 2.000 URLs no hace falta indice
 const lastmod = (cards[0]?.updated ?? new Date().toISOString()).slice(0, 10);
 // copia con nombre alternativo: fuerza a Google a rastrear una URL nueva
@@ -1225,6 +1884,7 @@ await put(OUT('data/cartas.json'), JSON.stringify(idx));
 
 console.log(`OK ${n} cartas, ${bySet.size} sets, ${urls.length} URLs en sitemap`);
 console.log(`   catálogo valorado: ${eur(totalValor)} · índice ${(JSON.stringify(idx).length / 1e6).toFixed(1)} MB`);
+console.log(`   EN: ${enPaths.length} URLs (${enCards.length} fichas) · cambio fijo EUR→USD ${FX.USD.toFixed(2)} / EUR→GBP ${FX.GBP.toFixed(2)}`);
 
 function cardTile(c) {
   return `<a class="tile" href="/carta/${cardSlug(c)}/">
@@ -1232,5 +1892,16 @@ function cardTile(c) {
   <span class="tile-name">${esc(c.name)}</span>
   <span class="tile-price">${c.price ? eur(c.price) : '—'}</span>
   <span class="tile-set muted">${esc(c.setName)}</span>
+</a>`;
+}
+
+function cardTileEn(c) {
+  const image = cardImageEn(c);
+  return `<a class="tile" href="/en/card/${enSlug(c)}/">
+  ${image ? `<img src="${esc(image)}/low.webp" alt="${esc(enName(c))}" width="245" height="342" loading="lazy" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">` : `<div class="tile-ph">${esc(enName(c))}</div>`}
+  <span class="tile-name">${esc(enName(c))}</span>
+  <span class="tile-price">${eurEn(c.price)}</span>
+  <span class="tile-set muted">≈ ${usdEn(c.price)} · ${gbpEn(c.price)}</span>
+  <span class="tile-set muted">${esc(setNameEn(c))}</span>
 </a>`;
 }

@@ -8,5 +8,8 @@
     { "asin": "B0DWGBC38K", "nombre": "Colección Súper Premium · Evoluciones Prismáticas" }
   ],
   "me02.5": [{ "asin": "B0G4NT3SH1", "nombre": "Elite Trainer Box · Héroes Ascendentes" }],
-  "swsh7": [{ "asin": "B0FNX69YSZ", "nombre": "Lata EX de coleccionista (4 sobres)" }]
+  "me02": [{ "asin": "B0FTG3C43P", "nombre": "Lote de 6 sobres · Fuegos Fantasmales" }],
+  "me03": [{ "asin": "B0GGHXWSDC", "nombre": "Elite Trainer Box · Equilibrio Perfecto" }],
+  "30th": [{ "asin": "B0H8T5GC4W", "nombre": "Elite Trainer Box · Celebración 30.º Aniversario" }],
+  "swsh7": [{ "asin": "B09CQGL1SH", "nombre": "Elite Trainer Box · Cielos Evolutivos" }]
 }
