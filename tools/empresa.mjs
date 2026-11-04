@@ -11,6 +11,11 @@ const TOKEN = process.env.GOATCOUNTER_TOKEN;
 const hoy = new Date().toISOString().slice(0, 10);
 
 const empresa = JSON.parse(await readFile(EMPRESA, 'utf8'));
+const EXIG = JSON.parse(await readFile(path.join(ROOT, 'EXIGENCIA.json'), 'utf8').catch(() => '{}'));
+const hoyISO = new Date().toISOString().slice(0, 10);
+const huboAvance = EXIG.ultimo_avance === hoyISO;
+if (!huboAvance) { EXIG.dias_perdidos = (EXIG.dias_perdidos ?? 0) + 1; EXIG.racha_dias_con_avance = 0; }
+await writeFile(path.join(ROOT, 'EXIGENCIA.json'), JSON.stringify(EXIG, null, 2));
 let backlog = '';
 try { backlog = await readFile(BACKLOG, 'utf8'); } catch {}
 const hechas = (backlog.match(/- \[x\]/g) || []).length;
@@ -55,6 +60,7 @@ for (const e of empresa.empleados) {
 
   if (k.medido && !cumple) {
     e.fallos = (e.fallos || 0) + 1;
+    e.intentos = Math.max(0, (e.intentos ?? 3) - 1);
     if (e.fallos >= R.fallos_para_cese) {
       const suplente = e.suplente;
       e.estado = 'cesado';
@@ -70,7 +76,10 @@ for (const e of empresa.empleados) {
     if (e.estado === 'suspendido') e.estado = 'activo';
   }
 
-  const pago = e.estado === 'activo' ? e.sueldo : e.estado === 'suspendido' ? 0 : 0;
+  // Sin ingresos no hay nómina: el sueldo virtual solo se cobra sobre dinero real.
+  const ingresosMes = 0;
+  const reparto = Math.min(1, ingresosMes / 1000);
+  const pago = e.estado === 'activo' && cumple ? Math.round(e.sueldo * reparto) : 0;
   masaSalarial += pago;
   const kpiTxt = k.medido ? `${k.valor}/${k.meta} ${k.unidad}${cumple ? ' ✅' : ' ❌'}` : 'NO MEDIDO';
   lineas.push(`| ${e.nombre} | ${kpiTxt} | ${e.estado}${e.fallos ? ` (fallos: ${e.fallos})` : ''} | ${pago} € |`);
@@ -87,7 +96,10 @@ const informe = `# Consejo de administración — ${hoy}
 |---|---|---|---|
 ${lineas.join('\n')}
 
-**Masa salarial virtual:** ${masaSalarial} €/mes · **Ingresos reales:** 0 €/mes
+**Suelo diario:** ${huboAvance ? 'cumplido hoy' : `DÍA PERDIDO (${EXIG.dias_perdidos} seguidos)`} · **Racha:** ${EXIG.racha_dias_con_avance} días con avance · **Canales muertos:** ${(EXIG.canales_muertos ?? []).length}
+
+**Masa salarial pagada:** ${masaSalarial} €/mes · **Ingresos reales:** 0 €/mes
+**Regla de pago:** sueldo × (ingresos / 1.000), tope 100 %. Sin ingresos, nómina cero. **Intentos restantes:** cada fallo gasta uno; a cero, el agente sale del organigrama.
 **Déficit:** ${masaSalarial} €/mes. La empresa lleva 3 días sin ingresos y 18 visitas.
 
 ## Nota del director
