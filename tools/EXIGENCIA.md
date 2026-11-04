@@ -96,3 +96,21 @@ Un disidente parado es un disidente inútil. Si no hay nada que auditar, el Fisc
 **Su KPI pasa a ser `huecos cerrados/semana`**, no huecos encontrados. Encontrar es fácil; cerrar es el trabajo.
 
 **Tiempo vacío = fallo.** Si un turno del Fiscal termina sin un hueco cerrado ni un veto resuelto, es un día perdido y lo paga como cualquiera.
+
+## 12. Regla del primer euro
+
+Nada se hace si no acerca **el primer euro cobrado**. No los 1.000 €/mes: el primero.
+
+**Toda hipótesis debe declarar tres cosas o se rechaza:**
+1. En qué escalón del embudo actúa: **visita → clic con etiqueta → compra → comisión**.
+2. Cuántos pasos del embudo desbloquea.
+3. Fecha estimada en la que puede producir el primer euro.
+
+**Embudo medido (HIPÓTESIS, no dato):** con 7 % de comisión, una compra media de ~40 € deja ~2,80 €. Para el primer euro hace falta **una compra**. A 2 % de clic y 3 % de conversión, eso son **~1.700 visitas cualificadas**. Hoy hay 18.
+
+**Por tanto el orden de prioridad es el inverso al que usábamos:**
+- **Primero:** cualquier cosa que produzca visitas con intención de compra (buscador o comunidad).
+- **Segundo:** subir el clic por visita (comparativas, "dónde comprar", precio por estado).
+- **Último:** más fichas, más juegos, más idiomas, más diseño. Eso no factura nada hasta que haya alguien mirando.
+
+**Prohibido** abrir una tarea que no diga qué escalón mueve y para cuándo.
