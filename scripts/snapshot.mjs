@@ -50,7 +50,9 @@ for (const [id, p] of Object.entries(foto)) {
   if (antes < MIN && p < MIN) continue; // ruido de cartas de céntimos
   const d = p - antes;
   const pct = (d / antes) * 100;
-  if (Math.abs(pct) < 3) continue; // menos de 3% es ruido diario
+  if (Math.abs(pct) < 3) continue;      // menos de 3 % es ruido diario
+  if (antes < 0.5) continue;            // precios de partida ridículos: el salto es un error de dato, no una subida
+  if (Math.abs(pct) > 1000) continue;   // un x10 en un día no es mercado, es dato sucio
   mov.push({ id, de: antes, a: p, d, pct });
 }
 
