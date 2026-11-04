@@ -1089,6 +1089,16 @@ const GUIAS_COMPRA = [
     cta: 'ETB de Evoluciones Prismáticas',
   },
   {
+    slug: 'etb-30', asin: 'B0H8T5GC4W', h1: 'ETB del 30.º aniversario: qué lleva y si sale a cuenta',
+    entradilla: 'La caja de élite del 30.º aniversario es el producto más vendido de Juguetes en Amazon España. Trae 9 sobres de Celebración, fundas, dados y una carta promocional con ilustración expandida.',
+    puntos: [
+      'Con 9 sobres a precio de lote (29,94 € los 6), la caja se acerca al precio de los sobres sueltos: lo que pagas de más son las fundas, los dados y la promo.',
+      'La promo expandida es la razón real para comprarla: si no la quieres, el lote de sobres sale mejor por euro.',
+      'Comprueba que el vendedor sea Amazon o vendido por Amazon: en este set hay revendedores por encima del PVP.',
+    ],
+    cta: 'ETB del 30.º aniversario',
+  },
+  {
     slug: 'lata', asin: 'B0GMRC58KQ', h1: 'Latas: promo garantizada, sobres caros',
     entradilla: 'La lata vende una carta promocional concreta. Si esa carta es la que buscas, tiene sentido; si no, estás pagando el envoltorio.',
     puntos: [
@@ -1940,7 +1950,7 @@ await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.
 Sitemap: ${SITE}/sitemap-en.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
