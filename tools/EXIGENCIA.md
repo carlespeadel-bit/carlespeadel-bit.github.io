@@ -201,4 +201,8 @@ Faltaba el circuito entre los dos puestos nuevos. Queda así:
 
 **Regla dura:** ningún puesto puede recibir dos turnos seguidos de trabajo inventado. A la segunda sospecha confirmada, el turno se reasigna y el puesto queda en espera activa (mirando `RESERVA.md`) hasta que haya algo de verdad.
 
+**Dos enmiendas aceptadas de los disidentes:**
+- **Del Fiscal:** el trabajo que asigna el Enlace no basta con ser verificable: tiene que tocar **M1, M2 o M3**. Si no toca ninguno, no es trabajo real, es relleno con firma.
+- **Del Contralor:** una sospecha **caduca en 72 h**. Si en ese plazo no hay trabajo asignado ni "sin faena" escrito, la sospecha se cierra y el turno se reasigna igual. Una lista de sospechas eternas no arregla nada.
+
 Así el Optimizador no es un policía: es el que dispara la búsqueda de trabajo, y el Enlace el que la ejecuta.
