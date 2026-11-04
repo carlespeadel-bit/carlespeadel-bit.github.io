@@ -38,3 +38,25 @@ Cada turno deja **una línea**: quién, qué hizo, qué produjo y si sirvió. Si
 | 04-11 | Vigía | 48 turnos/día y casi todos «sin cambios» | Bajado a 30 min; el resto del tiempo no se llena con nada | 05-11 | ✅ |
 
 **El circuito:** el Optimizador sospecha → el Enlace busca trabajo real (RESERVA.md o necesidad de otro agente) → si no hay, se escribe "sin faena" y el turno se reasigna. **Nadie hace dos turnos seguidos de relleno.**
+
+## Mapa real: qué puesto trabaja en qué turno (04-11)
+| Turno | Puesto(s) que actúan |
+|---|---|
+| 07:10 diario | Ingeniería |
+| 09:00 diario | Dirección |
+| 09:30 diario | Distribución (Nostr) |
+| 10:00 diario | **Analista de demanda + Redactor jefe** (nuevo) |
+| 11:00 diario | **Afiliados + Datos** (nuevo) |
+| cada 2 h | Inteligencia competitiva |
+| cada 3 h | SEO técnico + Distribución (tráfico) |
+| cada 30 min | Soporte (vigía) |
+| 18:00 diario | Distribución (Pinterest) |
+| 21:00 diario | Auditoría (Contralor) + Optimizador |
+| 22:00 diario | Enlace de ideas + Abstraedor |
+| miércoles 20:00 | Divergente |
+| viernes 19:00 | Estrategia (comité de organización) |
+| domingo 20:00 | Dirección (consejo) + Fiscal + Dirección creativa |
+
+**Puestos sin turno propio todavía:** Dirección creativa (solo en el consejo), Fiscal (solo en el consejo), Optimizador (comparte el de las 21:00).
+
+**La verdad incómoda:** 22 puestos y 14 turnos. Sin turno, un puesto no puede cumplir su KPI, y sancionarlo sería injusto. O se le da turno, o se fusiona en el comité del viernes.
