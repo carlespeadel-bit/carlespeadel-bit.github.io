@@ -1099,6 +1099,26 @@ const GUIAS_COMPRA = [
     cta: 'ETB del 30.º aniversario',
   },
   {
+    slug: 'lote-30', asin: 'B0H8SXRLT4', h1: 'Lote de 6 sobres del 30.º aniversario: precio por sobre',
+    entradilla: 'Seis sobres de Celebración del 30.º aniversario. A 29,94 € sale a 4,99 € el sobre, que es la referencia para saber si una caja o una ETB están caras.',
+    puntos: [
+      'Divide siempre: 29,94 € entre 6 = 4,99 € por sobre. Cualquier formato que pase de ahí necesita justificar los accesorios o la promo.',
+      'Es el formato más limpio para abrir: no pagas fundas ni dados que quizá no uses.',
+      'Si buscas una carta concreta, comprar el sobre es lotería; la carta suelta sale más barata que insistir.',
+    ],
+    cta: 'Lote de 6 sobres',
+  },
+  {
+    slug: 'etb-dominio-delta', asin: 'B0HGG226FP', h1: 'ETB Dominio Delta: qué lleva y a qué precio',
+    entradilla: 'Caja de élite de Megaevolución-Dominio Delta: sobres, fundas, dados y carta promocional. Es el formato de regalo habitual y el que más se revende por encima del PVP.',
+    puntos: [
+      'Mismo patrón que la ETB del 30.º: compara el precio de sus sobres por separado antes de pagar la caja.',
+      'Comprueba que sea vendido por Amazon: en las ETB descatalogadas aparecen revendedores con sobreprecio.',
+      'Si lo que quieres es la promo, mírala suelta primero: a veces sale más barata que la caja entera.',
+    ],
+    cta: 'ETB Dominio Delta',
+  },
+  {
     slug: 'lata', asin: 'B0GMRC58KQ', h1: 'Latas: promo garantizada, sobres caros',
     entradilla: 'La lata vende una carta promocional concreta. Si esa carta es la que buscas, tiene sentido; si no, estás pagando el envoltorio.',
     puntos: [
@@ -1950,7 +1970,7 @@ await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.
 Sitemap: ${SITE}/sitemap-en.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lote-30/', '/comprar/etb-dominio-delta/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
