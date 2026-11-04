@@ -217,3 +217,11 @@ footer{max-width:1080px;margin:0 auto;padding:34px 20px 60px;border-top:1px soli
 .mapa-lista li{padding:6px 0 6px 22px;position:relative;border-bottom:1px solid var(--line)}
 .mapa-lista.cerrado li::before{content:"✓";position:absolute;left:0;color:#3fb950}
 .mapa-lista.abierto li::before{content:"○";position:absolute;left:0;color:#d29922}
+
+.mapa-barra{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:16px 0 22px}
+#mapa-buscar{flex:1 1 260px;background:var(--surface);border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:10px 12px;font-size:.95rem}
+.mapa-filtros{display:flex;gap:6px;flex-wrap:wrap}
+.mapa-filtros button{background:var(--surface);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 14px;font-size:.85rem;cursor:pointer}
+.mapa-filtros button.activo{background:var(--accent);border-color:var(--accent);color:#0a0a0b;font-weight:700}
+.mapa-filtros button:hover{border-color:var(--accent)}
+.listado tbody tr:hover{background:var(--surface)}

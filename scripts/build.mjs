@@ -844,6 +844,7 @@ if (panel) {
   await put(
     OUT('panel/index.html'),
     layout({
+      noindex: true,
       title: `Panel de visitas | ${config.brand}`,
       description: 'Visitas de los últimos 30 días.',
       url: '/panel/',
@@ -864,79 +865,6 @@ if (panel) {
     .map((r) => `<tr><td>${esc(r.ref)}</td><td class="num">${r.visitas}</td></tr>`)
     .join('') || '<tr><td class="muted">Sin datos</td></tr>'}</tbody></table></div>
 </div>`,
-    }),
-  );
-}
-
-// ---------- mapa del negocio ----------
-let MAPA = null;
-let VISITAS_TOTAL = null;
-try { VISITAS_TOTAL = JSON.parse(await readFile(path.join(ROOT, 'data', 'panel.json'), 'utf8')).total; } catch {}
-try { MAPA = JSON.parse(await readFile(path.join(ROOT, 'data', 'empresa.json'), 'utf8')); } catch {}
-
-if (MAPA) {
-  const estadoHito = (h) => (/cumplido|hecho|✅/i.test(h.cumplido) ? 'hecho' : 'pendiente');
-  await put(
-    OUT('mapa/index.html'),
-    layout({
-      title: `Mapa del negocio | ${config.brand}`,
-      description: 'Dónde estamos, qué hemos cerrado, qué queda y quién responde de cada número. El estado real del proyecto, sin adornos.',
-      url: '/mapa/',
-      body: `
-<h1>Mapa del negocio</h1>
-<p class="lede">Todo lo que hay abierto, lo que ya está cerrado y lo que falta, en una página. Se regenera con cada despliegue. Última foto: <b>${esc(MAPA.generado)}</b>.</p>
-
-<div class="mapa-cifras">
-  <div class="cifra"><span>${VISITAS_TOTAL ?? '—'}</span><b>visitas</b></div>
-  <div class="cifra"><span>${indexables.size}</span><b>URLs indexables</b></div>
-  <div class="cifra"><span>0,00 €</span><b>ingresos del mes</b></div>
-  <div class="cifra"><span>${MAPA.racha}</span><b>días con avance</b></div>
-  <div class="cifra"><span>${MAPA.hipotesis.length}</span><b>hipótesis probadas</b></div>
-</div>
-
-<h2>El plan, hito a hito</h2>
-<ol class="mapa-hitos">
-  ${MAPA.hitos
-    .map(
-      (h) => `<li class="${estadoHito(h)}"><b>${esc(h.id)}</b> · ${esc(h.hito)}<span class="muted small"> · ${esc(h.fecha)} · ${esc(h.cumplido)}</span></li>`,
-    )
-    .join('')}
-</ol>
-
-<h2>La cadena de hipótesis</h2>
-<ol class="mapa-cadena">
-  ${MAPA.hipotesis
-    .map(
-      (h) => `<li><b>${esc(h.id)}</b> ${esc(h.hipotesis)}
-      <div class="small muted">Acción: ${esc(h.accion)}</div>
-      <div class="small">${esc(h.resultado)}</div>
-      <span class="etiqueta ${/muerta/i.test(h.veredicto) ? 'muerta' : /viva|curso/i.test(h.veredicto) ? 'viva' : 'neutra'}">${esc(h.veredicto)}</span></li>`,
-    )
-    .join('')}
-</ol>
-
-<h2>Cerrado (${MAPA.cerradas.length})</h2>
-<ul class="mapa-lista cerrado">
-  ${MAPA.cerradas.map((t) => `<li><b>${esc(t.id)}</b> ${esc(t.texto)}</li>`).join('')}
-</ul>
-
-<h2>Abierto (${MAPA.abiertas.length})</h2>
-<ul class="mapa-lista abierto">
-  ${MAPA.abiertas.map((t) => `<li><b>${esc(t.id)}</b> ${esc(t.texto)}</li>`).join('')}
-</ul>
-
-<h2>Quién responde de qué</h2>
-<table class="listado">
-  <thead><tr><th>Agente</th><th>Objetivo</th><th>Estado</th><th class="num">Intentos</th><th class="num">Fallos</th></tr></thead>
-  <tbody>
-  ${MAPA.equipo
-    .map(
-      (e) => `<tr><td>${esc(e.nombre)}</td><td class="small">${esc(e.objetivo ?? '')}</td><td>${esc(e.estado)}</td><td class="num">${e.intentos ?? '—'}</td><td class="num">${e.fallos ?? 0}</td></tr>`,
-    )
-    .join('')}
-  </tbody>
-</table>
-<p class="muted small">Días perdidos acumulados: ${MAPA.diasPerdidos} · canales muertos: ${MAPA.canalesMuertos}</p>`,
     }),
   );
 }
@@ -1921,7 +1849,7 @@ await put(OUT('404.html'), layout({
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/mapa/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
