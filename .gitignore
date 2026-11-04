@@ -7,3 +7,5 @@ data/cards.json
 ygo/data/
 .env
 magic/data/
+keys.json
+tools/nostr/node_modules/
