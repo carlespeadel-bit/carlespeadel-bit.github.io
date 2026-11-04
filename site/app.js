@@ -217,6 +217,8 @@
   }
 
   function init() {
+    // Las páginas /en/ usan assets/en.js: aquí no hay textos ni rutas en inglés.
+    if (document.documentElement.lang === 'en') return;
     const q = $('#q');
     if (q) {
       q.addEventListener('input', (e) => buscar(e.target.value));
