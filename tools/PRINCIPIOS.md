@@ -11,5 +11,10 @@ El Abstraedor convierte lo que hacemos en ideas reutilizables. No teorías: **co
 | 5 | El tráfico propio contamina cualquier métrica si no se filtra | 16 visitas del panel, 19 sin referidor tras navegar con el Chrome de trabajo | 04-11 |
 | 6 | Copiar estructura funciona; copiar texto no aporta nada | FAQ+schema en 144 sets inspirado en shinystation (320 URLs) | 04-11 |
 
+| 7 | Un panel con retraso no es prueba de que algo no existe | Studio mostraba «0 vídeos» mientras el canal público tenía el Short (`youtu.be/7bzgXfO1vc8`, 4 visitas) | 04-11 |
+| 8 | El trabajo a medias no se pierde: se busca antes de rehacer | 4 borradores de subida seguían en la cuenta | 04-11 |
+| 9 | Un carácter puede bloquear todo un formulario | `->` en la descripción dejaba «Siguiente» deshabilitado; `→` lo desbloqueó: 12 min frente a 1 h | 04-11 |
+| 10 | Verificar desde fuera es la única prueba de que el mundo lo ve | `oembed` y página pública del canal, sin cookies | 04-11 |
+
 ## La regla del Abstraedor
 Un principio sin prueba es una frase bonita. Si no se puede señalar el dato que lo sostiene, no entra en la tabla.
