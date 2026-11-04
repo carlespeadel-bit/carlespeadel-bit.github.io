@@ -14,9 +14,9 @@ Cada turno deja **una línea**: quién, qué hizo, qué produjo y si sirvió. Si
 | 22:00 | Enlace/Abstraedor | conexiones + principios | 3 conexiones | sí |
 
 ## El problema que hay que arreglar
-- **20 puestos y ~15 turnos útiles al día:** la mayoría de los roles no recibe turno nunca. Un puesto sin turno no puede cumplir KPI, y sancionarlo es injusto.
-- **El vigía es el 90 % de los turnos** (48/día) y casi todos son "sin cambios". Su coste es alto y su valor, de alerta.
-- **Los turnos son secuenciales:** no hay paralelismo salvo cuando se lanzan subagentes.
+- **17 fichas: 12 con reloj y 5 sin él.** SEO técnico y Dirección creativa (vacante) no tienen turno; Optimizador y Estrategia solo actúan en el Consejo. Un puesto sin turno no puede cumplir KPI, y sancionarlo es injusto.
+- **76 disparos al día y el vigía se lleva 48 (63 %).** Casi todos son "sin cambios": valor de alerta, no de producción.
+- **Los turnos son secuenciales y los 14 relojes cuelgan de una sola sesión:** si se cierra, se para todo.
 
 ## Lo que mide el Optimizador
 1. **Turnos por puesto y semana** — quién no tiene turno y debería.
@@ -60,3 +60,10 @@ Cada turno deja **una línea**: quién, qué hizo, qué produjo y si sirvió. Si
 **Puestos sin turno propio todavía:** Dirección creativa (solo en el consejo), Fiscal (solo en el consejo), Optimizador (comparte el de las 21:00).
 
 **La verdad incómoda:** 22 puestos y 14 turnos. Sin turno, un puesto no puede cumplir su KPI, y sancionarlo sería injusto. O se le da turno, o se fusiona en el comité del viernes.
+
+## Las cuatro preguntas de cada turno (absorbidas de `BUCLE.md`)
+
+1. **¿Qué me falta para cumplir mi KPI?** Numérico: "me faltan 9 páginas de 10", no "voy bien".
+2. **Hipótesis más barata** que puedo probar hoy.
+3. **Qué hice y qué pasó:** dato, o "no medido" (y entonces no cuenta como avance).
+4. **Qué aprendí y qué pregunto ahora**, por escrito.

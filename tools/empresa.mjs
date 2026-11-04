@@ -32,6 +32,12 @@ if (TOKEN) {
   } catch {}
 }
 
+// medición real de los dos puestos que no tenían KPI instrumentado
+import { readdir } from 'node:fs/promises';
+let fichasRival = 0, conexiones = 0;
+try { fichasRival = (await readdir(path.join(ROOT, 'competencia'))).filter(f => f.endsWith('.md') && !/^PLANTILLA/.test(f)).length; } catch {}
+try { const c = await readFile(path.join(ROOT, 'CONEXIONES.md'), 'utf8'); conexiones = (c.match(/\|\s*s[ií]\s*\|/g) || []).length; } catch {}
+
 const kpi = (id) => {
   switch (id) {
     case 'director': return { valor: 0, meta: 1000, unidad: 'EUR/mes', medido: true };
@@ -44,6 +50,9 @@ const kpi = (id) => {
     case 'datos': return { valor: visitas ? 1 : 0, meta: 1, unidad: 'panel al día', medido: true };
     case 'auditor': return { valor: 3, meta: 3, unidad: 'hallazgos', medido: true };
     case 'soporte': return { valor: 1, meta: 1, unidad: 'sin caídas', medido: true };
+    case 'inteligencia': return { valor: fichasRival, meta: 5, unidad: 'fichas de rival', medido: true };
+    case 'enlace': return { valor: conexiones, meta: 3, unidad: 'conexiones', medido: true };
+    case 'creativa': return { valor: null, meta: 1, unidad: 'vídeos aprobados', medido: false };
     default: return { valor: null, meta: 1, unidad: '-', medido: false };
   }
 };
@@ -144,6 +153,6 @@ const preguntas = empresa.empleados
   })
   .join('\n');
 
-await writeFile(path.join(ROOT, 'PREGUNTAS.md'), `# Autointerrogación — ${hoy}\n\n${preguntas}`);
-await writeFile(path.join(ROOT, 'CONSEJO.md'), informe);
+await writeFile(path.join(ROOT, 'informes', 'PREGUNTAS.md'), `# Autointerrogación — ${hoy}\n\n${preguntas}`);
+await writeFile(path.join(ROOT, 'informes', 'CONSEJO.md'), informe);
 console.log(informe);

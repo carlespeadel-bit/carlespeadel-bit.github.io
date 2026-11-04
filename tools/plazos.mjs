@@ -45,5 +45,5 @@ ${vencidos.length ? vencidos.map((v) => `- ${v.id}${v.que ? ' · ' + v.que : ''}
 ## Regla
 Un objetivo sin fecha no existe. Un objetivo vencido gasta intento al dueño. Y si un hito se aplaza, se escribe la fecha nueva **antes** de que venza la vieja, nunca después.
 `;
-await writeFile(path.join(ROOT, 'PLAZOS.md'), md);
+await writeFile(path.join(ROOT, 'informes', 'PLAZOS.md'), md);
 console.log(md.split('\n').slice(0, 16).join('\n'));

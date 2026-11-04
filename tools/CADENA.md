@@ -55,3 +55,29 @@ Cada acción ejecutada no solo cierra un eslabón: abre objetivos nuevos. Se ord
 | Publicar un Short diario sin fallos: procedimiento escrito en `docs/SUBIR_YOUTUBE.md` | Cuatro intentos fallidos por no mirar el DOM | Alto: es el único canal con audiencia real | Distribución |
 | Poner el enlace en el **primer comentario fijado**, no solo en la descripción (YouTube no hace clicables los enlaces sin verificar) | El propio Studio avisó: "para que se pueda hacer clic en los enlaces externos, completa una verificación única" | Alto: sin enlace clicable no hay tráfico | Distribución |
 | Medir vistas del Short a diario y cruzar con visitas | Solo tenemos 4 vistas y 0 clics atribuibles | Medio | Datos |
+
+## Rupturas abiertas (absorbidas de `RUPTURAS.md`, 04-11)
+
+| # | Premisa atacada | Prueba ejecutada | Veredicto |
+|---|---|---|---|
+| R1 | «IndexNow + sitemap resuelven la indexación» | IndexNow aceptó 204/204 URLs; Bing y DuckDuckGo: 0 URLs propias | **MUERTA** la creencia de que acelera; viva la de que alimenta un índice que tarda |
+| R2 | «El producto necesita la web para venderse» | Release del dataset: 1 descarga, 0 estrellas, 0 forks | **EN CURSO** hasta 11-11 |
+
+Consecuencias que dejan vivas: el canal hoy **no** es el buscador; el activo existe pero nadie lo coge solo; la única prueba que puede mover el marcador esta semana es **llevar el informe a 30 tiendas**.
+
+## Principios con prueba (absorbidos de `PRINCIPIOS.md`)
+
+| # | Principio | Prueba |
+|---|---|---|
+| 1 | Aceptar un envío no es conseguir un rastro | IndexNow 204/204 → Bing y DDG 0 resultados |
+| 2 | Publicar no es distribuir | Release: 1 descarga, 0 estrellas |
+| 3 | El aviso de afiliado debe vivir en la rama que tiene el enlace | 9.830 fichas con aviso, 1.157 con `/dp/` |
+| 4 | Un enlace sin cuenta sirve para descubrir, nunca para autoridad | 8 enlaces, todos `rel=nofollow` |
+| 5 | El tráfico propio contamina la métrica si no se filtra | 27 de 39 visitas son directas |
+| 6 | Copiar estructura funciona; copiar texto no aporta | FAQ+schema en 144 sets tras shinystation |
+| 7 | Un panel con retraso no prueba que algo no exista | Studio «0 vídeos» con el Short ya público |
+| 8 | El trabajo a medias no se pierde: se busca antes de rehacer | 4 borradores seguían en la cuenta |
+| 9 | Un carácter puede bloquear un formulario entero | `->` deshabilitaba «Siguiente»; `→` lo desbloqueó |
+| 10 | Verificar desde fuera es la única prueba de que el mundo lo ve | `oembed` y canal público sin cookies |
+
+Un principio sin prueba es una frase bonita: si no se puede señalar el dato, no entra.
