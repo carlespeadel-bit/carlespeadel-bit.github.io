@@ -46,3 +46,13 @@ Regla: cada sprint coge **la primera tarea sin marcar**, la ejecuta entera, la v
 | O1 | Sitemap en host alternativo | visita | 14-30 días |
 | O5 | `/datos/` en Dataset Search | visita (poca intención) | 30+ días |
 | O4 | Catálogo en inglés | visita (otro mercado) | 30-60 días |
+
+## Destapados por la cadena (turno 04-11 tarde)
+- [ ] **O7** — Limpiar `changes.json` de movimientos fantasma (comparar solo precios con dato previo y variación < 1000 %). Dueño: Datos.
+- [ ] **O8** — Excluir el tráfico de automatización de GoatCounter (filtrar por IP/UA o usar un prefijo de ruta). Dueño: Datos.
+- [ ] **O9** — Publicar en Nostr con etiquetas de comunidad y a hora de audiencia. Dueño: Distribución.
+
+## Destapados por el turno de tráfico (04-11 21:00)
+- [ ] **O10** — Short diario con el procedimiento de `docs/SUBIR_YOUTUBE.md`. Dueño: Distribución. Plazo: 11-11.
+- [ ] **O11** — Enlace clicable: comentario fijado + verificación del canal cuando sea posible. Dueño: Distribución.
+- [ ] **O12** — Panel de vistas de YouTube cruzado con visitas. Dueño: Datos.
