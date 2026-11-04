@@ -162,3 +162,12 @@ No tres webs al día: **tres webs cada dos horas**, sin parar. Cuando se acaben 
 - **Cómo lo hacen:** estructura de URLs, schema, oferta y orden del primer pantallazo. Eso es lo que se copia; el texto no.
 - Cada ronda añade **5 webs nuevas** al registro buscando tiendas y webs TCG que no estén ya.
 - Cada ronda **copia al menos una cosa** y la verifica en producción.
+
+## 18. Los dos puestos que faltaban: Enlace y Abstraedor
+
+El sistema producía piezas sueltas: hallazgos de competencia que no llegaban a SEO, fallos de auditoría que no tocaba nadie, ejecuciones que no dejaban conocimiento.
+
+- **Enlace de ideas** (`CONEXIONES.md`): lee lo que producen los demás y busca **quién tiene la pieza que otro necesita**. Una conexión solo cuenta cuando acaba en una acción con dueño. Si dos agentes se contradicen, escribe las dos pruebas y decide el dueño del KPI afectado.
+- **Abstraedor** (`PRINCIPIOS.md`): convierte **todo lo ejecutado** —commits, despliegues, pruebas, fallos— en principios reutilizables, cada uno con la prueba que lo sostiene. Un principio sin prueba no entra.
+
+Ambos se leen en el consejo del domingo: si el Enlace no ha conectado nada y el Abstraedor no ha destilado nada, los dos pierden intento.

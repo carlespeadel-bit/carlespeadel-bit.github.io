@@ -243,6 +243,32 @@
       "estado": "activo",
       "suplente": "divergente-2",
       "rol": "ruptura"
+    },
+    {
+      "id": "enlace",
+      "nombre": "Enlace de ideas",
+      "nivel": "A",
+      "sueldo": 2200,
+      "objetivo": "10 conexiones accionadas por semana entre lo que descubre un agente y lo que necesita otro",
+      "kpi": "conexiones_accionadas",
+      "fallos": 0,
+      "intentos": 3,
+      "estado": "activo",
+      "suplente": "enlace-2",
+      "rol": "integracion"
+    },
+    {
+      "id": "abstraedor",
+      "nombre": "Abstraedor",
+      "nivel": "A",
+      "sueldo": 2100,
+      "objetivo": "3 principios destilados por semana desde lo ya ejecutado, con su prueba",
+      "kpi": "principios_destilados",
+      "fallos": 0,
+      "intentos": 3,
+      "estado": "activo",
+      "suplente": "abstraedor-2",
+      "rol": "abstraccion"
     }
   ],
   "banquillo": [
