@@ -490,8 +490,8 @@ for (let i = 0; i < priced.length; i += BATCH) {
       ASINS[c.setId]?.length
         ? `<a class="btn" href="https://www.amazon.es/dp/${ASINS[c.setId][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(ASINS[c.setId][0].nombre)} en Amazon</a>
     <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. El producto es el sellado del set, no esta carta.</p>`
-        : `<a class="btn" href="/guardar-cartas/">Fundas y toploaders para esta carta</a>
-    <p class="nota small">Este botón lleva a nuestra guía de fundas, que es donde están los enlaces de afiliado a Amazon.</p>`
+        : `<a class="btn" href="https://www.amazon.es/s?k=${encodeURIComponent(`${c.name} ${c.setName || ""} pokemon`)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(c.name)} en Amazon</a>
+    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. Sin ASIN verificado del set, el enlace lleva a la búsqueda del producto.</p>`
     }
     <p class="nota"><a href="/guardar-cartas/">¿Cómo guardar esta carta? →</a> · <a href="/caras/">Las 100 más caras →</a></p>
     <div class="acciones">
