@@ -898,6 +898,18 @@ if (panel) {
   );
 }
 
+// antigua /mapa/: se retiró por ser interna. Evita el 404 sin exponer nada.
+await put(
+  OUT('mapa/index.html'),
+  `<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="refresh" content="0; url=/">
+<title>Página retirada</title></head>
+<body style="background:#0a0a0b;color:#f5f5f7;font:16px system-ui;padding:40px">
+<p>Esta página ya no existe. <a href="/" style="color:#ffcb05">Volver a ValorCarta</a>.</p>
+</body></html>`,
+);
+
 // ---------- widget de precios para tiendas ----------
 await put(
   OUT('widget/index.html'),
