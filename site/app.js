@@ -340,6 +340,23 @@
     dispara();
   })();
 
+  // prueba A/B del gancho (05-11): utm_content=ab-* se cuenta como evento propio,
+  // para saber qué redacción del pin trae clics sin depender de Pinterest.
+  (() => {
+    const sub = new URLSearchParams(location.search).get('utm_content') || '';
+    if (!sub.startsWith('ab-')) return;
+    const limpio = sub.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 20);
+    let intentos = 0;
+    const dispara = () => {
+      if (window.goatcounter && window.goatcounter.count) {
+        window.goatcounter.count({ path: 'ab-' + limpio, title: location.pathname, event: true });
+        return;
+      }
+      if (intentos++ < 40) setTimeout(dispara, 50);
+    };
+    dispara();
+  })();
+
   // ID de seguimiento por canal (05-11): Amazon sí lo reporta, el ascsubtag no.
   // Pin -> valorcarta-pin-21 · vídeo -> valorcarta-video-21 · resto -> valorcarta-21
   (() => {
