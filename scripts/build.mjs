@@ -328,6 +328,7 @@ for (const [id, list] of bySet) {
 <h1>Cartas de ${esc(nombre)}: lista y precios</h1>
 <p class="lede">${list.length} cartas${meta?.releaseDate ? ` · ${año(meta.releaseDate)}` : ''}${meta?.serie ? ` · ${esc(meta.serie.name)}` : ''}.
 ${caras ? `Valor de mercado del set completo: <b>${eur(total)}</b>, con una media de ${eur(media)} por carta.` : 'Sin datos de precio suficientes todavía.'}</p>
+<p id="progreso-set" data-set="${esc(id)}" data-total="${list.length}" class="nota small"></p>
 
 ${
   top10.length
