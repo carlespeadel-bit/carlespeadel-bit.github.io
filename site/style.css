@@ -225,3 +225,6 @@ footer{max-width:1080px;margin:0 auto;padding:34px 20px 60px;border-top:1px soli
 .mapa-filtros button.activo{background:var(--accent);border-color:var(--accent);color:#0a0a0b;font-weight:700}
 .mapa-filtros button:hover{border-color:var(--accent)}
 .listado tbody tr:hover{background:var(--surface)}
+
+/* Todos los botones, al menos 44 px de alto: el dedo no acierta por debajo */
+a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;align-items:center;justify-content:center}
