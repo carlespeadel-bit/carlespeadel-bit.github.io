@@ -441,6 +441,12 @@ await put('radar/index.html', layout({
   body: `
 <h1>El radar</h1>
 <p class="lede">Lo que se mueve esta semana y lo que significa si quieres comprarlo. Cada pieza lleva su dato, su fecha y su fuente.</p>
+<div class="nota small" style="max-width:64ch;margin:0 0 18px">
+  <p><b>Cómo se lee esto:</b> cada pieza empieza por lo que ha pasado, sigue con el número de nuestro catálogo
+  y termina con lo que puedes hacer —comprar, esperar o pasar—. Si un dato no lo tenemos, no se publica.</p>
+  <p>Ninguna pieza es una recomendación de inversión: el precio de referencia es una media del mercado,
+  y el estado de la carta mueve más el valor que cualquier noticia.</p>
+</div>
 ${RADAR.map((p) => `<article style="margin:26px 0"><p class="nota small">${esc(p.fecha)} · ${esc(p.etiqueta)}</p><h2><a href="/radar/${p.slug}/">${esc(p.titulo)}</a></h2><p>${esc(p.gancho)}</p></article>`).join('\n')}`,
 }));
 
