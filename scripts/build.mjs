@@ -333,11 +333,12 @@ ${
   ${
     ASINS[id]?.length
       ? `<a class="btn" href="https://www.amazon.es/dp/${ASINS[id][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(ASINS[id][0].nombre)} en Amazon</a>`
-      : `<a class="btn" href="/guardar-cartas/">Fundas y toploaders para estas cartas</a>`
+      : `<a class="btn" href="https://www.amazon.es/s?k=${encodeURIComponent(`sobres ${nombre} pokemon`)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Buscar sobres de ${esc(nombre)} en Amazon</a>`
   }
+  <a class="btn ghost" href="/guardar-cartas/">Fundas para estas cartas</a>
   <a class="btn ghost" href="/valorar/">¿Cuánto vale mi colección?</a>
 </p>
-${ASINS[id]?.length ? '<p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. El producto es el sellado del set, no una carta concreta.</p>' : '<p class="nota small">Este botón lleva a nuestra guía de fundas, que es donde están los enlaces de afiliado a Amazon.</p>'}
+<p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. ${ASINS[id]?.length ? 'El botón lleva al sellado del set, no a una carta concreta.' : 'Como este set no tiene un producto único verificado, el botón busca sus sobres en Amazon.'}</p>
 
 <h2>Preguntas frecuentes sobre ${esc(nombre)}</h2>
 <div class="faq">
