@@ -155,7 +155,7 @@ const homeBody = `
 <section class="bloque">
   <h2>Las cartas más caras ahora mismo</h2>
   <div class="grid">
-    ${top.map(cardTile).join('\n')}
+    ${top.map((c, i) => cardTile({ ...c, prio: i < 6 })).join('\n')}
   </div>
 </section>
 
@@ -437,6 +437,57 @@ await put('radar/index.html', layout({
 ${RADAR.map((p) => `<article style="margin:26px 0"><p class="nota small">${esc(p.fecha)} · ${esc(p.etiqueta)}</p><h2><a href="/radar/${p.slug}/">${esc(p.titulo)}</a></h2><p>${esc(p.gancho)}</p></article>`).join('\n')}`,
 }));
 
+
+// ---------- guía: idioma ----------
+await put('guias/idioma/index.html', layout({
+  title: `¿Valen más las cartas Pokémon en inglés o en español? | ${config.brand}`,
+  description: 'Qué cambia el valor de una carta Pokémon según el idioma: por qué el inglés suele pagarse más, cuándo el japonés gana y qué mirar antes de comprar o vender.',
+  url: '/guias/idioma/',
+  body: `
+<nav class="migas"><a href="/">Inicio</a> / <a href="/guias/">Guías</a> / Idioma</nav>
+<h1>¿Valen más las cartas Pokémon en inglés o en español?</h1>
+<p class="lede">La respuesta corta: <b>casi siempre el inglés</b>, salvo excepciones que tienen que ver con la edición y con quién colecciona. La larga es la que te ahorra dinero.</p>
+
+<h2>Por qué el inglés manda</h2>
+<p>El mercado de cartas Pokémon es global y su idioma franco es el inglés. Eso significa más compradores, más ventas cerradas y precios de referencia más altos. Una carta en español tiene menos demanda internacional: se vende bien en España, pero tarda más y a menor precio cuando compite fuera.</p>
+<p>No es una regla de valor intrínseco: es liquidez. La misma carta impresa en dos idiomas vale distinto porque el número de personas que la quiere en cada idioma es distinto.</p>
+
+<h2>Cuándo el español sí interesa</h2>
+<p>Tres casos, y son concretos:</p>
+<ul>
+  <li><b>Coleccionistas de aquí.</b> Hay quien hace la colección completa en español y paga por ella, sobre todo en sets antiguos donde el español fue tirada corta.</li>
+  <li><b>Sets con muy poca tirada en español.</b> En ediciones viejas, el español puede ser más raro que el inglés dentro de España, aunque siga valiendo menos fuera.</li>
+  <li><b>Comprar aquí para jugar.</b> Si la carta es para jugar y no para coleccionar, el idioma da igual y el español suele salir más barato.</li>
+</ul>
+
+<h2>El japonés es otro mundo</h2>
+<p>No es «el idioma de la carta»: es otro catálogo. Las japonesas tienen tiradas, numeraciones y acabados distintos, y se coleccionan aparte. Una carta japonesa no es una versión de la inglesa; es otra carta a efectos de precio.</p>
+
+<h2>Qué mirar antes de comprar o vender</h2>
+<ol>
+  <li><b>Edición y número.</b> Antes que el idioma: el mismo nombre puede existir en cinco sets distintos con precios que no se parecen.</li>
+  <li><b>Idioma impreso.</b> Se ve en el símbolo y en el texto. Una carta en español no se convierte en inglesa por estar en una funda.</li>
+  <li><b>Estado.</b> Un doblez pesa más en el precio que el idioma. Primero estado, después idioma.</li>
+  <li><b>Ventas cerradas, no anuncios.</b> Lo que pide un vendedor no es lo que paga el mercado.</li>
+</ol>
+
+<h2>Lo que no te podemos decir</h2>
+<p>Nuestro precio de referencia es <b>uno</b> por carta y no distingue idioma. Es el dato que hay, y por eso cada ficha avisa: la misma carta en otra edición o en japonés puede costar la mitad o el doble. Cuando tengamos precios separados por idioma, lo diremos aquí y en cada ficha.</p>
+<p class="nota small">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación.</p>
+
+<p class="acciones">
+  <a class="btn" href="/caras/">Las 100 cartas más caras</a>
+  <a class="btn ghost" href="/valorar/">¿Cuánto vale mi colección?</a>
+</p>
+<div style="border:1px solid #2a2a2e;border-radius:14px;padding:18px;margin:26px 0;background:#141416">
+  <p style="margin:0 0 6px;font-size:.8rem;letter-spacing:.12em;color:#e0a800;font-weight:700">SI LO QUE QUIERES ES ABRIR SOBRES</p>
+  <h3 style="margin:0 0 8px;font-size:1.15rem">Sobres del 30.º aniversario</h3>
+  <p style="margin:0 0 12px;color:#ddd">El producto que más rota y el que más gente abre en español.</p>
+  <a class="btn" href="https://www.amazon.es/dp/B0H8T5GC4W?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Dónde conseguirlo</a>
+  <p style="margin:12px 0 0;font-size:.78rem;color:#8b8b93">Aquí hay enlaces de afiliado: si compras desde ellos, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas.</p>
+</div>`
+}));
+
 // ---------- cartas ----------
 await mkdir(OUT('carta'), { recursive: true });
 let n = 0;
@@ -521,11 +572,25 @@ for (let i = 0; i < priced.length; i += BATCH) {
   </div>
   <div class="carta-info">
     <h1>¿Cuánto vale ${esc(c.name)}?</h1>
-    <p class="precio-grande">${eur(c.price)}<span class="muted"> · referencia ${c.variants?.[0]?.type ?? 'normal'}</span></p>
+    ${(() => {
+      // con varias variantes la cifra héroe es la mediana, nunca el máximo: si no, la ficha
+      // enseña 8,7x su propia tabla y el visitante deja de creer el dato.
+      const precios = (c.variants ?? []).map((v) => v.trend ?? v.avg ?? v.price).filter((p) => typeof p === 'number' && p > 0).sort((a, b) => a - b);
+      if (precios.length < 2) {
+        return `<p class="precio-grande">${eur(c.price)}<span class="muted"> · referencia ${c.variants?.[0]?.type ?? 'normal'}</span></p>`;
+      }
+      const min = precios[0];
+      const max = precios[precios.length - 1];
+      // el héroe es la entrada más barata, no el máximo: el máximo solo desinfla la credibilidad
+      return `<p class="precio-grande">desde ${eur(min)}</p>
+      <p class="muted small">${precios.length} variantes, de ${eur(min)} a ${eur(max)}. La versión cambia el precio: mírala en la tabla antes de fiarte de una cifra.</p>`;
+    })()}
     ${trendLine(c)}
     ${ctaAmazon}
     <p class="muted">${esc(descripcion)}. Número ${esc(c.localId ?? '—')}/${total}.</p>
     ${priceTable(c)}
+    <p class="muted small">La versión y el idioma cambian lo que vale: la misma carta en otra edición o en japonés puede costar la mitad o el doble. Compara la fila de la tabla antes de decidir.</p>
+    <p><a class="btn ghost" href="/set/${c.setId}/">Ver el set completo${total ? ` (${total} cartas)` : ''}</a></p>
     ${
       ataques
         ? `<h2 class="mini">Ataques</h2><ul class="ataques">${ataques}</ul>`
@@ -2132,7 +2197,7 @@ console.log(`   EN: ${enPaths.length} URLs (${enCards.length} fichas) · cambio 
 
 function cardTile(c) {
   return `<a class="tile" href="/carta/${cardSlug(c)}/">
-  ${c.image ? `<img src="${esc(c.image)}/low.webp" alt="${esc(c.name)}" width="245" height="342" loading="lazy" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">` : `<div class="tile-ph">${esc(c.name)}</div>`}
+  ${c.image ? `<img src="${esc(c.image)}/low.webp" alt="${esc(c.name)}" width="245" height="342" loading="${c.prio ? 'eager' : 'lazy'}" fetchpriority="${c.prio ? 'high' : 'auto'}" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">` : `<div class="tile-ph">${esc(c.name)}</div>`}
   <span class="tile-name">${esc(c.name)}</span>
   <span class="tile-price">${c.price ? eur(c.price) : '—'}</span>
   <span class="tile-set muted">${esc(c.setName)}</span>
