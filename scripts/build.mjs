@@ -445,6 +445,9 @@ await put('radar/index.html', layout({
   body: `
 <h1>El radar</h1>
 <p class="lede">Lo que se mueve esta semana en las cartas Pokémon y lo que significa si quieres comprarlo. Cada pieza lleva su dato, su fecha y su fuente.</p>
+<p class="acciones"><a class="btn" href="/caras/">Las 100 más caras</a>
+<a class="btn ghost" href="/mercado/">Qué se mueve esta semana</a>
+<a class="btn ghost" href="/valorar/">Valorar mi colección</a></p>
 <div class="nota small" style="max-width:64ch;margin:0 0 18px">
   <p><b>Cómo se lee esto:</b> cada pieza empieza por lo que ha pasado, sigue con el número de nuestro catálogo
   y termina con lo que puedes hacer —comprar, esperar o pasar—. Si un dato no lo tenemos, no se publica.</p>
