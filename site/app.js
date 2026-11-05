@@ -323,6 +323,15 @@
   }, true);
 
 
+  // formato (05-11): el pin llega con utm_medium=lista|video|carta|producto; se cuenta
+  // como evento para poder comparar formatos en GoatCounter (Pinterest no da el desglose).
+  (() => {
+    const medio = new URLSearchParams(location.search).get('utm_medium');
+    if (!medio || !window.goatcounter || !window.goatcounter.count) return;
+    const limpio = medio.replace(/[^a-z]/gi, '').slice(0, 12);
+    window.goatcounter.count({ path: 'formato-' + limpio, title: location.pathname, event: true });
+  })();
+
   // atribución por pieza (05-11): el pin llega con ?utm_content=vtc-xxxx
   // y ese valor viaja a Amazon como ascsubtag. Sin esto, los clics no tienen dueño.
   (() => {
