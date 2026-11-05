@@ -228,6 +228,21 @@
       });
     }
 
+    // progreso del set: «tienes X de Y». El álbum que se completa, sin cuentas.
+    const cont = document.getElementById('progreso-set');
+    if (cont) {
+      const setId = cont.dataset.set;
+      const total = parseInt(cont.dataset.total || '0', 10);
+      const list = leer();
+      const mias = list.filter((x) => String(x.s || '').startsWith(setId + '-')).length;
+      if (total > 0) {
+        const pct = Math.round((mias / total) * 100);
+        cont.textContent = mias
+          ? `Tienes ${mias} de ${total} cartas de este set (${pct} %).`
+          : `Aún no has marcado ninguna de las ${total} cartas de este set.`;
+      }
+    }
+
     document.querySelectorAll('[data-add]').forEach((b) =>
       b.addEventListener('click', () => { add(b.dataset.add); }),
     );
