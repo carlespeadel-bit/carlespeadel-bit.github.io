@@ -462,9 +462,10 @@ for (let i = 0; i < priced.length; i += BATCH) {
 
       const ctaAmazon = ASINS[c.setId]?.length
         ? `<a class="btn comprar" style="display:block;text-align:center;font-size:1.12rem;padding:16px 18px;margin:14px 0 6px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/dp/${ASINS[c.setId][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(ASINS[c.setId][0].nombre)} en Amazon</a>
-    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. El producto es el sellado del set, no esta carta.</p>`
+    <a class="btn" style="display:block;text-align:center;font-size:.95rem;padding:12px 16px;margin:6px 0 10px;border:2px solid #e0a800;color:#8a6a00;border-radius:10px;font-weight:600;text-decoration:none" href="https://www.amazon.es/s?k=${encodeURIComponent(`${c.name} ${c.setName || ""} pokemon`)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Buscar esta carta suelta</a>
+    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. El primer botón es el sellado del set; el segundo busca esta carta concreta, que Amazon no suele vender suelta.</p>`
         : `<a class="btn comprar" style="display:block;text-align:center;font-size:1.12rem;padding:16px 18px;margin:14px 0 6px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/s?k=${encodeURIComponent(`${c.name} ${c.setName || ""} pokemon`)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(c.name)} en Amazon</a>
-    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. Sin ASIN verificado del set, el enlace lleva a la búsqueda del producto.</p>`;
+    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. La carta suelta no se vende en Amazon: el primer botón busca esta carta y el segundo lleva al sellado del set.</p>`;
 
       const body = `
 <nav class="migas"><a href="/cartas/">Cartas</a> / <a href="/set/${c.setId}/">${esc(c.setName)}</a> / ${esc(c.name)}</nav>
@@ -607,6 +608,22 @@ await put(
       'Calcula gratis cuánto vale tu colección de cartas Pokémon con precios de mercado actualizados. Añade cartas, guarda el enlace y sigue el valor con el tiempo.',
     url: '/valorar/',
     alternates: altPair('/valorar/', '/en/price-check/'),
+    jsonld: [{
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://valorcarta.github.io/' },
+        { '@type': 'ListItem', position: 2, name: 'Valorar cartas', item: 'https://valorcarta.github.io/valorar/' },
+      ],
+    }, {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: '¿Cuánto vale mi carta de Pokémon?', acceptedAnswer: { '@type': 'Answer', text: 'Depende del estado, la versión y el idioma. Aquí ves el precio de referencia de Cardmarket de la versión concreta, con su media de 30 días y el mínimo, para que el número no dependa de un día raro.' } },
+        { '@type': 'Question', name: '¿Es gratis valorar mi colección?', acceptedAnswer: { '@type': 'Answer', text: 'Sí. No hace falta registro ni dejar tu email: buscas la carta, pones cuántas tienes y el total se calcula en tu navegador.' } },
+        { '@type': 'Question', name: '¿Los precios son una tasación?', acceptedAnswer: { '@type': 'Answer', text: 'No. Son precios de referencia de mercado. Una carta en Near Mint puede valer el doble que la misma con desgaste, y una tasación exige ver la carta.' } },
+      ],
+    }],
     body: `
 <h1>¿Cuánto vale mi carta de Pokémon?</h1>
 <p class="lede">Escribe el nombre de tu carta y te digo cuánto vale hoy. Precio de referencia de Cardmarket, media de los últimos 30 días y mínimo, para que sepas si ese número es de verdad o es de un día raro.</p>
