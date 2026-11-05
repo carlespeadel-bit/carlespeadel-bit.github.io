@@ -33,11 +33,50 @@ def cdp_url():
 N = int(sys.argv[sys.argv.index("--n") + 1]) if "--n" in sys.argv else 1
 
 
+REQUERIDOS = ("titulo", "descripcion", "enlace", "estado")
+TOPE_24H = 5
+
+
+def publicadas_24h(cola):
+    """Cuenta las publicadas en las últimas 24 h. La ventana es móvil, no el día natural:
+    a las 00:06 y a las 00:29 se publicaron 10 porque el corte era la fecha."""
+    from datetime import datetime, timedelta
+    desde = datetime.now() - timedelta(hours=24)
+    n = 0
+    for p in cola:
+        if p.get("estado") != "publicado":
+            continue
+        f = p.get("fecha") or ""
+        try:
+            if datetime.strptime(f, "%Y-%m-%d %H:%M") >= desde:
+                n += 1
+        except Exception:
+            continue
+    return n
+
+
 def carga():
     cola = json.load(open(COLA))
+    # barrido: cualquier pieza sin estado es una pieza mal escrita por otra sesión
+    rotas = [p for p in cola if "estado" not in p]
+    if rotas:
+        for p in rotas:
+            p["estado"] = "invalida"
+            p["motivo"] = "sin campo estado (esquema viejo)"
+        json.dump(cola, open(COLA, "w"), ensure_ascii=False, indent=1)
+        print(f"AVISO: {len(rotas)} piezas sin esquema marcadas como invalida")
     for i, p in enumerate(cola):
-        if p.get("estado") == "pendiente":
-            return cola, i
+        if p.get("estado") != "pendiente":
+            continue
+        faltan = [k for k in REQUERIDOS if not p.get(k)]
+        if faltan:
+            # no se publica a ciegas: se marca y se avisa
+            p["estado"] = "invalida"
+            p["motivo"] = "faltan campos: " + ", ".join(faltan)
+            json.dump(cola, open(COLA, "w"), ensure_ascii=False, indent=1)
+            print(f"INVALIDA en posición {i} ({p.get('id')}): faltan {faltan}")
+            return carga()
+        return cola, i
     return cola, None
 
 
@@ -212,6 +251,13 @@ def main():
         print("enlace: ", cola[i]["enlace"])
         return 0
 
+    if not DRY:
+        ya = publicadas_24h(cola)
+        if ya >= TOPE_24H:
+            print(f"TOPE: {ya} piezas en las últimas 24 h (máximo {TOPE_24H}). No se publica.")
+            return 0
+        N = min(N, TOPE_24H - ya)
+
     hechos = 0
     while hechos < N:
         cola, i = carga()
@@ -234,6 +280,7 @@ def main():
             return 1
         pin["estado"] = "publicado"
         pin["url"] = url
+        pin["precio_publicado"] = pin.get("precio")
         pin["fecha"] = time.strftime("%Y-%m-%d %H:%M")
         json.dump(cola, open(COLA, "w"), ensure_ascii=False, indent=1)
         print("publicado:", url, "|", pin["titulo"][:50])
