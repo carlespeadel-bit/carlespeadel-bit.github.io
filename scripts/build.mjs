@@ -2155,6 +2155,8 @@ const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
   .concat(guias.map((g) => `${SITE}/guia/${g.slug}/`))
+  .concat(RADAR.map((r) => `${SITE}/radar/${r.slug}/`))
+  .concat([`${SITE}/radar/`, `${SITE}/guias/idioma/`])
   .concat(enPaths.map((u) => `${SITE}${u}`));
 // sitemap plano: con menos de 2.000 URLs no hace falta indice
 const lastmod = (cards[0]?.updated ?? new Date().toISOString()).slice(0, 10);
