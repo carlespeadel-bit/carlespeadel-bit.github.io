@@ -189,7 +189,17 @@ async function main() {
   console.log(`OK ${cards.length} cartas, ${withPrice} con precio -> data/cards.json`);
 }
 
-main().catch((e) => {
-  console.error(e);
+// Si la fuente falla, NO se tumba la web: se sigue con el catálogo del día anterior.
+// Un despliegue con precios de ayer (fechados) es mejor que no desplegar nada.
+main().catch(async (e) => {
+  console.error('fetch falló:', e.message || e);
+  try {
+    const { stat } = await import('node:fs/promises');
+    const prev = await stat(path.join(DATA, 'cards.json'));
+    if (prev.size > 100000) {
+      console.log('seguimos con data/cards.json de la pasada anterior');
+      process.exit(0);
+    }
+  } catch {}
   process.exit(1);
 });
