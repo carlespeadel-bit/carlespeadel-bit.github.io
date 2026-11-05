@@ -327,9 +327,17 @@
   // como evento para poder comparar formatos en GoatCounter (Pinterest no da el desglose).
   (() => {
     const medio = new URLSearchParams(location.search).get('utm_medium');
-    if (!medio || !window.goatcounter || !window.goatcounter.count) return;
+    if (!medio) return;
     const limpio = medio.replace(/[^a-z]/gi, '').slice(0, 12);
-    window.goatcounter.count({ path: 'formato-' + limpio, title: location.pathname, event: true });
+    let intentos = 0;
+    const dispara = () => {
+      if (window.goatcounter && window.goatcounter.count) {
+        window.goatcounter.count({ path: 'formato-' + limpio, title: location.pathname, event: true });
+        return;
+      }
+      if (intentos++ < 40) setTimeout(dispara, 50);   // goatcounter carga async
+    };
+    dispara();
   })();
 
   // atribución por pieza (05-11): el pin llega con ?utm_content=vtc-xxxx
