@@ -237,9 +237,10 @@
       const mias = list.filter((x) => String(x.s || '').startsWith(setId + '-')).length;
       if (total > 0) {
         const pct = Math.round((mias / total) * 100);
-        cont.textContent = mias
-          ? `Tienes ${mias} de ${total} cartas de este set (${pct} %).`
-          : `Aún no has marcado ninguna de las ${total} cartas de este set.`;
+        cont.innerHTML = (mias
+          ? `Tienes <b>${mias}</b> de <b>${total}</b> cartas de este set (${pct} %).`
+          : `Aún no has marcado ninguna de las ${total} cartas de este set.`)
+          + ' <a href="/valorar/">Ver el valor de mi colección →</a>';
       }
     }
 
