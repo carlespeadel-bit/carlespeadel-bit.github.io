@@ -23,6 +23,8 @@ const setsById = new Map(sets.map((s) => [s.id, s]));
 let CAMBIOS = null;
 try { CAMBIOS = JSON.parse(await readFile(path.join(ROOT, 'data', 'changes.json'), 'utf8')); } catch {}
 let ASINS = {};
+let REGALOS_FRIKIS = { productos: [] };
+try { REGALOS_FRIKIS = JSON.parse(await readFile(path.join(ROOT, 'data', 'regalos.json'), 'utf8')); } catch {}
 try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
 let RADAR = [];
 try { RADAR = JSON.parse(await readFile(path.join(ROOT, 'data', 'radar.json'), 'utf8')); } catch {}
@@ -1376,6 +1378,10 @@ ${REGALOS.map(([tramo, items]) => `
 <h2>${esc(tramo)}</h2>
 <ul class="pasos">${items.map(([asin, nombre, motivo]) => `
 <li><a href="https://www.amazon.es/dp/${asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>${esc(nombre)}</b></a> — ${esc(motivo)}</li>`).join('')}</ul>`).join('')}
+<h2>Si no es coleccionista: figura, taza o camiseta</h2>
+<p class="lede">Aquí la comisión es del 5-10 % y el regalo no depende de saber qué set es. Cuatro productos verificados uno a uno, con el precio comprobado el ${REGALOS_FRIKIS.verificado || ''}.</p>
+<ul class="pasos">${(REGALOS_FRIKIS.productos || []).map((r) => `
+<li><a href="https://www.amazon.es/dp/${r.asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>${esc(r.nombre)}</b> — ${eur(r.precio)}</a> · ${esc(r.tipo)}. ${esc(r.nota)}</li>`).join('')}</ul>
 <p class="nota">El precio lo pone Amazon y cambia: comprueba antes de pagar. Si la persona colecciona, pregunta por el set antes de regalar una carta suelta.</p>
 <p class="nota"><a href="/valorar/">Valorar una colección →</a> · <a href="/comprar/">Comparar formatos →</a></p>`,
   }),
