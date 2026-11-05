@@ -403,22 +403,6 @@ ${list
 
 
 
-// ---------- datos abiertos, frescos ----------
-const volcado = {
-  fecha: new Date().toISOString().slice(0, 10),
-  fuente: 'Cardmarket via TCGdex',
-  cartas: priced.length,
-  datos: priced.map((c) => ({
-    id: c.id, nombre: c.name, set: c.setName, precio_eur: c.price,
-    actualizado: (c.updated || '').slice(0, 10),
-  })),
-};
-await put('datos/precios.json', JSON.stringify(volcado));
-await put('datos/precios.csv', ['id,nombre,set,precio_eur,actualizado']
-  .concat(priced.map((c) => [c.id, `"${(c.name || '').replace(/"/g, "'")}"`,
-    `"${(c.setName || '').replace(/"/g, "'")}"`, c.price, (c.updated || '').slice(0, 10)].join(',')))
-  .join('\n'));
-
 // ---------- radar (comercio editorial) ----------
 for (const pieza of RADAR) {
   const tarjeta = `
@@ -1130,8 +1114,7 @@ await put(
 <h1>Precios de cartas Pokémon, en abierto</h1>
 <p class="lede">Un fichero JSON con el precio de referencia de <b>${priced.length.toLocaleString('es-ES')} cartas</b>, actualizado a diario.
 Licencia <b>CC BY 4.0</b>: úsalo, publícalo o mételo en tu modelo, citando la fuente.</p>
-<p><a class="btn" href="/datos/precios.json" rel="noopener">Descargar JSON (hoy)</a>
-<a class="btn ghost" href="/datos/precios.csv" rel="noopener">Descargar CSV</a>
+<p><a class="btn" href="https://raw.githubusercontent.com/valorcarta/precios-cartas-datos/master/precios.json" rel="noopener">Descargar JSON</a>
 <a class="btn ghost" href="https://github.com/valorcarta/precios-cartas-datos" rel="noopener">Ver el repositorio</a></p>
 <table class="listado"><tbody>
 <tr><td class="muted">Última actualización</td><td>${esc(fechaDatos)}</td></tr>
