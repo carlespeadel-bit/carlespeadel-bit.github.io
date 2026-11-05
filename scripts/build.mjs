@@ -455,7 +455,7 @@ for (const pieza of RADAR) {
 <p class="lede">${esc(pieza.gancho)}</p>
 <img src="${esc(pieza.imagen)}" alt="${esc(pieza.titulo)}" width="480" height="670" style="display:block;margin:22px auto;max-width:100%;height:auto;border-radius:12px">
 ${cuerpo}
-${pieza.video ? `<div style="position:relative;padding-top:177%;margin:24px 0"><iframe src="${esc(pieza.video)}" title="${esc(pieza.titulo)}" frameborder="0" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border-radius:12px"></iframe></div>` : ''}
+${pieza.video ? `<div style="position:relative;padding-top:177%;margin:24px 0"><iframe src="${esc(pieza.video)}" title="${esc(pieza.titulo)}" frameborder="0" allowfullscreen loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border-radius:12px"></iframe></div>` : ''}
 ${tarjeta}
 <p><a href="/radar/">Volver al radar</a> · <a href="/caras/">Las 100 cartas más caras</a></p>`,
   }));
