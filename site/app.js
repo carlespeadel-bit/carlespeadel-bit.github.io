@@ -322,5 +322,21 @@
     });
   }, true);
 
+
+  // atribución por pieza (05-11): el pin llega con ?utm_content=vtc-xxxx
+  // y ese valor viaja a Amazon como ascsubtag. Sin esto, los clics no tienen dueño.
+  (() => {
+    const sub = new URLSearchParams(location.search).get('utm_content');
+    if (!sub) return;
+    const limpio = sub.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 40);
+    document.querySelectorAll('a[href*="amazon.es"]').forEach((a) => {
+      try {
+        const u = new URL(a.getAttribute('href'), location.href);
+        u.searchParams.set('ascsubtag', limpio);
+        a.setAttribute('href', u.toString());
+      } catch (e) {}
+    });
+  })();
+
   document.addEventListener('DOMContentLoaded', init);
 })();
