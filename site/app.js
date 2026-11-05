@@ -331,8 +331,12 @@
   document.addEventListener('click', (e) => {
     const a = e.target.closest && e.target.closest('a[href*="amazon.es"]');
     if (!a || !window.goatcounter || !window.goatcounter.count) return;
+    // se etiqueta con la procedencia de la visita (utm_content/utm_medium) para saber
+    // QUÉ pieza produjo el clic, no solo que hubo un clic
+    const q = new URLSearchParams(location.search);
+    const origen = (q.get('utm_content') || q.get('utm_medium') || 'directo').slice(0, 40);
     window.goatcounter.count({
-      path: 'amazon-click',
+      path: 'amazon-click/' + origen,
       title: location.pathname,
       event: true,
     });
