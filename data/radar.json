@@ -47,5 +47,30 @@
    "nombre": "ver las 100 cartas más caras",
    "enlace": "/caras/"
   }
+ },
+ {
+  "slug": "promo-mcdonalds-2012",
+  "fecha": "2026-11-05",
+  "etiqueta": "VUELVE LA PROMO",
+  "titulo": "La promo de McDonald's vuelve: las de 2012 ya valen 359,72 €",
+  "gancho": "Cada promo de menú acaba siendo un set con precio. Las de 2012 dan la medida de lo que puede pasar con estas.",
+  "parrafos": [
+   "McDonald's y Pokémon han filtrado las 15 cartas promocionales de su nueva colaboración, y en España ya se da por confirmado el lanzamiento. Si te suena, es porque ya pasó: hay colecciones de McDonald's en el catálogo desde 2011.",
+   "Lo que dicen los datos: tenemos **94 cartas** de la Colección de McDonald's, todas con precio de referencia, y suman **359,72 €**. La más cara es Scraggy, con **27,87 €**; detrás, Axew 25,40 € y Dwebble 24,83 €.",
+   "Ninguna de esas cifras es de una carta rara de tirada corta: son promocionales que se repartían con el menú. Lo que ha cambiado en diez años no es la carta, es cuánta gente las busca para completar la colección que empezó de niño.",
+   "Eso también explica lo que no hay que esperar: las cartas de la promo nueva no valdrán eso el primer día. El valor de una promoción llega cuando el menú desaparece y las cartas se quedan en las carpetas de quien las guardó.",
+   "Y una advertencia práctica: las promocionales no se venden en Amazon. Se consiguen con el menú o en el mercado de segunda mano, y ahí el estado manda más que en cualquier otra carta."
+  ],
+  "imagen": "https://assets.tcgdex.net/es/bw/bw10/10/high.webp",
+  "producto": {
+   "nombre": "Sobres del 30.º aniversario",
+   "precio": "desde 24,99 €",
+   "asin": "B0H8T5GC4W",
+   "nota": "La promo no se vende en Amazon: se consigue con el menú. Si lo que quieres es abrir sobres, este es el producto que más rota."
+  },
+  "alternativa": {
+   "nombre": "ver las 100 más caras",
+   "enlace": "/caras/"
+  }
  }
 ]
