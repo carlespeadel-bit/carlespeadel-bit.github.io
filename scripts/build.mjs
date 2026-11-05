@@ -1044,6 +1044,11 @@ await put(
 <p class="lede">Ordenadas por precio de mercado hoy. La lista se recalcula en cada actualización, así que cambia:
 una carta que sube entra, una que baja sale.</p>
 <p class="nota small">Precios de referencia de Cardmarket. Una carta en mal estado vale mucho menos que esta cifra.</p>
+<p class="acciones">
+  <a class="btn" href="https://www.amazon.es/dp/B0H8T5GC4W?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Sobres del 30.º aniversario en Amazon</a>
+  <a class="btn ghost" href="/comprar/regalos/">Qué regalar por presupuesto</a>
+</p>
+<p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. Las cartas sueltas de esta lista no se venden en Amazon: el botón lleva al sellado del 30.º aniversario, que es el producto más vendido.</p>
 <table class="listado ranking">
 <thead><tr><th>#</th><th>Carta</th><th>Set</th><th class="num">Precio</th></tr></thead>
 <tbody>
