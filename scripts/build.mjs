@@ -24,6 +24,8 @@ let CAMBIOS = null;
 try { CAMBIOS = JSON.parse(await readFile(path.join(ROOT, 'data', 'changes.json'), 'utf8')); } catch {}
 let ASINS = {};
 try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
+let RADAR = [];
+try { RADAR = JSON.parse(await readFile(path.join(ROOT, 'data', 'radar.json'), 'utf8')); } catch {}
 let SETS_EN = {};
 try { SETS_EN = JSON.parse(await readFile(path.join(ROOT, 'data', 'sets-en.json'), 'utf8')); } catch {}
 let CARDS_EN = {};
@@ -392,6 +394,48 @@ ${list
     }),
   );
 }
+
+
+// ---------- radar (comercio editorial) ----------
+for (const pieza of RADAR) {
+  const tarjeta = `
+  <div style="border:1px solid #2a2a2e;border-radius:14px;padding:20px 20px 16px;margin:26px 0;background:#141416">
+    <p style="margin:0 0 6px;font-size:.8rem;letter-spacing:.12em;color:#e0a800;font-weight:700">${esc(pieza.etiqueta)}</p>
+    <h3 style="margin:0 0 10px;font-size:1.22rem;line-height:1.3">${esc(pieza.producto.nombre)}</h3>
+    <p style="margin:0 0 14px;color:#ddd">${esc(pieza.producto.precio)} · ${esc(pieza.producto.nota)}</p>
+    <a class="btn" style="display:inline-block;padding:14px 20px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/dp/${esc(pieza.producto.asin)}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Dónde conseguirlo</a>
+    ${pieza.alternativa ? `<a style="display:inline-block;margin-left:14px;font-size:.92rem;color:#e0a800" href="${esc(pieza.alternativa.enlace)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">o ${esc(pieza.alternativa.nombre)}</a>` : ''}
+    <p style="margin:14px 0 0;font-size:.78rem;color:#8b8b93;line-height:1.5">Aquí hay enlaces de afiliado: si compras desde ellos, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas.</p>
+  </div>`;
+
+  const cuerpo = pieza.parrafos.map((t) => `<p>${esc(t)}</p>`).join('\n');
+
+  await put(`radar/${pieza.slug}/index.html`, layout({
+    title: `${pieza.titulo} | ${config.brand}`,
+    description: pieza.gancho,
+    url: `/radar/${pieza.slug}/`,
+    body: `
+<nav class="migas"><a href="/">Inicio</a> / <a href="/radar/">Radar</a> / ${esc(pieza.etiqueta)}</nav>
+<p class="nota small">${esc(pieza.fecha)} · Radar ValorCarta</p>
+<h1>${esc(pieza.titulo)}</h1>
+<p class="lede">${esc(pieza.gancho)}</p>
+<img src="${esc(pieza.imagen)}" alt="${esc(pieza.titulo)}" width="480" height="670" style="display:block;margin:22px auto;max-width:100%;height:auto;border-radius:12px">
+${cuerpo}
+${pieza.video ? `<div style="position:relative;padding-top:177%;margin:24px 0"><iframe src="${esc(pieza.video)}" title="${esc(pieza.titulo)}" frameborder="0" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border-radius:12px"></iframe></div>` : ''}
+${tarjeta}
+<p><a href="/radar/">Volver al radar</a> · <a href="/caras/">Las 100 cartas más caras</a></p>`,
+  }));
+}
+
+await put('radar/index.html', layout({
+  title: `El radar: qué se mueve y qué vale la pena | ${config.brand}`,
+  description: 'Las piezas de actualidad de ValorCarta: qué carta se mueve, qué set cambia y dónde conseguirlo.',
+  url: '/radar/',
+  body: `
+<h1>El radar</h1>
+<p class="lede">Lo que se mueve esta semana y lo que significa si quieres comprarlo. Cada pieza lleva su dato, su fecha y su fuente.</p>
+${RADAR.map((p) => `<article style="margin:26px 0"><p class="nota small">${esc(p.fecha)} · ${esc(p.etiqueta)}</p><h2><a href="/radar/${p.slug}/">${esc(p.titulo)}</a></h2><p>${esc(p.gancho)}</p></article>`).join('\n')}`,
+}));
 
 // ---------- cartas ----------
 await mkdir(OUT('carta'), { recursive: true });
