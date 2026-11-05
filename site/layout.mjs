@@ -169,5 +169,14 @@ export function trendLine(card, lang = 'es') {
   </div>`;
 }
 
+// eBay: el encaje es mejor que Amazon para cartas sueltas. Sin ID de campaña, el enlace
+// es una búsqueda normal; con campaña, lleva los parámetros del programa de afiliados.
+export const ebayLink = (query) => {
+  const base = `https://www.ebay.es/sch/i.html?_nkw=${encodeURIComponent(query)}`;
+  const campid = config.ebayCampaignId;
+  if (!campid) return base;
+  return `${base}&mkcid=1&mkrid=1185-53479-19255-0&siteid=186&campid=${encodeURIComponent(campid)}&toolid=10001&mkevt=1`;
+};
+
 export const amazonLink = (query) =>
   `https://www.amazon.es/s?k=${encodeURIComponent(query)}&tag=${encodeURIComponent(config.amazonTag)}`;
