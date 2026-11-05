@@ -415,7 +415,11 @@ for (const pieza of RADAR) {
     <p style="margin:14px 0 0;font-size:.78rem;color:#8b8b93;line-height:1.5">Aquí hay enlaces de afiliado: si compras desde ellos, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas.</p>
   </div>`;
 
-  const cuerpo = pieza.parrafos.map((t) => `<p>${esc(t)}</p>`).join('\n');
+  // el redactor escribe con **negritas** de markdown; se convierten aquí o el
+  // lector ve los asteriscos (pasó el 05-11 en las tres piezas publicadas)
+  const conNegritas = (t) => esc(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`(.+?)`/g, '<code>$1</code>');
+  const cuerpo = pieza.parrafos.map((t) => `<p>${conNegritas(t)}</p>`).join('\n');
 
   await put(`radar/${pieza.slug}/index.html`, layout({
     title: `${pieza.titulo} | ${config.brand}`,
