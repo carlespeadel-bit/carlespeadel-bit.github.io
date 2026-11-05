@@ -440,7 +440,7 @@ ${RADAR.map((p) => `<article style="margin:26px 0"><p class="nota small">${esc(p
 
 // ---------- guía: idioma ----------
 await put('guias/idioma/index.html', layout({
-  title: `¿Valen más las cartas Pokémon en inglés o en español? | ${config.brand}`,
+  title: `¿Valen más las cartas en inglés o en español? | ${config.brand}`,
   description: 'Qué cambia el valor de una carta Pokémon según el idioma: por qué el inglés suele pagarse más, cuándo el japonés gana y qué mirar antes de comprar o vender.',
   url: '/guias/idioma/',
   body: `
