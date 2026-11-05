@@ -23,7 +23,9 @@
   "alternativa": {
    "nombre": "Sobres sueltos de Golpe Fusión",
    "enlace": "https://www.amazon.es/s?k=sobres+golpe+fusion+pokemon"
-  }
+  },
+  "imagen2": "https://assets.tcgdex.net/es/swsh/swsh8/270/high.webp",
+  "pie2": "Espeon VMAX, la segunda del set: 337,47 €. Gengar vale 2,37 veces más."
  },
  {
   "slug": "subidas-del-1000-por-ciento",
@@ -49,7 +51,9 @@
   "alternativa": {
    "nombre": "ver las 100 cartas más caras",
    "enlace": "/caras/"
-  }
+  },
+  "imagen2": "https://assets.tcgdex.net/es/sv/sv04/082/high.webp",
+  "pie2": "Miraidon, la carta que pasó de 8,98 € a 100,60 € en un día: un 1.020 %."
  },
  {
   "slug": "promo-mcdonalds-2012",
