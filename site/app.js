@@ -405,5 +405,8 @@
     });
   })();
 
-  document.addEventListener('DOMContentLoaded', init);
+  // si el DOM ya está listo cuando este fichero se ejecuta, DOMContentLoaded no vuelve a
+  // dispararse y init() no corría (el progreso del set salía vacío, 05-11)
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
