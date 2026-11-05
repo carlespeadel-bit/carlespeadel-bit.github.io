@@ -35,7 +35,8 @@
    "Las dos son promos con muy poco movimiento de ventas. Cuando una carta se vende pocas veces al mes, la referencia de precio no la marca el mercado: la marca el último vendedor. Si ese vendedor cambia su precio, el dato salta aunque no haya pasado nada.",
    "Por eso nuestro histórico marca el salto pero no te dice que sea una oportunidad. Antes de comprar por una subida así, mira las ventas cerradas de los últimos días: si no ha habido ventas, no hay subida, hay un precio nuevo esperando comprador.",
    "En estas dos cartas, la horquilla es tan rara que lo prudente es tratarlas como dato roto hasta que haya movimiento real. Y en general: una subida del 300 % en un día casi nunca es una carta que se revaloriza; es un dato que se ha movido.",
-   "Lo que sí puedes hacer con nuestro histórico es ver la tendencia sin el ruido: las fichas de cada carta guardan la serie diaria, y el listado de las más caras se recalcula cada día."
+   "Lo que sí puedes hacer con nuestro histórico es ver la tendencia sin el ruido: las fichas de cada carta guardan la serie diaria, y el listado de las más caras se recalcula cada día.",
+   "Lo práctico: no compres por una subida sin ventas cerradas detrás. Antes de pagar más por una carta que «ha subido», mira su serie de 30 días: si el escalón es de un día, es un cambio de referencia, no una tendencia."
   ],
   "imagen": "https://assets.tcgdex.net/es/svp/svp/92/high.webp",
   "producto": {
