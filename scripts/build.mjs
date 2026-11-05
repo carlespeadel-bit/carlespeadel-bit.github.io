@@ -296,6 +296,11 @@ await put(
 <h1>Todas las cartas</h1>
 <p class="lede">${cards.length.toLocaleString('es-ES')} cartas en el catálogo, ${priced.length.toLocaleString('es-ES')} con precio de mercado hoy.
 Valor total del catálogo: <b>${eur(totalValor)}</b>.</p>
+<p class="acciones">
+  <a class="btn" href="/caras/">Las 100 más caras</a>
+  <a class="btn ghost" href="/comprar/sobres/">Sobres y cajas</a>
+  <a class="btn ghost" href="/valorar/">¿Cuánto vale mi colección?</a>
+</p>
 <div class="grid sets">
 ${setsConPrecio
   .map(
@@ -696,6 +701,10 @@ if (guias.length) {
         'Guías prácticas sobre cartas Pokémon: detectar falsificaciones, conservarlas, comprar sin pagar de más y vender sin perder dinero.',
       url: '/guias/',
       body: `<h1>Guías</h1>
+<p class="acciones">
+  <a class="btn" href="/guardar-cartas/">Guardar y proteger cartas</a>
+  <a class="btn ghost" href="/comprar/">Comprar sin pagar de más</a>
+</p>
 <p class="lede">Lo que aprendes a base de comprar mal. Sin humo y sin promesas de rentabilidad.</p>
 <div class="grid guias-grid">
 ${guias
