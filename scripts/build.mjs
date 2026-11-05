@@ -846,6 +846,10 @@ await put(
 <h1>Qué se mueve esta semana</h1>
 <p class="lede">Comparación de la media de 7 días frente a la de 30, sobre ${radar.length.toLocaleString('es-ES')} cartas con liquidez suficiente.
 Se recalcula en cada actualización, así que esto no es un artículo: es el mercado de hoy.</p>
+<p class="acciones">
+  <a class="btn" href="/caras/">Las 100 más caras</a>
+  <a class="btn ghost" href="/comprar/sobres/">Sobres y cajas, por tipo</a>
+</p>
 
 <div class="dos-col">
   <div>
