@@ -442,7 +442,12 @@ for (const pieza of RADAR) {
     }
     return salida;
   };
-  const cuerpo = pieza.parrafos.map((t) => `<p>${conEnlaces(t)}</p>`).join('\n');
+  // imagen entre párrafos (pedido §11: lectura → imágenes → vídeo → compra)
+  const figura = pieza.imagen2
+    ? `<figure style="margin:22px 0;text-align:center"><img src="${esc(pieza.imagen2)}" alt="${esc(pieza.pie2 || '')}" width="480" height="670" loading="lazy" style="max-width:100%;height:auto;border-radius:12px"><figcaption class="nota small">${esc(pieza.pie2 || '')}</figcaption></figure>`
+    : '';
+  const cuerpo = pieza.parrafos.map((t, idx) =>
+    `<p>${conEnlaces(t)}</p>${idx === 1 ? figura : ''}`).join('\n');
 
   await put(`radar/${pieza.slug}/index.html`, layout({
     title: `${pieza.titulo} | ${config.brand}`,
