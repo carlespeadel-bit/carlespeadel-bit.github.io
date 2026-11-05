@@ -439,12 +439,12 @@ ${tarjeta}
 }
 
 await put('radar/index.html', layout({
-  title: `El radar: qué se mueve y qué vale la pena | ${config.brand}`,
-  description: 'Las piezas de actualidad de ValorCarta: qué carta se mueve, qué set cambia y dónde conseguirlo.',
+  title: `El radar Pokémon: qué se mueve y qué vale la pena | ${config.brand}`,
+  description: 'Las piezas de actualidad de ValorCarta: qué carta Pokémon se mueve, qué set cambia y dónde conseguirlo.',
   url: '/radar/',
   body: `
 <h1>El radar</h1>
-<p class="lede">Lo que se mueve esta semana y lo que significa si quieres comprarlo. Cada pieza lleva su dato, su fecha y su fuente.</p>
+<p class="lede">Lo que se mueve esta semana en las cartas Pokémon y lo que significa si quieres comprarlo. Cada pieza lleva su dato, su fecha y su fuente.</p>
 <div class="nota small" style="max-width:64ch;margin:0 0 18px">
   <p><b>Cómo se lee esto:</b> cada pieza empieza por lo que ha pasado, sigue con el número de nuestro catálogo
   y termina con lo que puedes hacer —comprar, esperar o pasar—. Si un dato no lo tenemos, no se publica.</p>
