@@ -419,7 +419,28 @@ for (const pieza of RADAR) {
   // lector ve los asteriscos (pasó el 05-11 en las tres piezas publicadas)
   const conNegritas = (t) => esc(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/`(.+?)`/g, '<code>$1</code>');
-  const cuerpo = pieza.parrafos.map((t) => `<p>${conNegritas(t)}</p>`).join('\n');
+  // las piezas hablan de cartas y no enlazaban a ninguna (05-11): el primer nombre
+  // que aparece se convierte en enlace a su ficha, con tope de 3 por pieza
+  const mapaCartas = new Map();
+  for (const c of priced) {
+    if (!c.name || c.name.length < 4) continue;
+    if (!mapaCartas.has(c.name)) mapaCartas.set(c.name, cardSlug(c));
+  }
+  const nombresOrden = [...mapaCartas.keys()].sort((a, b) => b.length - a.length);
+  let enlazados = 0;
+  const conEnlaces = (t) => {
+    if (enlazados >= 3) return conNegritas(t);
+    let salida = conNegritas(t);
+    for (const nombre of nombresOrden) {
+      if (enlazados >= 3) break;
+      const re = new RegExp(`(?<![\\w>])(${nombre.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})(?![\\w<])`);
+      if (!re.test(salida)) continue;
+      salida = salida.replace(re, `<a href="/carta/${mapaCartas.get(nombre)}/">$1</a>`);
+      enlazados += 1;
+    }
+    return salida;
+  };
+  const cuerpo = pieza.parrafos.map((t) => `<p>${conEnlaces(t)}</p>`).join('\n');
 
   await put(`radar/${pieza.slug}/index.html`, layout({
     title: `${pieza.titulo} | ${config.brand}`,
