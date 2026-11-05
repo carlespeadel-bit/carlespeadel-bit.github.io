@@ -340,6 +340,24 @@
     dispara();
   })();
 
+  // ID de seguimiento por canal (05-11): Amazon sí lo reporta, el ascsubtag no.
+  // Pin -> valorcarta-pin-21 · vídeo -> valorcarta-video-21 · resto -> valorcarta-21
+  (() => {
+    const q = new URLSearchParams(location.search);
+    const medio = (q.get('utm_medium') || '').toLowerCase();
+    const origen = (q.get('utm_source') || '').toLowerCase();
+    let etiqueta = 'valorcarta-21';
+    if (medio === 'video') etiqueta = 'valorcarta-video-21';
+    else if (origen === 'pinterest' || medio) etiqueta = 'valorcarta-pin-21';
+    document.querySelectorAll('a[href*="amazon.es"]').forEach((a) => {
+      try {
+        const u = new URL(a.getAttribute('href'), location.href);
+        u.searchParams.set('tag', etiqueta);
+        a.setAttribute('href', u.toString());
+      } catch (e) {}
+    });
+  })();
+
   // atribución por pieza (05-11): el pin llega con ?utm_content=vtc-xxxx
   // y ese valor viaja a Amazon como ascsubtag. Sin esto, los clics no tienen dueño.
   (() => {
