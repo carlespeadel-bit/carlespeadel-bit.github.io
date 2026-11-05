@@ -789,6 +789,7 @@ await put(
     }],
     body: `
 <h1>¿Cuánto vale mi carta de Pokémon?</h1>
+<p class="nota small">Precios de Cardmarket actualizados a ${new Date().toISOString().slice(0, 10)}.</p>
 <p class="lede">Escribe el nombre de tu carta y te digo cuánto vale hoy. Precio de referencia de Cardmarket, media de los últimos 30 días y mínimo, para que sepas si ese número es de verdad o es de un día raro.</p>
 <p class="lede">Busca cada carta, pon cuántas tienes y el total se calcula con el precio de mercado de hoy.
 Se guarda en tu navegador y puedes compartir el resultado con un enlace.</p>
@@ -1378,7 +1379,7 @@ await put(
 <nav class="migas"><a href="/comprar/">Comprar</a> / Regalos</nav>
 <h1>Qué regalar a alguien que le gusta Pokémon</h1>
 <p class="aviso-afiliado">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. · Revisado: ${new Date().toISOString().slice(0, 10)}</p>
-<p class="lede">Ordenado por presupuesto, con el motivo de cada uno. No es una lista de lo más caro: es lo que se acierta.</p>
+<p class="lede">Si hay que elegir uno y no se sabe qué set colecciona: un <b>Funko POP de Mew por 9,90 €</b> acierta casi siempre. A partir de ahí, por presupuesto y con el motivo de cada uno.</p>
 ${REGALOS.map(([tramo, items]) => `
 <h2>${esc(tramo)}</h2>
 <ul class="pasos">${items.map(([asin, nombre, motivo]) => `
