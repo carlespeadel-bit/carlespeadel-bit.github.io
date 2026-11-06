@@ -410,6 +410,29 @@
     });
   })();
 
+
+  // StoreID por canal (06-11): si la visita viene de Pinterest, los enlaces de
+  // Amazon se reescriben al ID de Pinterest. Sin esto todo se atribuía a la web
+  // y no se podía saber qué trae cada canal.
+  (() => {
+    const q = new URLSearchParams(location.search);
+    const dePinterest = q.get('utm_source') === 'pinterest'
+      || /pinterest\./i.test(document.referrer || '');
+    if (!dePinterest) return;
+    const reescribe = () => {
+      document.querySelectorAll('a[href*="amazon.es"]').forEach((a) => {
+        try {
+          const u = new URL(a.getAttribute('href'), location.href);
+          if (u.searchParams.get('tag') === 'valorcarta-pin-21') return;
+          u.searchParams.set('tag', 'valorcarta-pin-21');
+          a.setAttribute('href', u.toString());
+        } catch (e) {}
+      });
+    };
+    reescribe();
+    setTimeout(reescribe, 1200);   // por si el buscador pinta enlaces después
+  })();
+
   // si el DOM ya está listo cuando este fichero se ejecuta, DOMContentLoaded no vuelve a
   // dispararse y init() no corría (el progreso del set salía vacío, 05-11)
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
