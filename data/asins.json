@@ -7,6 +7,18 @@
   {
    "asin": "B0FDGXLR5L",
    "nombre": "Elite Trainer Box · Escarlata y Púrpura (Koraidon)"
+  },
+  {
+   "asin": "B078NBBQXQ",
+   "nombre": "Mazo de batalla Ampharos ex · 60 cartas listo para jugar (29 €)"
+  },
+  {
+   "asin": "B0BMGR3QZW",
+   "nombre": "Baraja de Liga Mew VMAX · 60 cartas (34 €)"
+  },
+  {
+   "asin": "B0G5YX5XVQ",
+   "nombre": "Baraja de Liga Mewtwo ex del Team Rocket (49 €)"
   }
  ],
  "sv08.5": [
@@ -17,6 +29,10 @@
   {
    "asin": "B0DWGBC38K",
    "nombre": "Colección Súper Premium · Evoluciones Prismáticas"
+  },
+  {
+   "asin": "B0HMJ88KGX",
+   "nombre": "Lata Colección Otoño EX (40 €)"
   }
  ],
  "me02.5": [
@@ -81,6 +97,15 @@
    "precio": 39.58,
    "verificado": "2026-11-05",
    "nota": "338 valoraciones, el más vendido del set"
+  }
+ ],
+ "me05": [
+  {
+   "asin": "B0GZKZ1FL9",
+   "nombre": "Elite Trainer Box · Oscuridad Absoluta",
+   "precio": 52.99,
+   "verificado": "2026-11-06",
+   "nota": "ETB en español, en stock; curl 200 y título Pokémon comprobados"
   }
  ]
 }
