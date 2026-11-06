@@ -152,6 +152,7 @@ const homeBody = `
     <a class="btn" href="/valorar/">Valorar mi colección</a>
     <a class="btn ghost" href="/cartas/">Ver todas las cartas</a>
   </div>
+  <p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
 </section>
 
 <section class="bloque">
@@ -303,6 +304,8 @@ Valor total del catálogo: <b>${eur(totalValor)}</b>.</p>
   <a class="btn ghost" href="/comprar/sobres/">Sobres y cajas</a>
   <a class="btn ghost" href="/valorar/">¿Cuánto vale mi colección?</a>
 </p>
+<p class="acciones"><a class="btn" href="${amazonLink('pokemon tcg sobres')}" rel="sponsored nofollow noopener" target="_blank">Sobres de Pokémon en Amazon</a></p>
+<p class="nota small">Aviso de afiliado: si compras desde ese enlace, ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
 <div class="grid sets">
 ${setsConPrecio
   .map(
@@ -407,12 +410,17 @@ ${list
 
 // ---------- radar (comercio editorial) ----------
 for (const pieza of RADAR) {
+  // una pieza puede no tener producto (una noticia de subasta no se compra):
+  // sin este guardián el build revienta y no se publica NADA, ni lo demás
   const tarjeta = `
   <div style="border:1px solid #2a2a2e;border-radius:14px;padding:20px 20px 16px;margin:26px 0;background:#141416">
     <p style="margin:0 0 6px;font-size:.8rem;letter-spacing:.12em;color:#e0a800;font-weight:700">${esc(pieza.etiqueta)}</p>
-    <h3 style="margin:0 0 10px;font-size:1.22rem;line-height:1.3">${esc(pieza.producto.nombre)}</h3>
+    ${pieza.producto ? `<h3 style="margin:0 0 10px;font-size:1.22rem;line-height:1.3">${esc(pieza.producto.nombre)}</h3>
     <p style="margin:0 0 14px;color:#ddd">${esc(pieza.producto.precio)} · ${esc(pieza.producto.nota)}</p>
-    <a class="btn" style="display:inline-block;padding:14px 20px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/dp/${esc(pieza.producto.asin)}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Dónde conseguirlo</a>
+    <a class="btn" style="display:inline-block;padding:14px 20px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/dp/${esc(pieza.producto.asin)}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Dónde conseguirlo</a>`
+    : `<h3 style="margin:0 0 10px;font-size:1.22rem;line-height:1.3">Esto no se compra: se entiende</h3>
+    <p style="margin:0 0 14px;color:#ddd">Esta pieza es una noticia, no un producto. Si te sirve, empieza por saber qué tienes.</p>
+    <a class="btn" style="display:inline-block;padding:14px 20px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="/valorar/">Valorar mi colección</a>`}
     ${pieza.alternativa ? `<a style="display:inline-block;margin-left:14px;font-size:.92rem;color:#e0a800" href="${esc(pieza.alternativa.enlace)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">o ${esc(pieza.alternativa.nombre)}</a>` : ''}
     <p style="margin:14px 0 0;font-size:.78rem;color:#8b8b93;line-height:1.5">Aquí hay enlaces de afiliado: si compras desde ellos, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas.</p>
   </div>`;
@@ -448,6 +456,9 @@ for (const pieza of RADAR) {
     : '';
   const cuerpo = pieza.parrafos.map((t, idx) =>
     `<p>${conEnlaces(t)}</p>${idx === 1 ? figura : ''}`).join('\n');
+  // W14: en una pieza sin producto la tarjeta va detrás del segundo párrafo,
+  // no al final — el lector crítico avisaba de que no había salida en la primera pantalla
+  const tarjetaArriba = !pieza.producto && pieza.parrafos.length > 2;
 
   await put(`radar/${pieza.slug}/index.html`, layout({
     title: `${pieza.titulo} | ${config.brand}`,
@@ -459,9 +470,10 @@ for (const pieza of RADAR) {
 <h1>${esc(pieza.titulo)}</h1>
 <p class="lede">${esc(pieza.gancho)}</p>
 <img src="${esc(pieza.imagen)}" alt="${esc(pieza.titulo)}" width="480" height="670" style="display:block;margin:22px auto;max-width:100%;height:auto;border-radius:12px">
-${cuerpo}
+${tarjetaArriba ? cuerpo.split('\n').slice(0, 2).join('\n') + tarjeta : cuerpo}
+${tarjetaArriba ? cuerpo.split('\n').slice(2).join('\n') : ''}
 ${pieza.video ? `<div style="position:relative;padding-top:177%;margin:24px 0"><iframe src="${esc(pieza.video)}" title="${esc(pieza.titulo)}" frameborder="0" allowfullscreen loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border-radius:12px"></iframe></div>` : ''}
-${tarjeta}
+${tarjetaArriba ? '' : tarjeta}
 <p><a href="/radar/">Volver al radar</a> · <a href="/caras/">Las 100 cartas más caras</a></p>`,
   }));
 }
@@ -476,6 +488,8 @@ await put('radar/index.html', layout({
 <p class="acciones"><a class="btn" href="/caras/">Las 100 más caras</a>
 <a class="btn ghost" href="/mercado/">Qué se mueve esta semana</a>
 <a class="btn ghost" href="/valorar/">Valorar mi colección</a></p>
+<p class="acciones"><a class="btn" href="${amazonLink('pokemon tcg sobres')}" rel="sponsored nofollow noopener" target="_blank">Sobres de Pokémon en Amazon</a></p>
+<p class="nota small">Aviso de afiliado: si compras desde ese enlace, ValorCarta recibe una comisión de Amazon sin coste para ti. El precio no cambia.</p>
 <div class="nota small" style="max-width:64ch;margin:0 0 18px">
   <p><b>Cómo se lee esto:</b> cada pieza empieza por lo que ha pasado, sigue con el número de nuestro catálogo
   y termina con lo que puedes hacer —comprar, esperar o pasar—. Si un dato no lo tenemos, no se publica.</p>
@@ -748,6 +762,8 @@ if (guias.length) {
   <a class="btn" href="/guardar-cartas/">Guardar y proteger cartas</a>
   <a class="btn ghost" href="/comprar/">Comprar sin pagar de más</a>
 </p>
+<p class="acciones"><a class="btn" href="${amazonLink('pokemon tcg sobres')}" rel="sponsored nofollow noopener" target="_blank">Sobres de Pokémon en Amazon</a></p>
+<p class="nota small">Enlace de afiliado: ValorCarta recibe una comisión de Amazon si compras desde ahí, sin coste para ti.</p>
 <p class="lede">Lo que aprendes a base de comprar mal. Sin humo y sin promesas de rentabilidad.</p>
 <div class="grid guias-grid">
 ${guias
@@ -903,6 +919,8 @@ Se recalcula en cada actualización, así que esto no es un artículo: es el mer
   <a class="btn" href="/caras/">Las 100 más caras</a>
   <a class="btn ghost" href="/comprar/sobres/">Sobres y cajas, por tipo</a>
 </p>
+<p class="acciones"><a class="btn" href="${amazonLink('pokemon tcg sobres')}" rel="sponsored nofollow noopener" target="_blank">Sobres de Pokémon en Amazon</a></p>
+<p class="nota small">Aviso de afiliado: si compras desde ese enlace, ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
 
 <div class="dos-col">
   <div>
@@ -1774,7 +1792,12 @@ await enPage(
     url: '/en/',
     alternates: altPair('/', '/en/'),
     scripts: ['/assets/en.js'],
-    body: homeEnBody,
+    body: `${homeEnBody}
+<div class="acciones">
+  <a class="btn" href="${amazonLink('pokemon tcg booster box')}" rel="sponsored nofollow noopener" target="_blank">Sealed Pokémon TCG on Amazon</a>
+  <a class="btn ghost" href="/en/price-check/">Value my collection</a>
+</div>
+<p class="nota small">Affiliate disclosure: as an Amazon Associate, ValorCarta earns from qualifying purchases. The price you pay does not change.</p>`,
     jsonld: [
       {
         '@context': 'https://schema.org',
@@ -1917,7 +1940,12 @@ await enPage(
       'Seven-day versus 30-day price moves on the 100 most valuable Pokémon cards, rebuilt daily. Prices in EUR with approximate USD and GBP.',
     url: '/en/market/',
     alternates: altPair('/mercado/', '/en/market/'),
-    body: marketEnBody,
+    body: `${marketEnBody}
+<div class="acciones">
+  <a class="btn" href="${amazonLink('pokemon tcg booster box')}" rel="sponsored nofollow noopener" target="_blank">Sealed Pokémon TCG on Amazon</a>
+  <a class="btn ghost" href="/en/price-check/">Value my collection</a>
+</div>
+<p class="nota small">Affiliate disclosure: as an Amazon Associate, ValorCarta earns from qualifying purchases. The price you pay does not change.</p>`,
   }),
 );
 
@@ -1958,7 +1986,12 @@ await enPage(
       'Ranking of the 100 most expensive Pokémon cards by Cardmarket reference price, with EUR, approximate USD and GBP. Rebuilt daily.',
     url: '/en/most-expensive/',
     alternates: altPair('/caras/', '/en/most-expensive/'),
-    body: mostExpensiveEnBody,
+    body: `${mostExpensiveEnBody}
+<div class="acciones">
+  <a class="btn" href="${amazonLink('pokemon tcg booster box')}" rel="sponsored nofollow noopener" target="_blank">Sealed Pokémon TCG on Amazon</a>
+  <a class="btn ghost" href="/en/">Top 100 by value</a>
+</div>
+<p class="nota small">Affiliate disclosure: as an Amazon Associate, ValorCarta earns from qualifying purchases.</p>`,
     jsonld: {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
@@ -2154,7 +2187,11 @@ ${
       alternates: altPair(`/carta/${cardSlug(c)}/`, pathEn),
       image: image ? `${image}/high.webp` : undefined,
       scripts: ['/assets/en.js'],
-      body,
+      body: `${body}
+<div class="acciones">
+  <a class="btn" href="${amazonLink(`${enName(c)} ${setName} pokemon card`)}" rel="sponsored nofollow noopener" target="_blank">Search ${esc(enName(c))} on Amazon</a>
+</div>
+<p class="nota small">Affiliate disclosure: as an Amazon Associate, ValorCarta earns from qualifying purchases. The price you pay does not change. Single cards are rarely sold sealed on Amazon, so the button opens a search.</p>`,
       jsonld: [
         {
           '@context': 'https://schema.org',
