@@ -3,7 +3,7 @@
   "slug": "gengar-vmax-sube",
   "fecha": "2026-11-05",
   "etiqueta": "SUBE",
-  "titulo": "Gengar VMAX sube un 25,6 % en un mes y ya vale 800 €",
+  "titulo": "Carta Pokémon Gengar VMAX: sube un 25,6 % y ya vale 800 €",
   "gancho": "La carta del mes no es la más cara del set: es la que más se ha movido.",
   "parrafos": [
    "Gengar VMAX de Golpe Fusión, una carta Pokémon de 2021 (271/264) marca hoy 800,13 € de referencia. Hace treinta días estaba en 637 €, así que ha subido un 25,6 % en cuatro semanas, según nuestro histórico de Cardmarket.",
@@ -31,7 +31,7 @@
   "slug": "subidas-del-1000-por-ciento",
   "fecha": "2026-11-05",
   "etiqueta": "OJO AL DATO",
-  "titulo": "Dos cartas «suben» un 1.000 % en un día: no te fíes",
+  "titulo": "Dos cartas Pokémon «suben» un 1.000 % en un día",
   "gancho": "Nuestro propio histórico marca saltos imposibles. Te contamos de dónde salen y cómo distinguir una subida real de un cambio de referencia.",
   "parrafos": [
    "Miraidon, una carta Pokémon de las promos MEP (082), pasó de 8,98 € a 100,60 € entre el 3 y el 4 de noviembre: un 1.020 % en un día. Slowbro (083) hizo algo parecido: de 17,42 € a 125 €, un 618 %. Las dos siguen ahí dos días después, así que no es un parpadeo.",
@@ -59,7 +59,7 @@
   "slug": "promo-mcdonalds-2012",
   "fecha": "2026-11-05",
   "etiqueta": "VUELVE LA PROMO",
-  "titulo": "La promo de McDonald's vuelve: las de 2012 ya valen 359,72 €",
+  "titulo": "La promo Pokémon de McDonald's: las de 2012 valen 359,72 €",
   "gancho": "Cada promo de menú acaba siendo un set con precio. Las de 2012 dan la medida de lo que puede pasar con estas.",
   "parrafos": [
    "McDonald's y Pokémon han filtrado las 15 cartas promocionales de su nueva colaboración. Si te suena, es porque ya pasó: nuestras 94 cartas de McDonald's suman **359,72 €** de referencia.",
@@ -104,5 +104,27 @@
   },
   "imagen2": null,
   "pie2": null
+ },
+ {
+  "slug": "edicion-basica-12788",
+  "fecha": "2026-11-06",
+  "etiqueta": "COLECCIÓN",
+  "titulo": "La Edición Básica entera vale 12.788 €: el 67 % está en 10 cartas",
+  "gancho": "Completar la colección original de Pokémon cuesta 12.788 €, y dos tercios de esa cifra están en diez cartas.",
+  "parrafos": [
+   "Las 102 cartas de la Edición Básica con precio de mercado suman **12.788,09 €**. La mediana es de **30,51 €** por carta, así que quien mire la media se llevará una sorpresa: el set no cuesta eso.",
+   "El reparto es lo que importa. **Charizard** (4/102) vale por sí sola **3.843,13 €**, el **30 %** del set. Las tres primeras cartas son el **43 %** y las diez primeras el **67 %**. El resto —92 cartas— se reparte el tercio que queda. Para situarlo: esas 102 cartas son el **10,8 %** de los **118.847,64 €** que suman las 9.830 cartas del catálogo entero. Son cinco cartas frente a las noventa y siete que completan el set.",
+   "Y hay un dato que cambia la conversación: **37 de las 102 cartas valen menos de 20 €**. Completar el set es perfectamente posible si aceptas no tener las diez caras; lo que no es posible es completarlo entero por menos de cinco cifras.",
+   "Si vas a empezar una colección de 1999, decide antes cuál de las dos aficiones es la tuya: la de las diez cartas que valen, o la de las noventa que completan. Las dos son legítimas, pero solo una es barata."
+  ],
+  "imagen": "https://assets.tcgdex.net/en/base/base1/4/high.webp",
+  "video": null,
+  "producto": null,
+  "alternativa": {
+   "nombre": "las 100 cartas más caras, con precio de hoy",
+   "enlace": "https://valorcarta.github.io/caras/"
+  },
+  "imagen2": "https://assets.tcgdex.net/en/base/base1/2/high.webp",
+  "pie2": "Blastoise (2/102), una de las diez que sostienen el valor del set."
  }
 ]
