@@ -345,7 +345,7 @@ ${
 <p class="acciones">
   ${
     ASINS[id]?.length
-      ? `<a class="btn" href="https://www.amazon.es/dp/${ASINS[id][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(ASINS[id][0].nombre)} en Amazon</a>`
+      ? ASINS[id].slice(0, 3).map((prod) => `<a class="btn" href="https://www.amazon.es/dp/${prod.asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(prod.nombre)} en Amazon</a>`).join('\n')
       : `<a class="btn" href="https://www.amazon.es/s?k=${encodeURIComponent(`sobres ${nombre} pokemon`)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Buscar sobres de ${esc(nombre)} en Amazon</a>`
   }
   <a class="btn ghost" href="/guardar-cartas/">Fundas para estas cartas</a>
